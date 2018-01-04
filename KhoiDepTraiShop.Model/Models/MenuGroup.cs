@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections;
+using System.Collections.Generic;
+
 namespace KhoiDepTraiShop.Model.Models
 {
     [Table("MemuGroups")]
@@ -8,7 +9,6 @@ namespace KhoiDepTraiShop.Model.Models
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
         public string Name { get; set; }
         public virtual IEnumerable<Menu> Menus { get; set; }
