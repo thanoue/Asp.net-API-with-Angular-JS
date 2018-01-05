@@ -17,12 +17,12 @@ namespace KhoiDepTraiShop.Model.Models
         [Key]
         [Column(TypeName = "varchar", Order = 2)]
         [MaxLength(50)]
-        public string TagID { set; get; }
+        public string TagId { set; get; }
 
-        [ForeignKey("ProductID")]
+        [ForeignKey("ProductId")]
         public virtual Product Product { set; get; }
 
-        [ForeignKey("TagID")]
+        [ForeignKey("TagId")]
         public virtual Tag Tag { set; get; }
     }
 }

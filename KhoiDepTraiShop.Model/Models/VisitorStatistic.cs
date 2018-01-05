@@ -9,7 +9,7 @@ namespace KhoiDepTraiShop.Model.Models
     public class VisitorStatistic
     {
         [Key]
-        public Guid ID { set; get; }
+        public Guid Id { set; get; }
 
         [Required]
         public DateTime VisitedDate { set; get; }

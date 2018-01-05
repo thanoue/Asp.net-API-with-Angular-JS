@@ -7,7 +7,7 @@ namespace KhoiDepTraiShop.Model.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { set; get; }
+        public int Id { set; get; }
 
         [Required]
         [MaxLength(256)]

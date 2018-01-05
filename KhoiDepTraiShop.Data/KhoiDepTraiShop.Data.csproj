@@ -47,7 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDbFactory.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\201801050146209_InitialDB.cs" />
+    <Compile Include="Migrations\201801050146209_InitialDB.Designer.cs">
+      <DependentUpon>201801050146209_InitialDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ProductCategoryRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="ShopDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -58,6 +73,15 @@
       <Project>{00b78fc1-0748-4d6f-aee0-e01d925256fc}</Project>
       <Name>KhoiDepTraiShop.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KhoiDepTraiShop.Model\KhoiDepTraiShop.Model.csproj">
+      <Project>{ba1107b1-4f83-4988-a481-2843f69d91a2}</Project>
+      <Name>KhoiDepTraiShop.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801050146209_InitialDB.resx">
+      <DependentUpon>201801050146209_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

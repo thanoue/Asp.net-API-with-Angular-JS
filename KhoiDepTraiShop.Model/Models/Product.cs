@@ -9,7 +9,7 @@ namespace KhoiDepTraiShop.Model.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { set; get; }
+        public int Id { set; get; }
 
         [Required]
         [MaxLength(256)]
@@ -20,7 +20,7 @@ namespace KhoiDepTraiShop.Model.Models
         public string Alias { set; get; }
 
         [Required]
-        public int CategoryID { set; get; }
+        public int CategoryId { set; get; }
 
         [MaxLength(256)]
         public string Image { set; get; }
@@ -42,7 +42,7 @@ namespace KhoiDepTraiShop.Model.Models
         public bool? HotFlag { set; get; }
         public int? ViewCount { set; get; }
 
-        [ForeignKey("CategoryID")]
+        [ForeignKey("CategoryId")]
         public virtual ProductCategory ProductCategory { set; get; }
     }
 }
