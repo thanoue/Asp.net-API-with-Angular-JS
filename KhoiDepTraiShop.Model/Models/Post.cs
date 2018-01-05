@@ -1,11 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using KhoiDepTraiShop.Model.Abstracts;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhoiDepTraiShop.Model.Models
 {
-    [Table("Products")]
-    public class Product :Auditable
+    [Table("Posts")]
+    public  class Post : Auditable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,6 +22,7 @@ namespace KhoiDepTraiShop.Model.Models
 
         [Required]
         [MaxLength(256)]
+        [Column(TypeName = "varchar")]
         public string Alias { set; get; }
 
         [Required]
@@ -24,14 +30,6 @@ namespace KhoiDepTraiShop.Model.Models
 
         [MaxLength(256)]
         public string Image { set; get; }
-
-        [Column(TypeName = "xml")]
-        public string MoreImages { set; get; }
-
-        public decimal Price { set; get; }
-
-        public decimal? PromotionPrice { set; get; }
-        public int? Warranty { set; get; }
 
         [MaxLength(500)]
         public string Description { set; get; }
@@ -43,6 +41,6 @@ namespace KhoiDepTraiShop.Model.Models
         public int? ViewCount { set; get; }
 
         [ForeignKey("CategoryId")]
-        public virtual ProductCategory ProductCategory { set; get; }
+        public virtual PostCategory PostCategory { set; get; }
     }
 }
