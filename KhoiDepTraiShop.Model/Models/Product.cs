@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using KhoiDepTraiShop.Model.Abstracts;
+using System.Collections.Generic;
 
 namespace KhoiDepTraiShop.Model.Models
 {
@@ -44,5 +45,6 @@ namespace KhoiDepTraiShop.Model.Models
 
         [ForeignKey("CategoryId")]
         public virtual ProductCategory ProductCategory { set; get; }
+        public virtual IEnumerable<ProductTag> ProductTags { set; get; }
     }
 }

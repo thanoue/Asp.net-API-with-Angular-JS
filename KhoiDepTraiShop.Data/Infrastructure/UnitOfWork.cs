@@ -15,12 +15,10 @@ namespace KhoiDepTraiShop.Data.Infrastructure
         {
             this.dbFactory = dbFactory;
         }
-
         public ShopDbContext DbContext
         {
             get { return dbContext ?? (dbContext = dbFactory.Init()); }
         }
-
         public void Commit()
         {
             DbContext.SaveChanges();

@@ -36,6 +36,34 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -54,12 +82,37 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201801050146209_InitialDB.cs" />
-    <Compile Include="Migrations\201801050146209_InitialDB.Designer.cs">
-      <DependentUpon>201801050146209_InitialDB.cs</DependentUpon>
+    <Compile Include="Migrations\201801051115403_first_add.cs" />
+    <Compile Include="Migrations\201801051115403_first_add.Designer.cs">
+      <DependentUpon>201801051115403_first_add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801160349089_edit-product.cs" />
+    <Compile Include="Migrations\201801160349089_edit-product.Designer.cs">
+      <DependentUpon>201801160349089_edit-product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801160907217_add_identity.cs" />
+    <Compile Include="Migrations\201801160907217_add_identity.Designer.cs">
+      <DependentUpon>201801160907217_add_identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801160944215_add_key.cs" />
+    <Compile Include="Migrations\201801160944215_add_key.Designer.cs">
+      <DependentUpon>201801160944215_add_key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801161019006_add_seed_identity.cs" />
+    <Compile Include="Migrations\201801161019006_add_seed_identity.Designer.cs">
+      <DependentUpon>201801161019006_add_seed_identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801161058275_last_add_default_data.cs" />
+    <Compile Include="Migrations\201801161058275_last_add_default_data.Designer.cs">
+      <DependentUpon>201801161058275_last_add_default_data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801161246067_changkey.cs" />
+    <Compile Include="Migrations\201801161246067_changkey.Designer.cs">
+      <DependentUpon>201801161246067_changkey.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\ProductCategoryRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="ShopDbContext.cs" />
@@ -79,8 +132,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801050146209_InitialDB.resx">
-      <DependentUpon>201801050146209_InitialDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801051115403_first_add.resx">
+      <DependentUpon>201801051115403_first_add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801160349089_edit-product.resx">
+      <DependentUpon>201801160349089_edit-product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801160907217_add_identity.resx">
+      <DependentUpon>201801160907217_add_identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801160944215_add_key.resx">
+      <DependentUpon>201801160944215_add_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801161019006_add_seed_identity.resx">
+      <DependentUpon>201801161019006_add_seed_identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801161058275_last_add_default_data.resx">
+      <DependentUpon>201801161058275_last_add_default_data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801161246067_changkey.resx">
+      <DependentUpon>201801161246067_changkey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

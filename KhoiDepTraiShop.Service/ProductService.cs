@@ -10,9 +10,9 @@ using KhoiDepTraiShop.Data.Infrastructure;
 namespace KhoiDepTraiShop.Service
 {
     public interface IProductService{
-        void Add(Product product);
+        Product Add(Product product);
         void Update(Product product);
-        void Delete(int id);
+        Product Delete(int id);
         IEnumerable<Product> GetALL();
         IEnumerable<Product> GetAllByCategoryPaging(int categoryId,int page, int pagesize, out int totalrow);
         IEnumerable<Product> GetAllPaging(int page, int pagesize, out int totalrow);
@@ -29,14 +29,14 @@ namespace KhoiDepTraiShop.Service
             this._productRepository = productrepository;
             this._unitOfWork = unitofwork;
         }
-        public void Add(Product product)
+        public Product Add(Product product)
         {
-            _productRepository.Add(product);
+          return  _productRepository.Add(product);
         }
 
-        public void Delete(int id)
+        public Product Delete(int id)
         {
-            _productRepository.Delete(id);
+           return _productRepository.Delete(id);
         }
 
         public IEnumerable<Product> GetALL()
