@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -205,7 +206,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,6 +220,104 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\app.js" />
+    <Content Include="App\Components\home\homeView.html" />
+    <Content Include="App\Components\product\productAddView.html" />
+    <Content Include="App\Components\product\productAddViewController.js" />
+    <Content Include="App\Components\product\productEditView.html" />
+    <Content Include="App\Components\product\productEditViewController.js" />
+    <Content Include="App\Components\product\productListView.html" />
+    <Content Include="App\Components\product\productListViewController.js" />
+    <Content Include="Assets\admin\css\AdminLTE.css" />
+    <Content Include="Assets\admin\css\AdminLTE.min.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-bootstrap-social.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-bootstrap-social.min.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-fullcalendar.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-fullcalendar.min.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-select2.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-select2.min.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-without-plugins.css" />
+    <Content Include="Assets\admin\css\alt\AdminLTE-without-plugins.min.css" />
+    <Content Include="Assets\admin\css\bootstrap.min.css" />
+    <Content Include="Assets\admin\css\font-awesome.min.css" />
+    <Content Include="Assets\admin\css\ionicons.css" />
+    <Content Include="Assets\admin\css\skins\skin-black-light.css" />
+    <Content Include="Assets\admin\css\skins\skin-black-light.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-black.css" />
+    <Content Include="Assets\admin\css\skins\skin-black.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-blue-light.css" />
+    <Content Include="Assets\admin\css\skins\skin-blue-light.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-blue.css" />
+    <Content Include="Assets\admin\css\skins\skin-blue.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-green-light.css" />
+    <Content Include="Assets\admin\css\skins\skin-green-light.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-green.css" />
+    <Content Include="Assets\admin\css\skins\skin-green.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-purple-light.css" />
+    <Content Include="Assets\admin\css\skins\skin-purple-light.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-purple.css" />
+    <Content Include="Assets\admin\css\skins\skin-purple.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-red-light.css" />
+    <Content Include="Assets\admin\css\skins\skin-red-light.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-red.css" />
+    <Content Include="Assets\admin\css\skins\skin-red.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-yellow-light.css" />
+    <Content Include="Assets\admin\css\skins\skin-yellow-light.min.css" />
+    <Content Include="Assets\admin\css\skins\skin-yellow.css" />
+    <Content Include="Assets\admin\css\skins\skin-yellow.min.css" />
+    <Content Include="Assets\admin\css\skins\_all-skins.css" />
+    <Content Include="Assets\admin\css\skins\_all-skins.min.css" />
+    <Content Include="Assets\admin\img\avatar.png" />
+    <Content Include="Assets\admin\img\avatar04.png" />
+    <Content Include="Assets\admin\img\avatar2.png" />
+    <Content Include="Assets\admin\img\avatar3.png" />
+    <Content Include="Assets\admin\img\avatar5.png" />
+    <Content Include="Assets\admin\img\boxed-bg.jpg" />
+    <Content Include="Assets\admin\img\boxed-bg.png" />
+    <Content Include="Assets\admin\img\credit\american-express.png" />
+    <Content Include="Assets\admin\img\credit\cirrus.png" />
+    <Content Include="Assets\admin\img\credit\mastercard.png" />
+    <Content Include="Assets\admin\img\credit\mestro.png" />
+    <Content Include="Assets\admin\img\credit\paypal.png" />
+    <Content Include="Assets\admin\img\credit\paypal2.png" />
+    <Content Include="Assets\admin\img\credit\visa.png" />
+    <Content Include="Assets\admin\img\default-50x50.gif" />
+    <Content Include="Assets\admin\img\icons.png" />
+    <Content Include="Assets\admin\img\photo1.png" />
+    <Content Include="Assets\admin\img\photo2.png" />
+    <Content Include="Assets\admin\img\photo3.jpg" />
+    <Content Include="Assets\admin\img\photo4.jpg" />
+    <Content Include="Assets\admin\img\user1-128x128.jpg" />
+    <Content Include="Assets\admin\img\user2-160x160.jpg" />
+    <Content Include="Assets\admin\img\user3-128x128.jpg" />
+    <Content Include="Assets\admin\img\user4-128x128.jpg" />
+    <Content Include="Assets\admin\img\user5-128x128.jpg" />
+    <Content Include="Assets\admin\img\user6-128x128.jpg" />
+    <Content Include="Assets\admin\img\user7-128x128.jpg" />
+    <Content Include="Assets\admin\img\user8-128x128.jpg" />
+    <Content Include="Assets\admin\js\adminlte.js" />
+    <Content Include="Assets\admin\js\adminlte.min.js" />
+    <Content Include="Assets\admin\js\bootstrap.min.js" />
+    <Content Include="Assets\admin\js\demo.js" />
+    <Content Include="Assets\admin\js\fastclick.js" />
+    <Content Include="Assets\admin\js\jquery.min.js" />
+    <Content Include="Assets\admin\js\jquery.slimscroll.js" />
+    <Content Include="Assets\admin\js\pages\dashboard.js" />
+    <Content Include="Assets\admin\js\pages\dashboard2.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\karma.conf.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\rollup.config.js" />
+    <Content Include="Assets\admin\libs\angular\angular-csp.css" />
+    <Content Include="Assets\admin\libs\angular\angular.js" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js" />
+    <Content Include="Assets\admin\libs\angular\index.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -241,14 +340,19 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\Components\orders\" />
+    <Folder Include="App\Components\product_category\" />
+    <Folder Include="App\Components\roles\" />
+    <Folder Include="App\Components\users\" />
+    <Folder Include="App\Shared\directive\" />
+    <Folder Include="App\Shared\footer\" />
+    <Folder Include="App\Shared\navigation\" />
+    <Folder Include="App\Shared\services\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Assets\admin\" />
     <Folder Include="Assets\client\" />
-    <Folder Include="Scripts\plugins\" />
-    <Folder Include="Scripts\spa\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -260,7 +364,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KhoiDepTraiShop.Common\KhoiDepTraiShop.Common.csproj">
@@ -279,6 +385,49 @@
       <Project>{92578b75-5b59-492d-8667-2517839c8a66}</Project>
       <Name>KhoiDepTraiShop.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bower.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular\.bower.json" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js.gzip" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js.map" />
+    <Content Include="Assets\admin\libs\angular\bower.json" />
+    <Content Include="Assets\admin\libs\angular\LICENSE.md" />
+    <Content Include="Assets\admin\libs\angular\package.json" />
+    <Content Include="Assets\admin\libs\angular\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-ui-router\.bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\artifacts.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CHANGELOG.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CONTRIBUTING.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\DOCS.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\downstream_projects.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\ISSUE_TEMPLATE.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
+    <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\css\adminlte.css.map" />
+    <Content Include="Assets\admin\css\adminlte.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
