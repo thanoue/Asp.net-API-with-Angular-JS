@@ -12,6 +12,7 @@ namespace KhoiDepTraiShop.Web.Mappings
             //Mapper.CreateMap<ProductCategory, ProductCategoryViewModel>();
             //Mapper.CreateMap<Tag, TagViewModel>();
             //Mapper.CreateMap<ProductTag, ProductTagViewModel>();
+
         }
     }
 }

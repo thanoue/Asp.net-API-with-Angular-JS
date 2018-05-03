@@ -8,6 +8,7 @@ namespace KhoiDepTraiShop.Data.Repositories
     public interface IProductCategoryRepository : IRepository<ProductCategory>
     {
         IEnumerable<ProductCategory> GetByAlias(string alias);
+        IEnumerable<ProductCategory> GetAllCategory();
     }
 
     public class ProductCategoryRepository : RepositoryBase<ProductCategory>, IProductCategoryRepository
@@ -15,6 +16,11 @@ namespace KhoiDepTraiShop.Data.Repositories
         public ProductCategoryRepository(IDbFactory dbFactory)
            : base(dbFactory)
         {
+        }
+
+        public IEnumerable<ProductCategory> GetAllCategory()
+        {
+            return DbContext.ProductCategories.ToList();
         }
 
         public IEnumerable<ProductCategory> GetByAlias(string alias)

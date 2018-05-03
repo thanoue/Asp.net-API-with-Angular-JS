@@ -211,6 +211,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infrastructure\Core\PaginationSet.cs" />
     <Compile Include="Infrastructure\Extensions\EntityExtentions.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Models\ProductCategoryViewModel.cs" />
@@ -220,14 +221,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\app.js" />
-    <Content Include="App\Components\home\homeView.html" />
-    <Content Include="App\Components\product\productAddView.html" />
-    <Content Include="App\Components\product\productAddViewController.js" />
-    <Content Include="App\Components\product\productEditView.html" />
-    <Content Include="App\Components\product\productEditViewController.js" />
-    <Content Include="App\Components\product\productListView.html" />
-    <Content Include="App\Components\product\productListViewController.js" />
+    <Content Include="app\app.js" />
+    <Content Include="app\components\home\homeController.js" />
+    <Content Include="app\components\home\homeView.html" />
+    <Content Include="app\components\product\productAddView.html" />
+    <Content Include="app\components\product\productAddController.js" />
+    <Content Include="app\components\product\productEditView.html" />
+    <Content Include="app\components\product\productEditController.js" />
+    <Content Include="app\components\product\productListView.html" />
+    <Content Include="app\components\product\productListController.js" />
+    <Content Include="app\components\product_category\productCategory.module.js" />
+    <Content Include="app\components\product_category\productCategoryListController.js" />
+    <Content Include="app\components\product_category\productCategoryListView.html" />
+    <Content Include="app\Shared\directive\pagerDirective.html" />
+    <Content Include="app\Shared\directive\pagerDirective.js" />
+    <Content Include="app\Shared\filters\statusFilter.js" />
+    <Content Include="app\Shared\services\apiService.js" />
     <Content Include="Assets\admin\css\AdminLTE.css" />
     <Content Include="Assets\admin\css\AdminLTE.min.css" />
     <Content Include="Assets\admin\css\alt\AdminLTE-bootstrap-social.css" />
@@ -241,6 +250,7 @@
     <Content Include="Assets\admin\css\bootstrap.min.css" />
     <Content Include="Assets\admin\css\font-awesome.min.css" />
     <Content Include="Assets\admin\css\ionicons.css" />
+    <Content Include="Assets\admin\css\ionicons.min.css" />
     <Content Include="Assets\admin\css\skins\skin-black-light.css" />
     <Content Include="Assets\admin\css\skins\skin-black-light.min.css" />
     <Content Include="Assets\admin\css\skins\skin-black.css" />
@@ -267,6 +277,8 @@
     <Content Include="Assets\admin\css\skins\skin-yellow.min.css" />
     <Content Include="Assets\admin\css\skins\_all-skins.css" />
     <Content Include="Assets\admin\css\skins\_all-skins.min.css" />
+    <Content Include="Assets\admin\css\_all-skins.css" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\admin\img\avatar.png" />
     <Content Include="Assets\admin\img\avatar04.png" />
     <Content Include="Assets\admin\img\avatar2.png" />
@@ -299,9 +311,6 @@
     <Content Include="Assets\admin\js\adminlte.min.js" />
     <Content Include="Assets\admin\js\bootstrap.min.js" />
     <Content Include="Assets\admin\js\demo.js" />
-    <Content Include="Assets\admin\js\fastclick.js" />
-    <Content Include="Assets\admin\js\jquery.min.js" />
-    <Content Include="Assets\admin\js\jquery.slimscroll.js" />
     <Content Include="Assets\admin\js\pages\dashboard.js" />
     <Content Include="Assets\admin\js\pages\dashboard2.js" />
     <Content Include="Assets\admin\libs\angular-ui-router\karma.conf.js" />
@@ -318,6 +327,16 @@
     <Content Include="Assets\admin\libs\angular\angular.js" />
     <Content Include="Assets\admin\libs\angular\angular.min.js" />
     <Content Include="Assets\admin\libs\angular\index.js" />
+    <Content Include="Assets\admin\libs\fastclick\lib\fastclick.js" />
+    <Content Include="Assets\admin\libs\jquery\AUTHORS.txt" />
+    <Content Include="Assets\admin\libs\jquery\dist\core.js" />
+    <Content Include="Assets\admin\libs\jquery\dist\jquery.js" />
+    <Content Include="Assets\admin\libs\jquery\dist\jquery.min.js" />
+    <Content Include="Assets\admin\libs\jquery\dist\jquery.slim.js" />
+    <Content Include="Assets\admin\libs\jquery\dist\jquery.slim.min.js" />
+    <Content Include="Assets\admin\libs\jquery\LICENSE.txt" />
+    <Content Include="Assets\admin\libs\slimscroll\jquery.slimscroll.js" />
+    <Content Include="Assets\admin\libs\slimscroll\jquery.slimscroll.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -340,18 +359,18 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\Components\orders\" />
-    <Folder Include="App\Components\product_category\" />
-    <Folder Include="App\Components\roles\" />
-    <Folder Include="App\Components\users\" />
-    <Folder Include="App\Shared\directive\" />
-    <Folder Include="App\Shared\footer\" />
-    <Folder Include="App\Shared\navigation\" />
-    <Folder Include="App\Shared\services\" />
+    <Folder Include="app\components\orders\" />
+    <Folder Include="app\components\roles\" />
+    <Folder Include="app\components\users\" />
+    <Folder Include="app\Shared\footer\" />
+    <Folder Include="app\Shared\navigation\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Assets\admin\libs\jquery\external\" />
+    <Folder Include="Assets\admin\libs\jquery\src\" />
+    <Folder Include="Assets\admin\libs\slimscroll\examples\" />
     <Folder Include="Assets\client\" />
   </ItemGroup>
   <ItemGroup>
@@ -399,6 +418,41 @@
     <Content Include="Assets\admin\libs\angular\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\css\adminlte.css.map" />
+    <Content Include="Assets\admin\css\adminlte.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\fastclick\.bower.json" />
+    <Content Include="Assets\admin\libs\fastclick\bower.json" />
+    <Content Include="Assets\admin\libs\fastclick\LICENSE" />
+    <Content Include="Assets\admin\libs\fastclick\README.md" />
+    <Content Include="Assets\admin\libs\jquery\.bower.json" />
+    <Content Include="Assets\admin\libs\jquery\bower.json" />
+    <Content Include="Assets\admin\libs\jquery\dist\jquery.min.map" />
+    <Content Include="Assets\admin\libs\jquery\dist\jquery.slim.min.map" />
+    <Content Include="Assets\admin\libs\jquery\README.md" />
+    <Content Include="Assets\admin\libs\slimscroll\.bower.json" />
+    <Content Include="Assets\admin\libs\slimscroll\bower.json" />
+    <Content Include="Assets\admin\libs\slimscroll\package.json" />
+    <Content Include="Assets\admin\libs\slimscroll\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\components\product\products.module.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\Shared\modules\khoideptraishop.common.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\admin\fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Assets\admin\libs\angular-ui-router\.bower.json" />
     <Content Include="Assets\admin\libs\angular-ui-router\artifacts.json" />
     <Content Include="Assets\admin\libs\angular-ui-router\bower.json" />
@@ -409,17 +463,6 @@
     <Content Include="Assets\admin\libs\angular-ui-router\ISSUE_TEMPLATE.md" />
     <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
     <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Admin\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\admin\css\adminlte.css.map" />
-    <Content Include="Assets\admin\css\adminlte.min.css.map" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js.map" />
     <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js.map" />
     <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js.map" />
@@ -428,6 +471,8 @@
     <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js.map" />
     <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js.map" />
     <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

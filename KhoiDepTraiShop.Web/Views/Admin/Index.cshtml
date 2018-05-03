@@ -12,15 +12,17 @@
     <!-- Font Awesome -->
     @*<link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">*@
     <link href="~/Assets/admin/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/admin/css/ionicons.css" rel="stylesheet" />
     <!-- Ionicons -->
     @*<link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">*@
-    <link href="~/Assets/admin/css/ionicons.css" rel="stylesheet" />
+    <link href="~/Assets/admin/css/ionicons.min.css" rel="stylesheet" />
     <!-- Theme style -->
     @*<link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">*@
     <link href="~/Assets/admin/css/AdminLTE.min.css" rel="stylesheet" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="~/Assets/admin/css/skins/_all-skins.min.css">
+    @*<link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">*@
+    <link href="~/Assets/admin/css/_all-skins.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -30,7 +32,7 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="khoideptraishop">
     <!-- Site wrapper -->
     <div class="wrapper">
         <header class="main-header">
@@ -224,23 +226,20 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                            <li><a ui-sref="products"><i class="fa fa-circle-o"></i>Products</a></li>
+                            <li><a ui-sref="product_add"><i class="fa fa-circle-o"></i> Add Products</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-files-o"></i>
-                            <span>Layout Options</span>
+                            <span>Items</span>
                             <span class="pull-right-container">
                                 <span class="label label-primary pull-right">4</span>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                            <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                            <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                            <li><a href="../layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                            <li><a ui-sref="product_categories"><i class="fa fa-circle-o"></i> Product Categories</a></li>
                         </ul>
                     </li>
                     <li>
@@ -393,7 +392,9 @@
         <!-- =============================================== -->
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-         
+            <div ui-view>
+
+            </div>
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
@@ -576,25 +577,34 @@
     <!-- ./wrapper -->
     <!-- jQuery 3 -->
     @*<script src="../../bower_components/jquery/dist/jquery.min.js"></script>*@
-    <script src="~/Assets/admin/js/jquery.min.js"></script>
+    <script src="~/Assets/admin/libs/jquery/dist/jquery.js"></script>
     <!-- Bootstrap 3.3.7 -->
     @*<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>*@
     <script src="~/Assets/admin/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->
     @*<script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>*@
-    <script src="~/Assets/admin/js/jquery.slimscroll.js"></script>
+    <script src="~/Assets/admin/libs/slimscroll/jquery.slimscroll.js"></script>
     <!-- FastClick -->
     @*<script src="../../bower_components/fastclick/lib/fastclick.js"></script>*@
-    <script src="~/Assets/admin/js/fastclick.js"></script>
+    @*<script src="~/Assets/admin/libs/fastclick/lib/fastclick.js"></script>*@
     <!-- AdminLTE App -->
     @*<script src="../../dist/js/adminlte.min.js"></script>*@
-    <script src="~/Assets/admin/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/Assets/admin/js/demo.js"></script>
-    @*<script src="../../dist/js/demo.js"></script>*@
-    <!--begin embed angularJS-->
     <script src="~/Assets/admin/libs/angular/angular.js"></script>
     <script src="~/Assets/admin/libs/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="~/Assets/admin/js/adminlte.min.js"></script>
+    <script src="~/Assets/admin/js/demo.js"></script>
+    <script src="~/app/Shared/modules/khoideptraishop.common.js"></script>
+    <script src="~/app/Shared/services/apiService.js"></script>
+    <script src="~/app/Shared/filters/statusFilter.js"></script>
+    <script src="~/app/Shared/directive/pagerDirective.js"></script>
+    <script src="~/app/components/product/products.module.js"></script>
+    <script src="~/app/components/product_category/productCategory.module.js"></script>
+    <script src="~/app/app.js"></script>
+    <script src="~/app/components/home/homeController.js"></script>
+    <script src="~/app/components/product/productAddController.js"></script>
+    <script src="~/app/components/product/productListController.js"></script>
+    <script src="~/app/components/product_category/productCategoryListController.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.sidebar-menu').tree()

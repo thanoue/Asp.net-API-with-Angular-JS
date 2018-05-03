@@ -8,6 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using KhoiDepTraiShop.Web.Infrastructure.Extensions;
+using System.Linq;
+using System;
 
 namespace KhoiDepTraiShop.Web.Api
 {
@@ -82,7 +84,7 @@ namespace KhoiDepTraiShop.Web.Api
             });
         }
         [Route("getall")]
-        public HttpResponseMessage GET(HttpRequestMessage request)
+        public HttpResponseMessage GET(HttpRequestMessage request, int page, int pageSize =2)
         {
             return CreateHttpResponse(request, () => {
                 HttpResponseMessage response = null;
@@ -92,11 +94,21 @@ namespace KhoiDepTraiShop.Web.Api
                 }
                 else
                 {
+                    int totalRow = 0;
+                    var categoryList = _productCategoryService.GetAll();
+                   
+                    totalRow = categoryList.Count();
+                    var query = categoryList.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
 
+                    var paginationSet = new PaginationSet<ProductCategoryViewModel>()
+                    {
+                        Items = query.ToModelList(),
+                        Page = page,
+                        TotalRow = totalRow,
+                        TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+                    };
 
-                    var catagoryList = _productCategoryService.GetAll();
-                    //    var listProductCategoryvm = Mapper.Map<List<ProductCategoryViewModel>>(catagoryList);
-                    response = request.CreateResponse(HttpStatusCode.OK, catagoryList);
+                    response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
                 }
                 return response;
             });
