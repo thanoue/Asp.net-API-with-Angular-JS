@@ -1,5 +1,4 @@
-﻿/// <reference path="/Assets/admin/libs/angular/angular.js" />
-
+﻿
 (function () {
     angular.module('khoideptraishop.product_categories', ['khoideptraishop.common']).config(config);
 
@@ -11,6 +10,10 @@
             url: "/product_categories",
             templateUrl: "/app/components/product_category/productCategoryListView.html",
             controller: "productCategoryListController"
+        }).state('add_product_category', {
+            url: "/add_product_category",
+            templateUrl: "/app/components/product_category/productCategoryAddView.html",
+            controller: "productCategoryAddController"
         });
     }
 })();

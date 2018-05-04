@@ -231,12 +231,15 @@
     <Content Include="app\components\product\productListView.html" />
     <Content Include="app\components\product\productListController.js" />
     <Content Include="app\components\product_category\productCategory.module.js" />
+    <Content Include="app\components\product_category\productCategoryAddController.js" />
+    <Content Include="app\components\product_category\productCategoryAddView.html" />
     <Content Include="app\components\product_category\productCategoryListController.js" />
     <Content Include="app\components\product_category\productCategoryListView.html" />
     <Content Include="app\Shared\directive\pagerDirective.html" />
     <Content Include="app\Shared\directive\pagerDirective.js" />
     <Content Include="app\Shared\filters\statusFilter.js" />
     <Content Include="app\Shared\services\apiService.js" />
+    <Content Include="app\Shared\services\notifyService.js" />
     <Content Include="Assets\admin\css\AdminLTE.css" />
     <Content Include="Assets\admin\css\AdminLTE.min.css" />
     <Content Include="Assets\admin\css\alt\AdminLTE-bootstrap-social.css" />
@@ -337,6 +340,10 @@
     <Content Include="Assets\admin\libs\jquery\LICENSE.txt" />
     <Content Include="Assets\admin\libs\slimscroll\jquery.slimscroll.js" />
     <Content Include="Assets\admin\libs\slimscroll\jquery.slimscroll.min.js" />
+    <Content Include="Assets\admin\libs\toastr\toastr.css" />
+    <Content Include="Assets\admin\libs\toastr\toastr.js" />
+    <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
+    <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -473,6 +480,15 @@
     <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js.map" />
     <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
     <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\toastr\.bower.json" />
+    <Content Include="Assets\admin\libs\toastr\bower.json" />
+    <Content Include="Assets\admin\libs\toastr\LICENSE" />
+    <Content Include="Assets\admin\libs\toastr\README.md" />
+    <Content Include="Assets\admin\libs\toastr\toastr.js.map" />
+    <Content Include="Assets\admin\libs\toastr\toastr.less" />
+    <Content Include="Assets\admin\libs\toastr\toastr.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

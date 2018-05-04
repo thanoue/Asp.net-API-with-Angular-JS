@@ -1,6 +1,7 @@
 ﻿using KhoiDepTraiShop.Model.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,8 +14,11 @@ namespace KhoiDepTraiShop.Web.Models
             Products = new List<ProductViewModel>();
         }
         public int Id { set; get; }       
+        [Required]
         public string Name { set; get; }
+        [Required]
         public string Alias { set; get; }
+
         public string Description { set; get; }
         public int? ParentId { set; get; }
         public int? DisplayOrder { set; get; }

@@ -19,6 +19,7 @@
     <!-- Theme style -->
     @*<link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">*@
     <link href="~/Assets/admin/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="~/Assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     @*<link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">*@
@@ -591,9 +592,11 @@
     @*<script src="../../dist/js/adminlte.min.js"></script>*@
     <script src="~/Assets/admin/libs/angular/angular.js"></script>
     <script src="~/Assets/admin/libs/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="~/Assets/admin/libs/toastr/toastr.js"></script>
     <script src="~/Assets/admin/js/adminlte.min.js"></script>
     <script src="~/Assets/admin/js/demo.js"></script>
     <script src="~/app/Shared/modules/khoideptraishop.common.js"></script>
+    <script src="~/app/Shared/services/notifyService.js"></script>
     <script src="~/app/Shared/services/apiService.js"></script>
     <script src="~/app/Shared/filters/statusFilter.js"></script>
     <script src="~/app/Shared/directive/pagerDirective.js"></script>
@@ -601,6 +604,7 @@
     <script src="~/app/components/product_category/productCategory.module.js"></script>
     <script src="~/app/app.js"></script>
     <script src="~/app/components/home/homeController.js"></script>
+    <script src="~/app/components/product_category/productCategoryAddController.js"></script>
     <script src="~/app/components/product/productAddController.js"></script>
     <script src="~/app/components/product/productListController.js"></script>
     <script src="~/app/components/product_category/productCategoryListController.js"></script>

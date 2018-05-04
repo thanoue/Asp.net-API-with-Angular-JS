@@ -14,6 +14,7 @@ namespace KhoiDepTraiShop.Service
         void Update(ProductCategory productcategody);
         ProductCategory Delete(int id);
         IEnumerable<ProductCategory> GetAll();
+        IEnumerable<ProductCategory> GetAll(string keyWord);
         IEnumerable<ProductCategory> GetAllByParentId(int parentid);
         ProductCategory GetById(int id);
         void SaveChanges();
@@ -41,6 +42,13 @@ namespace KhoiDepTraiShop.Service
         public IEnumerable<ProductCategory> GetAll()
         {
            return _productCategoryRepository.GetAll();
+        }
+
+        public IEnumerable<ProductCategory> GetAll(string keyWord)
+        {
+            if(!string.IsNullOrEmpty(keyWord))
+                return _productCategoryRepository.GetMulti(x => x.Name.Contains(keyWord) || x.Description.Contains(keyWord));
+            return _productCategoryRepository.GetAll();
         }
 
         public IEnumerable<ProductCategory> GetAllByParentId(int parentid)

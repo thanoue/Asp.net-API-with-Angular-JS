@@ -21,30 +21,46 @@ namespace KhoiDepTraiShop.Web.Api
         {
             this._productCategoryService = postCategoryService;
         }
-        [Route("add")]
-        public HttpResponseMessage POST(HttpRequestMessage request, ProductCategoryViewModel productcategoryvm)
+
+        [Route("getallparents")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var model = _productCategoryService.GetAll();
+
+                var responseData = model.ToModelList();
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        [Route("create")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage Create(HttpRequestMessage request, ProductCategoryViewModel productCategory)
         {
             return CreateHttpResponse(request,()=> {
                 HttpResponseMessage response = null;
                 if (!ModelState.IsValid)
                 {
-
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                  
+                  response =  request.CreateErrorResponse(HttpStatusCode.BadRequest,ModelState);                  
                 }
                 else
                 {
                     ProductCategory pr = new ProductCategory();
-                    pr.UpdateProductCategory(productcategoryvm);
+                    pr.UpdateProductCategory(productCategory);
                     var category = _productCategoryService.Add(pr);
                     _productCategoryService.SaveChanges();
-                    response = request.CreateResponse(HttpStatusCode.Created, category);
+                    response = request.CreateResponse(HttpStatusCode.Created, category.ToModel());
                 }
                 return response;
             });
         }
         [Route("update")]
-        public HttpResponseMessage PUT(HttpRequestMessage request, ProductCategoryViewModel productcategoryvm)
+        [HttpPost]
+        public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productcategoryvm)
         {
             return CreateHttpResponse(request, () => {
                 HttpResponseMessage response = null;
@@ -84,18 +100,15 @@ namespace KhoiDepTraiShop.Web.Api
             });
         }
         [Route("getall")]
-        public HttpResponseMessage GET(HttpRequestMessage request, int page, int pageSize =2)
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int page, int pageSize =2, string keyWord = null)
         {
             return CreateHttpResponse(request, () => {
                 HttpResponseMessage response = null;
-                if (!ModelState.IsValid)
-                {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
+               
+               
                     int totalRow = 0;
-                    var categoryList = _productCategoryService.GetAll();
+                    var categoryList = _productCategoryService.GetAll(keyWord);
                    
                     totalRow = categoryList.Count();
                     var query = categoryList.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
@@ -109,10 +122,12 @@ namespace KhoiDepTraiShop.Web.Api
                     };
 
                     response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
-                }
+               
                 return response;
             });
         }
+
+
 
     }
 
