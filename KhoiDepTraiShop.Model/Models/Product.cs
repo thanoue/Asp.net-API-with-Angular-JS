@@ -42,6 +42,7 @@ namespace KhoiDepTraiShop.Model.Models
         public bool? HomeFlag { set; get; }
         public bool? HotFlag { set; get; }
         public int? ViewCount { set; get; }
+        public string Tags { get; set; }
 
         [ForeignKey("CategoryId")]
         public virtual ProductCategory ProductCategory { set; get; }

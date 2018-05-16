@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using KhoiDepTraiShop.Model.Models;
 using KhoiDepTraiShop.Data.Repositories;
 using KhoiDepTraiShop.Data.Infrastructure;
-
+using KhoiDepTraiShop.Common;
 namespace KhoiDepTraiShop.Service
 {
     public interface IProductService{
         Product Add(Product product);
         void Update(Product product);
         Product Delete(int id);
-        IEnumerable<Product> GetALL();
+        IEnumerable<Product> GetAll();
+        IEnumerable<Product> GetAll(string keyWord);
         IEnumerable<Product> GetAllByCategoryPaging(int categoryId,int page, int pagesize, out int totalrow);
         IEnumerable<Product> GetAllPaging(int page, int pagesize, out int totalrow);
         Product GetById(int id);
@@ -23,15 +24,44 @@ namespace KhoiDepTraiShop.Service
     public class ProductService : IProductService
     {
         IProductRepository _productRepository;
+        private ITagRepository _tagRepository;
+        private IProductTagRepository _productTagRepository;
+
         IUnitOfWork _unitOfWork;
-        public ProductService(IProductRepository productrepository,IUnitOfWork unitofwork)
+        public ProductService(IProductRepository productrepository,IProductTagRepository productTagRepository,ITagRepository tagRepository,IUnitOfWork unitofwork)
         {
             this._productRepository = productrepository;
             this._unitOfWork = unitofwork;
+            this._productTagRepository = productTagRepository;
+            this._tagRepository = tagRepository;
         }
-        public Product Add(Product product)
+        public Product Add(Product Product)
         {
-          return  _productRepository.Add(product);
+
+          var product  =   _productRepository.Add(Product);
+            _unitOfWork.Commit();
+            if (!string.IsNullOrEmpty(Product.Tags))
+            {
+                string[] tags = Product.Tags.Split(',');
+                for (var i = 0; i < tags.Length; i++)
+                {
+                    var tagId = StringUtility.ToUnsignString(tags[i]);
+                    if (_tagRepository.Count(x => x.Id == tagId) == 0)
+                    {
+                        Tag tag = new Tag();
+                        tag.Id = tagId;
+                        tag.Name = tags[i];
+                        tag.Type = CommonConstants.ProductTag;
+                        _tagRepository.Add(tag);
+                    }
+
+                    ProductTag productTag = new ProductTag();
+                    productTag.ProductId = product.Id;
+                    productTag.TagId = tagId;
+                    _productTagRepository.Add(productTag);
+                }
+            }
+            return product;
         }
 
         public Product Delete(int id)
@@ -39,9 +69,18 @@ namespace KhoiDepTraiShop.Service
            return _productRepository.Delete(id);
         }
 
-        public IEnumerable<Product> GetALL()
+        public IEnumerable<Product> GetAll ()
         {
             return _productRepository.GetAll(new string[] { "ProductCategory" });
+        }
+
+        public IEnumerable<Product> GetAll(string keyWord)
+        {
+            if (!string.IsNullOrEmpty(keyWord))
+            {
+                return _productRepository.GetMulti(p => p.Name.Contains(keyWord) || p.Description.Contains(keyWord));
+            }
+            return _productRepository.GetAll();
         }
 
         public IEnumerable<Product> GetAllByCategoryPaging(int categoryId, int page, int pagesize, out int totalrow)
@@ -70,6 +109,29 @@ namespace KhoiDepTraiShop.Service
         }
         public void Update(Product product)
         {
+            
+            if (!string.IsNullOrEmpty(product.Tags))
+            {
+                string[] tags = product.Tags.Split(',');
+                for (var i = 0; i < tags.Length; i++)
+                {
+                    var tagId = StringUtility.ToUnsignString(tags[i]);
+                    if (_tagRepository.Count(x => x.Id == tagId) == 0)
+                    {
+                        Tag tag = new Tag();
+                        tag.Id = tagId;
+                        tag.Name = tags[i];
+                        tag.Type = CommonConstants.ProductTag;
+                        _tagRepository.Add(tag);
+                    }
+                    _productTagRepository.DeleteMulti(x => x.ProductId == product.Id);
+                    ProductTag productTag = new ProductTag();
+                    productTag.ProductId = product.Id;
+                    productTag.TagId = tagId;
+                    _productTagRepository.Add(productTag);
+                }
+
+            }
             _productRepository.Update(product);
         }
     }

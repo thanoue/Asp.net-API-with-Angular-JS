@@ -31,6 +31,7 @@ namespace KhoiDepTraiShop.Web.Models
         public string MetaKeyword { get; set; }
         public string MetaDescription { get; set; }
         public bool Status { get; set; }
+        public string Tags { get; set; }
     }
     public static class ProductViewModelEmm
     {
@@ -58,7 +59,35 @@ namespace KhoiDepTraiShop.Web.Models
             product.MetaKeyword = productvm.MetaKeyword;
             product.MetaDescription = productvm.MetaDescription;
             product.Status = productvm.Status;
-            product.ProductTags = productvm.ProductTags.ToModelList();
+            product.ProductTags = productvm.ProductTags?.ToModelList();
+            product.Tags = productvm.Tags;
+            return product;
+        }
+        public static Product ToEntity(this ProductViewModel productvm)
+        {
+            var product = new Product();
+            product.Id = productvm.Id;
+            product.Name = productvm.Name;
+            product.Alias = productvm.Alias;
+            product.CategoryId = productvm.CategoryId;
+            product.Image = productvm.Image;
+            product.MoreImages = productvm.MoreImages;
+            product.Price = productvm.Price;
+            product.PromotionPrice = productvm.PromotionPrice;
+            product.Warranty = productvm.Warranty;
+            product.Description = productvm.Description;
+            product.Content = productvm.Content;
+            product.HotFlag = productvm.HotFlag;
+            product.ViewCount = productvm.ViewCount;
+            product.HomeFlag = productvm.HomeFlag;
+            product.CreatedDate = productvm.CreatedDate;
+            product.CreatedBy = productvm.CreatedBy;
+            product.UpdatedDate = productvm.UpdatedDate;
+            product.UpdatedBy = productvm.UpdatedBy;
+            product.MetaKeyword = productvm.MetaKeyword;
+            product.MetaDescription = productvm.MetaDescription;
+            product.Status = productvm.Status;
+            product.Tags = productvm.Tags;
             return product;
         }
         public static List<ProductViewModel> ToModelList(this IEnumerable<Product> entities) {
