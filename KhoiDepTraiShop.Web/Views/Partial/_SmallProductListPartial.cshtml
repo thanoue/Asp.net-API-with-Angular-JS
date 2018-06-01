@@ -1,0 +1,22 @@
+﻿@using KhoiDepTraiShop.Web.Commons
+@using System.Globalization;
+@model IList<KhoiDepTraiShop.Web.Models.ProductViewModel>
+
+@foreach (var product in Model)
+{
+    var url = "/" + product.Alias + ".p-" + product.Id + ".html";
+    if (product.PromotionPrice == null)
+    {
+        product.PromotionPrice = product.Price;
+    }
+    <div class="special-sec1" style="margin-bottom:5px; margin-top:5px;">
+        <div class="col-xs-4 img-deals">
+            <img src="@product.Image" alt="" style="height:70px;width:70px;">
+        </div>
+        <div class="col-xs-8 img-deal1">
+            <h3 style="font-size:13px;">@product.Name</h3>
+            <a href="@url">@Html.DisplayFor(p=>product.PromotionPrice)</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}

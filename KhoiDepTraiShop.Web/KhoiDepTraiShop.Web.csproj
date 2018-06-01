@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\HomeController.cs" />
     <Compile Include="Api\ProductCategoryController.cs" />
     <Compile Include="Api\ProductController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -211,7 +212,12 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Commons\TemplateConst.cs" />
+    <Compile Include="Commons\PartialConstCommon.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,6 +225,7 @@
     <Compile Include="Infrastructure\Core\PaginationSet.cs" />
     <Compile Include="Infrastructure\Extensions\EntityExtentions.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\ProductCategoryViewModel.cs" />
     <Compile Include="Models\ProductTagViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -249,7 +256,10 @@
     <Content Include="app\Shared\directive\pagerDirective.js" />
     <Content Include="app\Shared\filters\statusFilter.js" />
     <Content Include="app\Shared\services\apiService.js" />
+    <Content Include="app\Shared\services\authData.js" />
+    <Content Include="app\Shared\services\authenticationService.js" />
     <Content Include="app\Shared\services\commonService.js" />
+    <Content Include="app\Shared\services\loginService.js" />
     <Content Include="app\Shared\services\notifyService.js" />
     <Content Include="app\Shared\views\baseView.html" />
     <Content Include="Assets\admin\css\AdminLTE.css" />
@@ -325,20 +335,39 @@
     <Content Include="Assets\admin\img\user8-128x128.jpg" />
     <Content Include="Assets\admin\js\adminlte.js" />
     <Content Include="Assets\admin\js\adminlte.min.js" />
+    <Content Include="Assets\admin\js\app.js" />
+    <Content Include="Assets\admin\js\app.min.js" />
     <Content Include="Assets\admin\js\bootstrap.min.js" />
     <Content Include="Assets\admin\js\demo.js" />
     <Content Include="Assets\admin\js\pages\dashboard.js" />
     <Content Include="Assets\admin\js\pages\dashboard2.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\karma.conf.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.css" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.min.css" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.min.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\Gruntfile.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\index.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\src\loading-bar.css" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\src\loading-bar.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\demo\demo-app.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\demo\demo-style.css" />
+    <Content Include="Assets\admin\libs\angular-local-storage\demo\demo.html" />
+    <Content Include="Assets\admin\libs\angular-local-storage\dist\angular-local-storage.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\dist\angular-local-storage.min.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\index.js" />
     <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js" />
     <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js" />
-    <Content Include="Assets\admin\libs\angular-ui-router\rollup.config.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\common.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\resolve.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\state.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\stateDirectives.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\stateFilters.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\templateFactory.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\urlMatcherFactory.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\urlRouter.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\view.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\viewDirective.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\src\viewScroll.js" />
     <Content Include="Assets\admin\libs\angular\angular-csp.css" />
     <Content Include="Assets\admin\libs\angular\angular.js" />
     <Content Include="Assets\admin\libs\angular\angular.min.js" />
@@ -3890,6 +3919,132 @@
     <Content Include="Assets\admin\libs\toastr\toastr.js" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
+    <Content Include="Assets\client\css\bootstrap.css" />
+    <Content Include="Assets\client\css\creditly.css" />
+    <Content Include="Assets\client\css\easy-responsive-tabs.css" />
+    <Content Include="Assets\client\css\flexslider.css" />
+    <Content Include="Assets\client\css\font-awesome.css" />
+    <Content Include="Assets\client\css\jquery-ui1.css" />
+    <Content Include="Assets\client\css\popuo-box.css" />
+    <Content Include="Assets\client\css\style.css" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\client\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\client\fonts\googleFonts.css" />
+    <Content Include="Assets\client\images\1.png" />
+    <Content Include="Assets\client\images\2.png" />
+    <Content Include="Assets\client\images\a1.jpg" />
+    <Content Include="Assets\client\images\a10.jpg" />
+    <Content Include="Assets\client\images\a11.jpg" />
+    <Content Include="Assets\client\images\a12.jpg" />
+    <Content Include="Assets\client\images\a2.jpg" />
+    <Content Include="Assets\client\images\a3.jpg" />
+    <Content Include="Assets\client\images\a4.jpg" />
+    <Content Include="Assets\client\images\a5.jpg" />
+    <Content Include="Assets\client\images\a6.jpg" />
+    <Content Include="Assets\client\images\a7.jpg" />
+    <Content Include="Assets\client\images\a8.jpg" />
+    <Content Include="Assets\client\images\a9.jpg" />
+    <Content Include="Assets\client\images\about.jpg" />
+    <Content Include="Assets\client\images\about2.jpg" />
+    <Content Include="Assets\client\images\arrow.png" />
+    <Content Include="Assets\client\images\banner1.jpg" />
+    <Content Include="Assets\client\images\banner2.jpg" />
+    <Content Include="Assets\client\images\banner3.jpg" />
+    <Content Include="Assets\client\images\banner4.jpg" />
+    <Content Include="Assets\client\images\bg1.jpg" />
+    <Content Include="Assets\client\images\close_1.png" />
+    <Content Include="Assets\client\images\contact2.jpg" />
+    <Content Include="Assets\client\images\d1.jpg" />
+    <Content Include="Assets\client\images\d2.jpg" />
+    <Content Include="Assets\client\images\d3.jpg" />
+    <Content Include="Assets\client\images\d4.jpg" />
+    <Content Include="Assets\client\images\d5.jpg" />
+    <Content Include="Assets\client\images\k1.jpg" />
+    <Content Include="Assets\client\images\k10.jpg" />
+    <Content Include="Assets\client\images\k11.jpg" />
+    <Content Include="Assets\client\images\k12.jpg" />
+    <Content Include="Assets\client\images\k2.jpg" />
+    <Content Include="Assets\client\images\k3.jpg" />
+    <Content Include="Assets\client\images\k4.jpg" />
+    <Content Include="Assets\client\images\k5.jpg" />
+    <Content Include="Assets\client\images\k6.jpg" />
+    <Content Include="Assets\client\images\k7.jpg" />
+    <Content Include="Assets\client\images\k8.jpg" />
+    <Content Include="Assets\client\images\k9.jpg" />
+    <Content Include="Assets\client\images\left.png" />
+    <Content Include="Assets\client\images\logo2.png" />
+    <Content Include="Assets\client\images\m1.jpg" />
+    <Content Include="Assets\client\images\m2.jpg" />
+    <Content Include="Assets\client\images\m3.jpg" />
+    <Content Include="Assets\client\images\mk4.jpg" />
+    <Content Include="Assets\client\images\mk5.jpg" />
+    <Content Include="Assets\client\images\mk6.jpg" />
+    <Content Include="Assets\client\images\mk7.jpg" />
+    <Content Include="Assets\client\images\mk8.jpg" />
+    <Content Include="Assets\client\images\mk9.jpg" />
+    <Content Include="Assets\client\images\move-up.png" />
+    <Content Include="Assets\client\images\nav.png" />
+    <Content Include="Assets\client\images\nut1.png" />
+    <Content Include="Assets\client\images\pay1.png" />
+    <Content Include="Assets\client\images\pay2.png" />
+    <Content Include="Assets\client\images\pay3.png" />
+    <Content Include="Assets\client\images\pay4.png" />
+    <Content Include="Assets\client\images\pay5.png" />
+    <Content Include="Assets\client\images\pay6.png" />
+    <Content Include="Assets\client\images\pay7.png" />
+    <Content Include="Assets\client\images\pay8.png" />
+    <Content Include="Assets\client\images\pay9.png" />
+    <Content Include="Assets\client\images\paypal.png" />
+    <Content Include="Assets\client\images\right.png" />
+    <Content Include="Assets\client\images\s1.jpg" />
+    <Content Include="Assets\client\images\s2.jpg" />
+    <Content Include="Assets\client\images\s3.jpg" />
+    <Content Include="Assets\client\images\s4.jpg" />
+    <Content Include="Assets\client\images\s5.jpg" />
+    <Content Include="Assets\client\images\s6.jpg" />
+    <Content Include="Assets\client\images\s7.jpg" />
+    <Content Include="Assets\client\images\s8.jpg" />
+    <Content Include="Assets\client\images\s9.jpg" />
+    <Content Include="Assets\client\images\se1.jpg" />
+    <Content Include="Assets\client\images\se2.jpg" />
+    <Content Include="Assets\client\images\se3.jpg" />
+    <Content Include="Assets\client\images\search.png" />
+    <Content Include="Assets\client\images\si.jpg" />
+    <Content Include="Assets\client\images\si2.jpg" />
+    <Content Include="Assets\client\images\si3.jpg" />
+    <Content Include="Assets\client\images\star1.png" />
+    <Content Include="Assets\client\images\star22.png" />
+    <Content Include="Assets\client\images\stuffs\peploading.gif" />
+    <Content Include="Assets\client\images\tab3.png" />
+    <Content Include="Assets\client\images\videoimg2.png" />
+    <Content Include="Assets\client\js\bootstrap.js" />
+    <Content Include="Assets\client\js\creditly.js" />
+    <Content Include="Assets\client\js\easing.js" />
+    <Content Include="Assets\client\js\easyResponsiveTabs.js" />
+    <Content Include="Assets\client\js\imagezoom.js" />
+    <Content Include="Assets\client\js\jquery-2.1.4.min.js" />
+    <Content Include="Assets\client\js\jquery-ui.js" />
+    <Content Include="Assets\client\js\jquery.flexisel.js" />
+    <Content Include="Assets\client\js\jquery.flexslider.js" />
+    <Content Include="Assets\client\js\jquery.magnific-popup.js" />
+    <Content Include="Assets\client\js\minicart.js" />
+    <Content Include="Assets\client\js\move-top.js" />
+    <Content Include="Assets\client\js\SmoothScroll.min.js" />
+    <Content Include="Assets\client\js\viewsJS\Filter.js" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.css" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.js" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.min.css" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.min.js" />
+    <Content Include="bower_components\angular-loading-bar\Gruntfile.js" />
+    <Content Include="bower_components\angular-loading-bar\index.js" />
+    <Content Include="bower_components\angular-loading-bar\src\loading-bar.css" />
+    <Content Include="bower_components\angular-loading-bar\src\loading-bar.js" />
+    <Content Include="bower_components\angular-local-storage\demo\demo-app.js" />
+    <Content Include="bower_components\angular-local-storage\demo\demo-style.css" />
+    <Content Include="bower_components\angular-local-storage\demo\demo.html" />
+    <Content Include="bower_components\angular-local-storage\dist\angular-local-storage.js" />
+    <Content Include="bower_components\angular-local-storage\dist\angular-local-storage.min.js" />
+    <Content Include="bower_components\angular-local-storage\index.js" />
     <Content Include="bower_components\ckeditor\adapters\jquery.js" />
     <Content Include="bower_components\ckeditor\ckeditor.js" />
     <Content Include="bower_components\ckeditor\config.js" />
@@ -6827,8 +6982,10 @@
     <Folder Include="Assets\admin\libs\ngBootbox\examples\" />
     <Folder Include="Assets\admin\libs\ngBootbox\typings\" />
     <Folder Include="Assets\admin\libs\slimscroll\examples\" />
-    <Folder Include="Assets\client\" />
     <Folder Include="UploadFiles\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -6866,15 +7023,6 @@
     <Content Include="bower.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\admin\libs\angular\.bower.json" />
-    <Content Include="Assets\admin\libs\angular\angular.min.js.gzip" />
-    <Content Include="Assets\admin\libs\angular\angular.min.js.map" />
-    <Content Include="Assets\admin\libs\angular\bower.json" />
-    <Content Include="Assets\admin\libs\angular\LICENSE.md" />
-    <Content Include="Assets\admin\libs\angular\package.json" />
-    <Content Include="Assets\admin\libs\angular\README.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -6908,28 +7056,6 @@
     <Content Include="Assets\admin\fonts\fontawesome-webfont.woff" />
     <Content Include="Assets\admin\fonts\fontawesome-webfont.woff2" />
     <Content Include="Assets\admin\fonts\FontAwesome.otf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\admin\libs\angular-ui-router\.bower.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\artifacts.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\bower.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\CHANGELOG.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\CONTRIBUTING.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\DOCS.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\downstream_projects.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\ISSUE_TEMPLATE.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
-    <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\libs\toastr\.bower.json" />
@@ -7139,6 +7265,161 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bower_components\angular-loading-bar\.bower.json" />
+    <Content Include="bower_components\angular-loading-bar\bower.json" />
+    <Content Include="bower_components\angular-loading-bar\CHANGELOG.md" />
+    <Content Include="bower_components\angular-loading-bar\CONTRIBUTING.md" />
+    <Content Include="bower_components\angular-loading-bar\ISSUE_TEMPLATE.md" />
+    <Content Include="bower_components\angular-loading-bar\LICENSE" />
+    <Content Include="bower_components\angular-loading-bar\package.json" />
+    <Content Include="bower_components\angular-loading-bar\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="bower_components\angular-loading-bar\README.md" />
+    <Content Include="bower_components\angular-local-storage\.bower.json" />
+    <Content Include="bower_components\angular-local-storage\.bowerrc" />
+    <Content Include="bower_components\angular-local-storage\.editorconfig" />
+    <Content Include="bower_components\angular-local-storage\.gitattributes" />
+    <Content Include="bower_components\angular-local-storage\.gitignore" />
+    <Content Include="bower_components\angular-local-storage\.travis.yml" />
+    <Content Include="bower_components\angular-local-storage\bower.json" />
+    <Content Include="bower_components\angular-local-storage\CHANGELOG.md" />
+    <Content Include="bower_components\angular-local-storage\dist\angular-local-storage.min.js.map" />
+    <Content Include="bower_components\angular-local-storage\LICENSE" />
+    <Content Include="bower_components\angular-local-storage\package.json" />
+    <Content Include="bower_components\angular-local-storage\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\.bower.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\bower.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\CHANGELOG.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\CONTRIBUTING.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\ISSUE_TEMPLATE.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\PULL_REQUEST_TEMPLATE.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-loading-bar\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\.bower.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\.bowerrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\.gitattributes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\.gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\.travis.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\bower.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\CHANGELOG.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\dist\angular-local-storage.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-local-storage\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular\.bower.json" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js.gzip" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js.map" />
+    <Content Include="Assets\admin\libs\angular\bower.json" />
+    <Content Include="Assets\admin\libs\angular\package.json" />
+    <Content Include="Assets\admin\libs\angular\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-ui-router\.bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CHANGELOG.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CONTRIBUTING.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
+    <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_Footer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_Header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_Categories.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\client\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\client\fonts\FontAwesome.otf" />
+    <Content Include="Assets\client\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\client\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\client\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\client\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_ProductPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\VNCurrency.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_SmallProductListPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_SpecialProductListPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_FilterZonePartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_ProductListPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConnectionString.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppSetting.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partial\_ProductListNotIncludingPagingPartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

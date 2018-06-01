@@ -1,0 +1,78 @@
+﻿@model IEnumerable<KhoiDepTraiShop.Web.Models.ProductCategoryViewModel>
+
+<div class="sub-cate">
+    <div class=" top-nav rsidebar span_1_of_left">
+        <h3 class="cate">CATEGORIES</h3>
+        <ul class="menu">
+            @{ var i = 0; var notHasSubCategories = new List<KhoiDepTraiShop.Web.Models.ProductCategoryViewModel>();}
+            @foreach (var category in Model.Where(p => p.ParentId == null))
+            {
+                var url = "/" + category.Alias + ".pc-" + category.Id + ".html";
+                var childCategories = Model.Where(x => x.ParentId == category.Id);
+                if (childCategories.Count() > 0)
+                {
+                    var categoryClass = "item" + i.ToString();
+                    i++;
+                    <li class="@categoryClass">
+                        <a href="@url">@category.Name  <img class="arrow-img" src="~/Assets/client/images/arrow1.png" alt="" /> </a>
+
+                        <ul class="cute">
+                            @{
+                                var j = 0;
+                            }
+                            @foreach (var childCategory in childCategories)
+                            {
+                                var childCateClass = "subitem" + j.ToString();
+                                var childUrl = "/" + childCategory.Alias + ".pc-" + childCategory.Id + ".html";
+                                <li class="@childCateClass"><a href="@childUrl"> @childCategory.Name </a></li>
+                                j++;
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    notHasSubCategories.Add(category);
+                }
+            }
+            <li>
+                <ul class="kid-menu">
+                    @foreach (var notHasSubCategory in notHasSubCategories)
+                    {
+                        var url = "/" + notHasSubCategory.Alias + ".pc-" + notHasSubCategory.Id + ".html";
+                        <li><a href="@url">@notHasSubCategory.Name</a></li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!--initiate accordion-->
+    <script type="text/javascript">
+        $(function () {
+            var menu_ul = $('.menu > li > ul'),
+                menu_a = $('.menu > li > a');
+            menu_ul.hide();
+            menu_a.click(function (e) {
+                e.preventDefault();
+                if (!$(this).hasClass('active')) {
+                    menu_a.removeClass('active');
+                    menu_ul.filter(':visible').slideUp('normal');
+                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                } else {
+                    $(this).removeClass('active');
+                    $(this).next().stop(true, true).slideUp('normal');
+                }
+            });
+
+        });
+    </script>
+    <div class=" chain-grid menu-chain">
+        <a href="single.html"><img class="img-responsive chain" src="~/Assets/client/images/wat.jpg" alt=" " /></a>
+        <div class="grid-chain-bottom chain-watch">
+            <span class="actual dolor-left-grid">300$</span>
+            <span class="reducedfrom">500$</span>
+            <h6><a href="single.html">Lorem ipsum dolor</a></h6>
+        </div>
+    </div>
+    <a class="view-all all-product" href="product.html">VIEW ALL PRODUCTS<span> </span></a>
+</div>

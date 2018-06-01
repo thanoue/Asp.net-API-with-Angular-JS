@@ -1,0 +1,53 @@
+﻿@using KhoiDepTraiShop.Web.Infrastructure.Core;
+@using KhoiDepTraiShop.Web.Commons;
+@using KhoiDepTraiShop.Web.Models;
+@model PaginationSet<ProductViewModel>
+
+<div class="product-sec1">
+
+    <div id="productList">
+        @for (int i = 0; i < Model.Items.Count(); i++)
+        {
+            var item = Model.Items[i];
+            @Html.Partial(PartialConstCommon.ProdutItemPartial, item)
+        }
+    </div>
+    <div class="clearfix"></div>
+    @if (Model.TotalPages > 1)
+    {
+        // Create numeric links
+        var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+        var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+
+        <nav class="paging" style="text-align:right;padding-right:40px;">
+            <ul class="pagination">
+                @if (Model.Page > 1)
+                {
+
+                    <li style="cursor:pointer;" title="Trang Đầu" data-page-index="1" class="pageIndex"><span><i class="fa fa-angle-double-left"></i></span> </li>
+                    <li title="Lùi một trang" data-page-index="@(Model.Page-1)" class="pageIndex"><span> <i class="fa fa-angle-double-left"></i></span></li>
+                }
+
+                @for (int i = startPageIndex; i <= endPageIndex; i++)
+                {
+                    if (i == Model.Page)
+                    {
+                        <li style="cursor:pointer;" class="active pageIndex" title="Trang @i" data-page-index="@i"><span>@i</span></li>
+                    }
+                    else
+                    {
+                        <li style="cursor:pointer;" class="pageIndex" title="Trang @i" data-page-index="@i"><span>@i</span></li>
+
+                    }
+                  
+                }
+                @if (Model.Page < Model.TotalPages)
+                {
+                    <li title="Trang kế" class="pageIndex"  data-page-index="@(Model.Page+1)"><span><i class="fa fa-angle-double-right"></i></span> </li>
+                    <li title="Trang cuối" class="pageIndex"  data-page-index="@Model.TotalPages"><span><i class="fa fa-angle-double-right"></i></span> </li>
+                    
+                }
+            </ul>
+        </nav>
+    }
+</div>

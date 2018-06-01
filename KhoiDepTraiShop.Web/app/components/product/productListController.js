@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('productListController', productListController);
-    productListController.$inject = ['$scope', 'apiService', 'notifyService', '$ngBootbox', '$filter']
-    function productListController($scope,apiService,notifyService,$ngBootbox,$filter) {
+    productListController.$inject = ['$scope', 'apiService', 'notifyService', '$ngBootbox', '$filter','authenticationService']
+    function productListController($scope, apiService, notifyService, $ngBootbox, $filter, authenticationService) {
         $scope.products = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -89,6 +89,8 @@
                 }
             }
             apiService.get('/api/product/getall', config, function (result) {
+
+              
                 if (result.data.TotalCount == 0) {
                     notifyService.displayWarning('Không có bản ghi nào được tìm thấy.');
                 }

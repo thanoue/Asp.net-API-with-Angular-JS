@@ -82,42 +82,20 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201801051115403_first_add.cs" />
-    <Compile Include="Migrations\201801051115403_first_add.Designer.cs">
-      <DependentUpon>201801051115403_first_add.cs</DependentUpon>
+    <Compile Include="Migrations\201806011622417_addRatingTable.cs" />
+    <Compile Include="Migrations\201806011622417_addRatingTable.Designer.cs">
+      <DependentUpon>201806011622417_addRatingTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801160349089_edit-product.cs" />
-    <Compile Include="Migrations\201801160349089_edit-product.Designer.cs">
-      <DependentUpon>201801160349089_edit-product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801160907217_add_identity.cs" />
-    <Compile Include="Migrations\201801160907217_add_identity.Designer.cs">
-      <DependentUpon>201801160907217_add_identity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801160944215_add_key.cs" />
-    <Compile Include="Migrations\201801160944215_add_key.Designer.cs">
-      <DependentUpon>201801160944215_add_key.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801161019006_add_seed_identity.cs" />
-    <Compile Include="Migrations\201801161019006_add_seed_identity.Designer.cs">
-      <DependentUpon>201801161019006_add_seed_identity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801161058275_last_add_default_data.cs" />
-    <Compile Include="Migrations\201801161058275_last_add_default_data.Designer.cs">
-      <DependentUpon>201801161058275_last_add_default_data.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801161246067_changkey.cs" />
-    <Compile Include="Migrations\201801161246067_changkey.Designer.cs">
-      <DependentUpon>201801161246067_changkey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805120408057_add-producttags.cs" />
-    <Compile Include="Migrations\201805120408057_add-producttags.Designer.cs">
-      <DependentUpon>201805120408057_add-producttags.cs</DependentUpon>
+    <Compile Include="Migrations\201806011628213_recreateRatingTable.cs" />
+    <Compile Include="Migrations\201806011628213_recreateRatingTable.Designer.cs">
+      <DependentUpon>201806011628213_recreateRatingTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
+    <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\ProductCategoryRepository.cs" />
+    <Compile Include="Repositories\ProductRatingRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\ProductTagRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
@@ -138,29 +116,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801051115403_first_add.resx">
-      <DependentUpon>201801051115403_first_add.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806011622417_addRatingTable.resx">
+      <DependentUpon>201806011622417_addRatingTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801160349089_edit-product.resx">
-      <DependentUpon>201801160349089_edit-product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801160907217_add_identity.resx">
-      <DependentUpon>201801160907217_add_identity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801160944215_add_key.resx">
-      <DependentUpon>201801160944215_add_key.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801161019006_add_seed_identity.resx">
-      <DependentUpon>201801161019006_add_seed_identity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801161058275_last_add_default_data.resx">
-      <DependentUpon>201801161058275_last_add_default_data.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801161246067_changkey.resx">
-      <DependentUpon>201801161246067_changkey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805120408057_add-producttags.resx">
-      <DependentUpon>201805120408057_add-producttags.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806011628213_recreateRatingTable.resx">
+      <DependentUpon>201806011628213_recreateRatingTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

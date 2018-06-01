@@ -23,7 +23,7 @@ namespace KhoiDepTraiShop.Model.Models
         [Required]
         public int CategoryId { set; get; }
 
-        [MaxLength(256)]
+        [MaxLength(500)]
         public string Image { set; get; }
 
         [Column(TypeName = "xml")]
@@ -34,7 +34,7 @@ namespace KhoiDepTraiShop.Model.Models
         public decimal? PromotionPrice { set; get; }
         public int? Warranty { set; get; }
 
-        [MaxLength(500)]
+
         public string Description { set; get; }
 
         public string Content { set; get; }
@@ -48,5 +48,6 @@ namespace KhoiDepTraiShop.Model.Models
         public virtual ProductCategory ProductCategory { set; get; }
         public virtual IEnumerable<ProductTag> ProductTags { set; get; }
         public virtual IEnumerable<OrderDetail> OrderDetails { set; get; }
+        public virtual IEnumerable<ProductRating> ProductRatings { get; set; }
     }
 }

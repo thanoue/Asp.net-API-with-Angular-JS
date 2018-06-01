@@ -38,6 +38,8 @@ namespace KhoiDepTraiShop.Data
 
         public DbSet<Error> Errors { set; get; }
 
+        public DbSet<ProductRating> ProductRatings { set; get; }
+
         public static ShopDbContext Create()
         {
             return new ShopDbContext();

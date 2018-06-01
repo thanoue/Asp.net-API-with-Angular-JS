@@ -1,0 +1,119 @@
+﻿@using KhoiDepTraiShop.Web.Commons
+@model KhoiDepTraiShop.Web.Models.ProductViewModel
+@{
+    var url = "/" + Model.Alias + ".p-" + Model.Id + ".html";
+}
+<div class="col-md-4 product-men">
+    <div class="men-pro-item simpleCart_shelfItem">
+        <div class="men-thumb-item">
+            <img src="@Model.Image" alt="" style="height:170px;width:143px;">
+            <div class="men-cart-pro">
+                <div class="inner-men-cart-pro">
+                    @{
+                        if (Model.RatingAverage != null)
+                        {
+                            switch (Model.RatingAverage)
+                            {
+                                case 1:
+                                    <div style="background-color:transparent;width:100%;height:70px;">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </div>
+                                    break;
+                                case 2:
+                                    <div style="background-color:transparent;width:100%;height:70px;">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </div>
+                                    break;
+                                case 3:
+                                    <div style="background-color:transparent;width:100%;height:70px;">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </div>
+                                    break;
+                                case 4:
+                                    <div style="background-color:transparent;width:100%;height:70px;">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </div>
+                                    break;
+                                case 5:
+                                    <div style="background-color:transparent;width:100%;height:70px;">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div>
+                                    break;
+                                default:
+                                    <div style="background-color:transparent;width:100%;height:70px;">
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </div>
+                                    break;
+                            }
+
+
+                        }
+                    }
+
+                    <a href="@url" class="link-product-add-cart">Chi tiết</a>
+                </div>
+            </div>
+            @{
+                if (Model.PromotionPrice == null)
+                {
+                    Model.PromotionPrice = Model.Price;
+                    Model.Price = 0;
+                }
+                if (Model.NewFlag)
+                {
+                    <span class="product-new-top">New</span>
+                }
+                if (Model.Name.Length > 21)
+                {
+                    Model.Name = Model.Name.Substring(0, 18) + "...";
+                }
+            }
+        </div>
+        <div class="item-info-product ">
+            <h4>
+                <a href="@url" style="font-size:15px;">@Model.Name</a>
+            </h4>
+            <div class="info-product-price">
+                <span class="item_price">@Html.DisplayFor(p => p.PromotionPrice)</span>
+
+                <del>@Html.DisplayFor(p => p.Price)</del>
+            </div>
+            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                <form action="#" method="post">
+                    <fieldset>
+                        @Html.HiddenFor(p => p.Id, new { Id = "productId" + Model.Id })
+                        @Html.HiddenFor(p => p.Name, new { Id = "productName" + Model.Id })
+                        @Html.HiddenFor(p => p.PromotionPrice, new { Id = "productPromotion" + Model.Id })
+                        @Html.HiddenFor(p => p.Price, new { Id = "productPrice" + Model.Id })
+                        <input type="submit" name="submit" value="Thêm vào giỏi hàng" class="button" />
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+﻿@model decimal
+@using KhoiDepTraiShop.Web.Commons
+@using System.Globalization;
+@{
+
+    CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
+    string result = double.Parse(Model.ToString()).ToString("#,###", cul.NumberFormat)+ "₫";
+}
+@result

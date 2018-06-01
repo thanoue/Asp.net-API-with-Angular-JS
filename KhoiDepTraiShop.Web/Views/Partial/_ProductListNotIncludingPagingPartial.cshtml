@@ -1,0 +1,9 @@
+﻿@using KhoiDepTraiShop.Web.Infrastructure.Core;
+@using KhoiDepTraiShop.Web.Commons;
+@using KhoiDepTraiShop.Web.Models;
+@model IList<ProductViewModel>
+@for (int i = 0; i < Model.Count(); i++)
+{
+    var item = Model[i];
+    @Html.Partial(PartialConstCommon.ProdutItemPartial, item)
+}

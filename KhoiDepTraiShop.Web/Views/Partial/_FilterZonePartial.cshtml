@@ -1,0 +1,165 @@
+﻿@model IList< KhoiDepTraiShop.Web.Models.ProductViewModel>
+@using KhoiDepTraiShop.Web.Commons;
+
+<div class="side-bar col-md-3">
+    <div class="search-hotel">
+        <h3 class="agileits-sear-head">Tìm sản phẩm...</h3>
+        <form action="#" method="post">
+            <input type="search" placeholder="Tên sản phẩm..." name="search" required="">
+            <button type="submit" value=" ">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <!-- price range -->
+    <div class="range">
+        <h3 class="agileits-sear-head">Lọc theo giá tiền</h3>
+        <div class="row">
+            <div class="col-sm-9">
+                <ul class="dropdown-menu6" style="width:105%;">
+                    <li>
+                        <div id="slider-range"></div>
+                        <input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;" />
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <button id="applySearchByCostArea" value=" "></button>
+            </div>
+        </div>
+
+    </div>
+    <!-- //price range -->
+    <!-- discounts -->
+    <div class="left-side">
+        <h3 class="agileits-sear-head">Lọc theo Giá</h3>
+        <ul>
+            <li>
+                <input type="checkbox" data-min="5" data-max="10" class="discountFilterCheckbox">
+                <span class="span">5% ~ 10%</span>
+            </li>
+            <li>
+                <input type="checkbox" data-min="11" data-max="20" class="discountFilterCheckbox">
+                <span class="span">11% ~ 20% </span>
+            </li>
+            <li>
+                <input type="checkbox" data-min="21" data-max="35" class="discountFilterCheckbox">
+                <span class="span">21% ~ 35%</span>
+            </li>
+            <li>
+                <input type="checkbox" data-min="36" data-max="50" class="discountFilterCheckbox">
+                <span class="span">65% ~ 50%</span>
+            </li>
+            <li>
+                <input type="checkbox" data-min="51" data-max="70" class="discountFilterCheckbox">
+                <span class="span">51% ~ 70%</span>
+            </li>
+            <li>
+                <input type="checkbox" data-min="71" data-max="100" class="discountFilterCheckbox">
+                <span class="span">70% ~ </span>
+            </li>
+        </ul>
+    </div>
+    <!-- //discounts -->
+    <!-- reviews -->
+    <div class="customer-rev left-side">
+        <h3 class="agileits-sear-head">Lọc theo lượt đánh giá</h3>
+        <ul>
+            <li>
+                <a >
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <span class="badge badge-primary rating-badge">5.0</span>
+                </a>
+            </li>
+            <li>
+                <a >
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <span class="badge badge-primary  rating-badge">4.0</span>
+                </a>
+            </li>
+            <li>
+                <a >
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <span class="badge badge-primary  rating-badge" >3.0</span>
+                </a>
+            </li>
+            <li>
+                <a >
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <span class="badge badge-primary  rating-badge">2.0</span>
+                </a>
+            </li>
+            <li>
+                <a >
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <span class="badge badge-primary  rating-badge">1.0</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- //reviews -->
+    <!-- cuisine -->
+    <div class="left-side">
+        <h3 class="agileits-sear-head">Thẻ phổ biến</h3>
+        <ul>
+            <li>
+                <a>
+                    <i class="glyphicon glyphicon-tags populate-tag" aria-hidden="true" style="margin-right:5px;"></i>
+                    Rượu Nhập Ngoại
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
+                    Rau củ quả tươi sạch
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
+                    Nông sản sạch
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
+                    Thực phẩm tươi sống
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
+                    Nước uống
+                </a>
+            </li>
+                  
+        </ul>
+    </div>
+    <!-- //cuisine -->
+    <!-- deals -->
+    <div class="deal-leftmk left-side">
+        <h3 class="agileits-sear-head">Sản phẩm ngẫu nhiên</h3>
+        @Html.Partial(PartialConstCommon.SmallProducListPartial, Model)
+    </div>
+    <!-- //deals -->
+</div>

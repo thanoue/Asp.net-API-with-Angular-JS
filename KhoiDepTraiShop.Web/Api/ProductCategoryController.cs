@@ -15,6 +15,7 @@ using System.Web.Script.Serialization;
 namespace KhoiDepTraiShop.Web.Api
 {
     [RoutePrefix("api/productcategory")]
+    [Authorize]
     public class ProductCategoryController : ApiControllerBase
     {
         IProductCategodyService _productCategoryService;
@@ -25,11 +26,11 @@ namespace KhoiDepTraiShop.Web.Api
 
         [Route("getallparents")]
         [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        public HttpResponseMessage GetAllParents(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
             {
-                var model = _productCategoryService.GetAll();
+                var model = _productCategoryService.GetAllRootCategory();
 
                 var responseData = model.ToModelList();
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
@@ -37,9 +38,23 @@ namespace KhoiDepTraiShop.Web.Api
             });
         }
 
+        [Route("getallsubs")]
+        [HttpGet]
+        public HttpResponseMessage GetAllsubs(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var model = _productCategoryService.GetAllSubCategory();
+
+                var responseData = model.ToModelList();
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+
         [Route("create")]
         [HttpPost]
-        [AllowAnonymous]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductCategoryViewModel productCategory)
         {
             return CreateHttpResponse(request,()=> {
@@ -52,6 +67,7 @@ namespace KhoiDepTraiShop.Web.Api
                 {
                     ProductCategory pr = new ProductCategory();
                     pr.UpdateProductCategory(productCategory);
+                    pr.CreatedBy = User.Identity.Name;
                     var category = _productCategoryService.Add(pr);
                     _productCategoryService.SaveChanges();
                     response = request.CreateResponse(HttpStatusCode.Created, category.ToModel());
@@ -61,7 +77,6 @@ namespace KhoiDepTraiShop.Web.Api
         }
         [Route("update")]
         [HttpPut]
-        [AllowAnonymous]
         public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productcategoryvm)
         {
             return CreateHttpResponse(request, () => {
@@ -76,6 +91,7 @@ namespace KhoiDepTraiShop.Web.Api
                     ProductCategory pr = _productCategoryService.GetById(productcategoryvm.Id);
                     pr.UpdateProductCategory(productcategoryvm);
                     pr.UpdatedDate = DateTime.Now;
+                    pr.UpdatedBy = User.Identity.Name;
                     _productCategoryService.Update(pr);
                     _productCategoryService.SaveChanges();
 
@@ -150,7 +166,7 @@ namespace KhoiDepTraiShop.Web.Api
 
         [Route("delete")]
         [HttpDelete]
-        [AllowAnonymous]
+
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             return CreateHttpResponse(request, () =>
@@ -175,7 +191,7 @@ namespace KhoiDepTraiShop.Web.Api
 
         [Route("multidelete")]
         [HttpDelete]
-        [AllowAnonymous]
+
         public HttpResponseMessage MultiDelete(HttpRequestMessage request, string ids)
         {
             return CreateHttpResponse(request, () =>

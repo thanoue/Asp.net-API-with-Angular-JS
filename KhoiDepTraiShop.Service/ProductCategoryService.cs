@@ -16,6 +16,8 @@ namespace KhoiDepTraiShop.Service
         IEnumerable<ProductCategory> GetAll();
         IEnumerable<ProductCategory> GetAll(string keyWord);
         IEnumerable<ProductCategory> GetAllByParentId(int parentid);
+        IEnumerable<ProductCategory> GetAllRootCategory();
+        IEnumerable<ProductCategory> GetAllSubCategory();
         ProductCategory GetById(int id);
         void SaveChanges();
     }
@@ -54,6 +56,26 @@ namespace KhoiDepTraiShop.Service
         public IEnumerable<ProductCategory> GetAllByParentId(int parentid)
         {
             return _productCategoryRepository.GetMulti(x => x.Status && x.ParentId == parentid);
+        }
+
+        public IEnumerable<ProductCategory> GetAllRootCategory()
+        {
+            return _productCategoryRepository.GetMulti(x=>x.ParentId ==null);
+        }
+
+        public IEnumerable<ProductCategory> GetAllSubCategory()
+        {
+            var hasParent = _productCategoryRepository.GetMulti(x => x.ParentId != null).ToList();
+            var single = _productCategoryRepository.GetMulti(x => x.ParentId == null).ToList();
+            var vm = new List<ProductCategory>();
+            foreach(var item in single)
+            {
+                var category = hasParent.Where(x => x.ParentId == item.Id).FirstOrDefault();
+                if (category == null)
+                    vm.Add(item);
+
+            }
+            return vm;
         }
 
         public ProductCategory GetById(int id)

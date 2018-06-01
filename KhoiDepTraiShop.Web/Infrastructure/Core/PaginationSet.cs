@@ -7,6 +7,10 @@ namespace KhoiDepTraiShop.Web.Infrastructure.Core
 {
     public class PaginationSet <T>
     {
+        public PaginationSet()
+        {
+            Items = new List<T>();
+        }
         public int Page { get; set; }
         public int Count
         {
@@ -17,6 +21,7 @@ namespace KhoiDepTraiShop.Web.Infrastructure.Core
         }
         public int TotalPages { set; get; }
         public int TotalRow { set; get; }
-        public IEnumerable<T>Items { get; set; }
+        public IList<T>Items { get; set; }
+        public int MaxPage { get;  set; }
     }
 }

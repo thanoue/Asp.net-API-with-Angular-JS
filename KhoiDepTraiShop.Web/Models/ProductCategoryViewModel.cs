@@ -53,7 +53,6 @@ namespace KhoiDepTraiShop.Web.Models
             model.MetaKeyword = entity.MetaKeyword;
             model.MetaDescription = entity.MetaDescription;
             model.Status = entity.Status;
-            model.Products = entity.Products.ToModelList();
             return model;
         }
         public static List<ProductCategoryViewModel> ToModelList (this IEnumerable<ProductCategory> entites)

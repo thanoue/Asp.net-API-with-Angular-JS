@@ -11,6 +11,8 @@ namespace KhoiDepTraiShop.Data.Repositories
     public interface IProductRepository :IRepository<Product>
     {
         IEnumerable<Product> GetAllByTag(string tag,int pageindex, int pagesize, out int totalRow);
+
+        IEnumerable<Product> GetFilterByPrice(decimal min, decimal max, int? categoryId);
     }
     public class ProductRepository : RepositoryBase<Product>,IProductRepository
     {
@@ -31,6 +33,14 @@ namespace KhoiDepTraiShop.Data.Repositories
             totalRow = query.Count();
             query = query.Skip((pageindex - 1) * pagesize).Take(pagesize);
             return query;
+        }
+
+        public IEnumerable<Product> GetFilterByPrice(decimal min, decimal max, int? categoryId)
+        {
+            var products = DbContext.Products.ToList();
+            if (categoryId != null)
+                products = products.Where(p => p.CategoryId == categoryId).ToList();
+            return products.Where(p => p.Price >= min && p.Price <= max).ToList();
         }
     }
     

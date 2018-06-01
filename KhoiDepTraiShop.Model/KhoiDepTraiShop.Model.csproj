@@ -95,6 +95,7 @@
     <Compile Include="Models\SupportOnline.cs" />
     <Compile Include="Models\SystemConfig.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\ProductRating.cs" />
     <Compile Include="Models\VisitorStatistic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,6 +103,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\KhoiDepTraiShop.Common\KhoiDepTraiShop.Common.csproj">
+      <Project>{00B78FC1-0748-4D6F-AEE0-E01D925256FC}</Project>
+      <Name>KhoiDepTraiShop.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

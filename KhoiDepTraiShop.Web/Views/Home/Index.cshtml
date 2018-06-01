@@ -1,0 +1,160 @@
+﻿@model KhoiDepTraiShop.Web.Models.HomeViewModel
+@using KhoiDepTraiShop.Web.Commons;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators-->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Mặt hàng
+                        <span>Đa dạng</span>
+                    </h3>
+                    <p>
+                        Giảm ngay
+                        <span>10%</span> Khi mua tại cửa hàng
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="item item2">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Tốt cho
+                        <span>Sức khỏe</span>
+                    </h3>
+                    <p>
+
+                        Nông sản <span>Sạch</span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="item item3">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Sản phẩm
+                        <span>Chất Lượng</span>
+                    </h3>
+                    <p>
+                        Giao hàng nhanh trong
+                        <span>3h</span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="item item4">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Siêu
+                        <span>Tiết Kiệm</span>
+                    </h3>
+                    <p>
+                        Lên đến
+                        <span>40%</span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<!-- //banner -->
+<!-- top Products -->
+<div class="ads-grid">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <!-- product left -->
+        @Html.Partial(PartialConstCommon.FilterZonePartial, Model.RandomProducts)
+        <!-- //product left -->
+        <!-- product right -->
+        <div id="" class="agileinfo-ads-display col-md-9">
+            <div id="loadingimage" style="display:none;text-align:center;height:100%;width:100%">
+                <div class="lds-hourglass"></div>
+            </div>
+            <div id="mainPanel">
+                <div class="wrapper">
+                    <!-- first section (nuts) -->
+                    <div class="product-sec1">
+                        <h3 class="heading-tittle">Sản phẩm nổi bật </h3>
+                        @for (int i = 0; i < Model.HighViewCountProducts.Count; i++)
+                        {
+                            var item = Model.HighViewCountProducts[i];
+                            @Html.Partial(PartialConstCommon.ProdutItemPartial, item)
+                        }
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- //first section (nuts) -->
+                    <!-- second section (nuts special) -->
+                    <div class="product-sec1 product-sec2">
+                        <div class="col-xs-7 effect-bg">
+                            <h3 class="">Sun Food</h3>
+                            <h6>Đa dạng chủng loại</h6>
+                            <p>Cam kết hàng thật 100%</p>
+                        </div>
+                        <h3 class="w3l-nut-middle">Thực phẩm sạch</h3>
+                        <div class="col-xs-5 bg-right-nut">
+                            <img src="~/UploadedFiles/images/avocado_a550b4f80c754e3db84bf0276025bea2_master.png" alt="" style="height:262px;width:300px;">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- //second section (nuts special) -->
+                    <!-- third section (oils) -->
+                    <div class="product-sec1">
+                        <h3 class="heading-tittle">Rau củ quả giá tốt </h3>
+                        @for (int i = 0; i < Model.CheapVegetableProducts.Count; i++)
+                        {
+                            var item = Model.CheapVegetableProducts[i];
+                            @Html.Partial(PartialConstCommon.ProdutItemPartial, item)
+                        }
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- //third section (oils) -->
+                </div>
+            </div>
+
+        </div>
+        <!-- //product right -->
+    </div>
+</div>
+<!-- //top products -->
+<!-- special offers -->
+@Html.Partial(PartialConstCommon.SpecialProductPartial, Model.HotProducts)
+
+
+<!-- //special offers -->
