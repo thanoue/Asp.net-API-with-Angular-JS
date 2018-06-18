@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using KhoiDepTraiShop.Common;
 using KhoiDepTraiShop.Model.Models;
 
 namespace KhoiDepTraiShop.Web.Models
@@ -11,7 +12,7 @@ namespace KhoiDepTraiShop.Web.Models
         public TagViewModel() { }
         public string Id { set; get; }
         public string Name { set; get; }
-        public string Type { set; get; }
+        public TagType Type { set; get; }
     }
     public static class TagViewModelEmm
     {
@@ -31,5 +32,6 @@ namespace KhoiDepTraiShop.Web.Models
             vm.AddRange(entities.Select(p => p.ToModel()));
             return vm;
         }
+       
     }
 }

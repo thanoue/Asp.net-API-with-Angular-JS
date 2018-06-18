@@ -18,7 +18,8 @@
 
     <link href="~/Assets/admin/css/_all-skins.css" rel="stylesheet" />
     <link href="~/Assets/admin/css/custom.css" rel="stylesheet" />
-
+    <link href="~/Assets/admin/css/bootstrap-tagsinput-typeahead.css" rel="stylesheet" />
+    <link href="~/Assets/admin/css/bootstrap-tagsinput.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini" ng-app="khoideptraishop" ng-controller="rootController">
@@ -34,6 +35,8 @@
     <script src="~/Assets/admin/libs/slimscroll/jquery.slimscroll.js"></script>
     <script src="~/Assets/admin/libs/fastclick/lib/fastclick.js"></script>
     <script src="~/Assets/admin/js/app.min.js"></script>
+    <script src="~/Assets/admin/js/bootstrap-tagsinput.min.js"></script>
+
     <!-- AdminLTE App -->
     @*<script src="../../dist/js/adminlte.min.js"></script>*@
     <script src="~/Assets/admin/js/adminlte.js"></script>
@@ -49,13 +52,14 @@
     <script src="~/Assets/admin/libs/ng-ckeditor/ng-ckeditor.js"></script>
     <script src="~/Assets/admin/libs/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="~/Assets/admin/libs/angular-loading-bar/build/loading-bar.js"></script>
-
+    <script src="~/Assets/admin/libs/checklist-model/checklist-model.js"></script>
 
     <script src="~/app/Shared/modules/khoideptraishop.common.js"></script>
     <script src="~/app/Shared/filters/statusFilter.js"></script>
     <script src="~/app/Shared/services/apiService.js"></script>
 
     <script src="~/app/Shared/directive/pagerDirective.js"></script>
+    <script src="~/app/Shared/directive/asDateDirective.js"></script>
 
     <script src="~/app/Shared/services/notifyService.js"></script>
     <script src="~/app/Shared/services/authData.js"></script>
@@ -65,6 +69,9 @@
 
     <script src="~/app/components/product/products.module.js"></script>
     <script src="~/app/components/product_category/productCategory.module.js"></script>
+    <script src="~/app/components/application_users/applicationUsers.module.js"></script>
+    <script src="~/app/components/application_roles/applicationRoles.module.js"></script>
+    <script src="~/app/components/application_groups/applicationGroups.module.js"></script>
     <script src="~/app/app.js"></script>
     <script src="~/app/components/home/rootController.js"></script>
     <script src="~/app/components/home/homeController.js"></script>
@@ -75,5 +82,17 @@
     <script src="~/app/components/product/productEditController.js"></script>
     <script src="~/app/components/product_category/productCategoryListController.js"></script>
     <script src="~/app/components/product_category/productCategoryEditController.js"></script>
+
+    <script src="~/app/components/application_groups/applicationGroupListController.js"></script>
+    <script src="~/app/components/application_groups/applicationGroupEditController.js"></script>
+    <script src="~/app/components/application_groups/applicationGroupAddController.js"></script>
+
+    <script src="~/app/components/application_roles/applicationRoleAddController.js"></script>
+    <script src="~/app/components/application_roles/applicationRoleEditController.js"></script>
+    <script src="~/app/components/application_roles/applicationRoleListController.js"></script>
+
+    <script src="~/app/components/application_users/applicationUserAddController.js"></script>
+    <script src="~/app/components/application_users/applicationUserEditController.js"></script>
+    <script src="~/app/components/application_users/applicationUserListController.js"></script>
 </body>
 </html>

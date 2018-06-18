@@ -3,15 +3,41 @@
     $('body').on('click', '.rating-badge', applyRatingFilter);
     $('body').on('click', '.pageIndex', choosePage);
     $('body').on('change', '.discountFilterCheckbox', applyDiscountFilter);
+    $('body').on('click', '.custom-option', productTypeChange);
+
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "8000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
 });
+
 const filterType = {
     priceRange: 'Filter by Price Range',
     discountRange: 'Filter by Discount Range',
     ratingRange: 'Filter by Rating Average',
-    tagRange: 'Filter by Tag Area'
+    tagRange: 'Filter by Tag Area',
+    none :'not chosen yet'
 };
 
-var currentFilterType; var minDiscountFilter = 0; var maxDiscountFilter = 0;
+var currentFilterType = filterType.none; var minDiscountFilter = 0; var maxDiscountFilter = 0;
+
+function productTypeChange() {
+    let categporyId = $(this).data('value');
+    window.location = '/danhsach-sanpham-' + categporyId;
+}
 
 function getCurrentCategoryId() {
     let categoryIdString = $('#categoryId').val();
@@ -107,6 +133,17 @@ function choosePage() {
                 }
             })
             break;
+        case filterType.none:
+            $.ajax({
+                type: 'GET',
+                data: {categoryId: getCurrentCategoryId(), page: page },
+                url: '/Product/GetCategoryProductListPaging',
+                success: function (result) {
+                    $('#loadingimage').hide();
+                    $('#mainPanel').html(result);
+                }
+            })
+            break;
         default:
             break;
     }
@@ -114,3 +151,6 @@ function choosePage() {
 
 
 }
+
+
+

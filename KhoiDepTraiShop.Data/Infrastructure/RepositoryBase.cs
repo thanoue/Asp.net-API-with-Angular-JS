@@ -125,11 +125,10 @@ namespace KhoiDepTraiShop.Data.Infrastructure
             else
             {
                 _resetSet = predicate != null ? dataContext.Set<T>().Where<T>(predicate).AsQueryable() : dataContext.Set<T>().AsQueryable();
-            }
+            }          
 
-            _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
             total = _resetSet.Count();
-            return _resetSet.AsQueryable();
+            return _resetSet.AsQueryable().Skip((index-1)*size).Take(size);
         }
 
         public bool CheckContains(Expression<Func<T, bool>> predicate)

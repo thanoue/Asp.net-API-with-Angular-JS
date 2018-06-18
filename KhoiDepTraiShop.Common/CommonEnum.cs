@@ -16,4 +16,17 @@ namespace KhoiDepTraiShop.Common
         Public,
         Deleted
     }
+
+    public enum TagType
+    {
+        Product =0,
+        Post
+    }
+
+    public enum FeedBackStatus
+    {
+        Wating =0,
+        Seen,
+        Responsed
+    }
 }

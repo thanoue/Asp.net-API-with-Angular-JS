@@ -1,0 +1,123 @@
+﻿@using KhoiDepTraiShop.Web.Models;
+@using KhoiDepTraiShop.Web.Commons;
+@model IList<CartItemViewModel>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Giỏ hàng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="main-mailposi">
+            <span class="fa fa-shopping-cart" aria-hidden="true"></span>
+        </div>
+        <div class="container">
+            @{
+                decimal total = 0;
+                if (Model.Count() <= 0)
+                {
+                    <h2>Chưa có sản phẩm nào trong giỏ,  </h2>
+                }
+                else
+                {
+                    <div class="bs-docs-example" style="width:75%;">
+                        <div class="table-wrapper-2">
+                            <table class="table table table-responsive-md">
+                                <thead class="mdb-color lighten-4">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Đơn giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Tổng tiền</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count(); i++)
+                                    {
+                                        var item = Model[i];
+                                        total += item.SubTotal;
+                                        <tr class="cartItem" data-item-id="@item.ProductId">
+                                            <th scope="row">@(i + 1)</th>
+                                            <td>
+                                                <div class="col-lg-12 row">
+                                                    <div class="col-lg-6">
+                                                        <img style="height:110px;width:110px;" src="@item.ProductImage" />
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="row">
+                                                            <span style="font-size:20px;">@item.ProductName</span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <span style="font-style:italic">@item.AddToCartTime</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
+                                            <td>@Html.DisplayFor(p=>item.Price)</td>
+                                            <td>@item.Quantity.Value</td>
+                                            <td>@Html.DisplayFor(p=>item.SubTotal)</td>
+                                            <td style="width:13%;"><button class="btn-sm btn-danger btn-delete-cart-item btn-delete-cartItem" data-item-id="@item.ProductId"><i class="fa fa-trash"></i></button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-xs-3" style="text-align:left">
+                <span>Tổng tiền : </span> <span class="badge badge-danger rating-badge" style="margin-left:10px;font-size:20px;"> @Html.Partial(PartialConstCommon.VNCurrency, total)</span>
+            </div>
+            <div class="col-xs-9" style="text-align:right">
+                <button type="button" id="btnSaveChange" class="btn btn-secondary hidden" style="width:20%">Lưu thay đổi</button>
+                <button type="button" id="goToCheckOutBtn" class="btn btn-secondary" data-dismiss="modal" style="width:40%">Tiến hành thanh toán</button>
+                <button type="button" id="closeCartBtn" class="btn-cancel btn-secondary" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+    .controls .formalInputText {
+        width: 100%;
+        font-size: 20px;
+        letter-spacing: 1px;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #FF5722;
+        /* -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31); */
+        -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+    }
+
+    .formalInputTextArea {
+        width: 100%;
+        height: 200px;
+        font-size: 15px;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        resize: none;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #FF5722;
+        border-left: 1px solid #FF5722;
+        /* -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31); */
+        -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+    }
+</style>

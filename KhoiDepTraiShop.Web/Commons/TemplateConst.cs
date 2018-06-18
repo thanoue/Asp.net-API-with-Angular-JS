@@ -5,8 +5,19 @@ using System.Web;
 
 namespace KhoiDepTraiShop.Web.Commons
 {
-    public static class TemplateConst
+    public class TemplateConst
     {
-        public static string VNCurrencyDisPlay = "VNCurrency";
+        public const string VNCurrencyDisPlay = "VNCurrency";
+        public const string RatingStarDisplay = "RatingScore";
+        public const string SpecialProductListPartial = "SpecialProductListPartial";
+
+        private const string HTMLTemplates = "/Assets/Client/Templates/";
+        public const string UserValidationMail = HTMLTemplates + "UserValidatitonTemplate.html";
+
+    }
+
+    public class SessionConst
+    {
+        public const string CART_ITEMS = "**CART_ITEMS**";
     }
 }

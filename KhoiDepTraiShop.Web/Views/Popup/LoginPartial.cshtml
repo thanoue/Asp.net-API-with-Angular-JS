@@ -1,0 +1,49 @@
+﻿@using KhoiDepTraiShop.Web.Models;
+@using KhoiDepTraiShop.Web.Commons;
+@model LoginViewModel
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body modal-body-sub_agile">
+        <div class="main-mailposi">
+            <span class="fa fa-envelope-o" aria-hidden="true"></span>
+        </div>
+        <div class="modal_body_left modal_body_left1">
+            <h3 class="agileinfo_sign">Đăng nhâp </h3>
+            <p>
+                Nếu chưa có tài khoản tại hệ thống,
+                <a href="#" data-toggle="modal" data-target="#signUpDiaglog" style="position:relative;z-index:9000;">
+                    Đăng ký ngay!
+                </a>
+            </p>
+            <form action="Login" method="post">
+                @Html.ValidationSummary()
+                @Html.AntiForgeryToken()
+                <div class="styled-input">
+                    @Html.TextBoxFor(p => p.UserName, new { @placeholder = "Tên đăng nhập..." })
+                    @Html.ValidationMessageFor(model => model.UserName)
+                </div>
+                <div class="styled-input">
+                    @Html.PasswordFor(p => p.Password, new { @placeholder = "Mật khẩu..." })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+                <div class="styled-input" >
+                    @Html.CheckBoxFor(p => p.RememberMe)
+                    <span>Ghi nhớ đăng nhập</span>
+                </div>
+                <div class="styled-input hidden" id="cridentalCodePanel">
+                    @Html.TextBoxFor(p => p.CridentialCode, new { @placeholder = "Mã xác thực..." })
+
+                </div>
+                <div class="clearfix"></div>
+                <button type="button" id="loginBtn" class="btn btn-secondary" style="margin-top:5px;">Đăng nhập</button>
+            </form>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

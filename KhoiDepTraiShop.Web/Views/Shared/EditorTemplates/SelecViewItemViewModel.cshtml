@@ -1,0 +1,32 @@
+﻿@using KhoiDepTraiShop.Web.Models.RazorTemplateModel;
+@model SelectViewItemViewModel
+
+@{
+    if (Model.TitleConfirm != null && Model.MessageConfirm != null)
+    {
+        ViewData.Add("data-titleConfirm", Model.TitleConfirm);
+        ViewData.Add("data-messageConfirm", Model.MessageConfirm);
+
+    }
+
+    var id = ViewData["id"];
+    if (!String.IsNullOrWhiteSpace(Model.Name))
+    {
+        ViewData["id"] = Model.Name;
+        id = Model.Name;
+    }
+    ViewData["class"] = "custom-select sources";
+    ViewData["placeholder"] = Model.DefaultOption;
+    var dropDownProperties = new ViewDataDictionary(ViewData);
+
+}
+@for (var i = 0; i < Model.ListData.Count(); i++)
+{
+    @Html.HiddenFor(p => p.ListData[i].IdString, new { Id = id + "[" + i + "].IdString" })
+    @Html.HiddenFor(p => p.ListData[i].Name, new { Id = id + "[" + i + "].Name" })
+}
+<div class="center">
+
+    @Html.DropDownListFor(p => p.Selected, new SelectList(Model.ListData, "IdString", "Name"), Model.DefaultOption, dropDownProperties)
+</div>
+

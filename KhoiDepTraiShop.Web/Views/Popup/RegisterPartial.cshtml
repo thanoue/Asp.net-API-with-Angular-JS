@@ -1,0 +1,81 @@
+﻿@using KhoiDepTraiShop.Web.Models;
+@using KhoiDepTraiShop.Web.Commons;
+@model RegisterViewModel
+@using CaptchaMvc.HtmlHelpers;
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body modal-body-sub_agile">
+        <div class="main-mailposi">
+            <span class="fa fa-vcard-o" aria-hidden="true"></span>
+        </div>
+        <div class="modal_body_left modal_body_left1">
+            <h3 class="agileinfo_sign" style="position:relative;z-index:9000;">Đăng ký tài khoản</h3>
+
+            <form action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <div class="styled-input">
+                    @Html.TextBoxFor(p => p.UserName, new { @placeholder = "Tên đăng nhập..." })
+                    @Html.ValidationMessageFor(model => model.UserName)
+                    @{
+                        if (ViewData["UserError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Lỗi! </strong> @ViewData["UserError"].ToString()
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="styled-input">
+                    @Html.PasswordFor(p => p.Password, new { @placeholder = "Mật khẩu..." })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+                <div class="styled-input">
+                    @Html.PasswordFor(p => p.RetypePassword, new { @placeholder = "Nhập lại mật khẩu..." })
+                    @Html.ValidationMessageFor(model => model.RetypePassword)
+                </div>
+                <div class="styled-input agile-styled-input-top">
+                    @Html.TextBoxFor(p => p.FullName, new { @placeholder = "Tên đầy đủ..." })
+                    @Html.ValidationMessageFor(model => model.FullName)
+                </div>
+                <div class="styled-input">
+                    @Html.TextBoxFor(p => p.PhoneNumber, new { @placeholder = "Số điện thoại" })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber)
+                </div>
+                <div class="styled-input">
+                    @Html.TextBoxFor(p => p.Email, new { @placeholder = "Email..." })
+                    @Html.ValidationMessageFor(model => model.Email)
+                    @{
+                        if (ViewData["EmailError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Lỗi! </strong> @ViewData["EmailError"].ToString()
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="styled-input">
+                    @Html.TextBoxFor(p => p.Address, new { @placeholder = "Địa chỉ" })
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+                <div>
+                    @Html.Captcha(5)
+                    @{
+                        if (ViewData["CatchaError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Lỗi! </strong> @ViewData["CatchaError"].ToString()
+                            </div>
+                        }
+                    }
+                </div>
+                <button type="button" id="registerBtn" class="btn btn-secondary">Đăng ký</button>
+            </form>
+            <p>
+                <a href="#">Điều khoản của chúng tôi</a>
+            </p>
+        </div>
+    </div>
+</div>

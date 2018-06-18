@@ -44,6 +44,8 @@
     <Compile Include="CommonConstants.cs" />
     <Compile Include="CommonEnum.cs" />
     <Compile Include="ConfigUtility.cs" />
+    <Compile Include="Exeptions\NameDuplicatedExeption.cs" />
+    <Compile Include="MailUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringUtility.cs" />
   </ItemGroup>

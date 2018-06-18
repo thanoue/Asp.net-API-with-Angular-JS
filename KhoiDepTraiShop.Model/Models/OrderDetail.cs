@@ -14,7 +14,10 @@ namespace KhoiDepTraiShop.Model.Models
         [Column(Order = 2)]
         public int ProductId { set; get; }
 
-        public int Quantitty { set; get; }
+        public int Quantity { set; get; }
+
+        [Required]
+        public decimal Price { set; get; }
 
         [ForeignKey("OrderId")]
 

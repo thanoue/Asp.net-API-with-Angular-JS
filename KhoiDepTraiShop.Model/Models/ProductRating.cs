@@ -7,33 +7,43 @@ namespace KhoiDepTraiShop.Model.Models
     [Table("ProductRatings")]
     public class ProductRating
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { set; get; }
 
-        public DateTime? RatingTime { set; get; }
+
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int Id { set; get; }
 
         [Required]
-        public int ProductId { get; set; }
+        public int RatedProductId { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public DateTime? RatingTime { set; get; }
 
         [MaxLength(1000)]
         [MinLength(15)]
         [Required]
         public string RatingContent { set; get; }
 
+        [MaxLength(30)]
+        public string RatingTitle { set; get; }
+
         public int? RatingScore { set; get; }
 
-        [Required]
-        public string RatingPeopleName { set; get;}
-
-        
         public DateTime? PublicDate { set; get; }
 
         [Required]
         public ProductRatingStatus Status { get; set; }
 
-        [ForeignKey("ProductId")]
-        public virtual Product Product { set; get; }
+        [ForeignKey("RatedProductId")]
+        public virtual  Product Product { set; get; }
+
+
+
 
     }
 }

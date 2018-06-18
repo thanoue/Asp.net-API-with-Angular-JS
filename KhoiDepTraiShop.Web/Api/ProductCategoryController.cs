@@ -11,6 +11,7 @@ using KhoiDepTraiShop.Web.Infrastructure.Extensions;
 using System.Linq;
 using System;
 using System.Web.Script.Serialization;
+using Microsoft.AspNet.Identity;
 
 namespace KhoiDepTraiShop.Web.Api
 {

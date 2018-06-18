@@ -26,6 +26,10 @@ namespace KhoiDepTraiShop.Service
         IEnumerable<Product> GetFilterByPrice(decimal min, decimal max, int? categoryId);
         IEnumerable<Product> GetPriceFilterByPriceRangeProductPaging(decimal minPrice, decimal maxPrice, int? categoryId, int page, int pageSize, out int totalRow);
         IEnumerable<Product> GetPriceFilterByDiscountRangeProductPaging(decimal minDiscount, decimal maxDiscount, int? categoryId, int page, int pageSize, out int totalRow);
+        IEnumerable<Product> GetRelativePrducts(Product product);
+        IEnumerable<Tag> GetTagListByProductId(int productId);
+        IEnumerable<Product> GetProductListByTag(string tagId, int page, int pageSize, out int totalRow);
+        void IncreaseViewCount(int productId);
         void SaveChanges();
     }
     public class ProductService : IProductService
@@ -58,7 +62,7 @@ namespace KhoiDepTraiShop.Service
                         Tag tag = new Tag();
                         tag.Id = tagId;
                         tag.Name = tags[i];
-                        tag.Type = CommonConstants.ProductTag;
+                       tag.Type = TagType.Product;
                         _tagRepository.Add(tag);
                     }
 
@@ -104,7 +108,10 @@ namespace KhoiDepTraiShop.Service
 
         public IEnumerable<Product> GetAllByCategoryPaging(int categoryId, int page, int pagesize, out int totalrow)
         {
-            return _productRepository.GetMultiPaging(x => x.Status && x.CategoryId == categoryId, out totalrow, page, pagesize, new string[] { "ProductCategory" });
+            var products = _productRepository.GetAll().Where(p => p.CategoryId == categoryId).ToList();
+            totalrow = products.Count();
+            return products.Skip((page - 1) * pagesize).Take(pagesize);
+            //return _productRepository.GetMultiPaging(x => x.Status && x.CategoryId == categoryId, out totalrow, page, pagesize, new string[] { "ProductCategory" });
         }
 
         public IEnumerable<Product> GetAllByTagPaging(string tag, int page, int pagesize, out int totalrow)
@@ -161,6 +168,7 @@ namespace KhoiDepTraiShop.Service
         {
             _unitOfWork.Commit();
         }
+
         public void Update(Product product)
         {
 
@@ -175,7 +183,7 @@ namespace KhoiDepTraiShop.Service
                         Tag tag = new Tag();
                         tag.Id = tagId;
                         tag.Name = tags[i];
-                        tag.Type = CommonConstants.ProductTag;
+                        tag.Type = TagType.Product;
                         _tagRepository.Add(tag);
                     }
                     _productTagRepository.DeleteMulti(x => x.ProductId == product.Id);
@@ -211,6 +219,30 @@ namespace KhoiDepTraiShop.Service
             return vm.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
-        
+        public IEnumerable<Product> GetRelativePrducts(Product product)
+        {
+            //TODO relative here
+            var vm = _productRepository.GetMulti(p => p.Status && p.CategoryId == product.CategoryId);
+            return vm.Take(10).ToList();
+        }
+
+        public IEnumerable<Tag> GetTagListByProductId(int productId)
+        {
+            return _productTagRepository.GetMulti(p => p.ProductId == productId, new string[] { "Tag" }).Select(t => t.Tag).ToList();
+        }
+
+        public IEnumerable<Product> GetProductListByTag(string tagId,int page, int pageSize, out int totalRow)
+        {
+           var list =_productTagRepository.GetMulti(x => x.TagId == tagId, new string[] { "Product" }).Select(t => t.Product).ToList();
+            totalRow = list.Count();
+            return list.Skip((page-1)*pageSize).Take(pageSize);
+        }
+
+        public void IncreaseViewCount(int productId)
+        {
+            var product = _productRepository.GetSingleById(productId);
+            product.ViewCount = product.ViewCount!=null ?product.ViewCount +1 : 1;
+            _unitOfWork.Commit();
+        }
     }
 }

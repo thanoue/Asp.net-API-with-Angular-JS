@@ -4,9 +4,9 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+@using Microsoft.AspNet.Identity;
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>SunFood - Thực phẩm cho mọi nhà</title>
     <!--/tags -->
@@ -22,7 +22,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
     </script>
     <!--//tags -->
-    <link href="~/Assets/client/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/client/css/flexslider.css" rel="stylesheet" />
+    <link href="~/Assets/client/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Assets/client/css/style.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/client/css/font-awesome.css" rel="stylesheet">
     <!--pop-up-box-->
@@ -30,6 +31,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--//pop-up-box-->
     <!-- price range -->
     <link rel="stylesheet" type="text/css" href="~/Assets/client/css/jquery-ui1.css">
+    <link href="~/Assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
     <!-- fonts -->
     <link href="~/Assets/client/fonts/googleFonts.css" rel="stylesheet" />
     @*<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">*@
@@ -56,32 +58,63 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <!-- header-bot -->
             <div class="col-md-8 header">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <ul>
+                            @*<li>
+                                    <a class="play-icon popup-with-zoom-anim" href="#small-dialog1">
+                                        <span class="fa fa-map-marker" aria-hidden="true"></span> Shop Locator
+                                    </a>
+                                </li>*@
+                            <li>
+                                <a href="#">
+                                    <span class="fa fa-truck" aria-hidden="true"></span>Theo dõi đơn hàng
+                                </a>
+                            </li>
+                            <li>
+                                <span class="fa fa-phone" aria-hidden="true"></span> 001 234 5678
+                            </li>
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <li>
+                                    <a href="#" id="btnViewSigninPopup">
+                                        <span class="fa fa-unlock-alt" aria-hidden="true"></span>Đăng nhập
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="viewRegisterPopupbtn">
+                                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Đăng ký
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="#" id="btnViewUserProfile">
+                                        <span class="fa fa-user" aria-hidden="true"></span> @User.Identity.GetUserName()
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="bntLogOut">
+                                        <span class="fa fa-unlock-alt" aria-hidden="true"></span> Đăng xuất
+                                    </a>
+                                </li>
+                            }
+
+
+                        </ul>
+                    </div>
+                    <div class="col-xs-2">
+                        <div style="height:50px;width:50px;">
+                            <div id="smallLoading" style="display:none;text-align:center;margin-left:-240px;margin-top:-5px;height:100%;width:100%">
+                                <img src="~/Assets/client/images/stuffs/Spinner-1s-46px.gif" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- header lists -->
-                <ul>
-                    <li>
-                        <a class="play-icon popup-with-zoom-anim" href="#small-dialog1">
-                            <span class="fa fa-map-marker" aria-hidden="true"></span> Shop Locator
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#signInDiaglog">
-                            <span class="fa fa-truck" aria-hidden="true"></span>Track Order
-                        </a>
-                    </li>
-                    <li>
-                        <span class="fa fa-phone" aria-hidden="true"></span> 001 234 5678
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#signInDiaglog">
-                            <span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#signUpDiaglog">
-                            <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up
-                        </a>
-                    </li>
-                </ul>
+
+               
                 <!-- //header lists -->
                 <!-- search -->
                 <div class="agileits_search">
@@ -96,7 +129,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <!-- cart details -->
                 <div class="top_nav_right">
                     <div class="wthreecartaits wthreecartaits2 cart cart box_1">
-                        <button class="w3view-cart" type="button" data-toggle="modal" data-target="#shoppingCartDiaglog">
+                        <button class="w3view-cart" type="button" id="viewCartbn">
                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                         </button>
 
@@ -113,103 +146,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- //shop locator (popup) -->
     <!-- signin Model -->
 
-    <div class="modal fade" id="signInDiaglog" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" id="loginPopup">
             <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body modal-body-sub_agile">
-                    <div class="main-mailposi">
-                        <span class="fa fa-envelope-o" aria-hidden="true"></span>
-                    </div>
-                    <div class="modal_body_left modal_body_left1">
-                        <h3 class="agileinfo_sign">Sign In </h3>
-                        <p>
-                            Sign In now, Let's start your Grocery Shopping. Don't have an account?
-                            <a href="#" data-toggle="modal" data-target="#signUpDiaglog">
-                                Sign Up Now
-                            </a>
-                        </p>
-                        <div class="styled-input agile-styled-input-top">
-                            <input type="text" placeholder="User Name" name="Name" required="">
-                        </div>
-                        <div class="styled-input">
-                            <input type="password" placeholder="Password" name="password" required="">
-                        </div>
-                        <input type="submit" value="Sign In">
-
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
             <!-- //Modal content-->
         </div>
     </div>
 
     <!-- //signin Model -->
-    <!-- cart Model -->
-    <div class="modal fade" id="shoppingCartDiaglog" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body modal-body-sub_agile">
-                    <div class="row">
-                        <div class="modal_body_left ">
-                            <h3>Shopping Cart</h3>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <!-- //Modal content-->
+
+    <div class="modal fade bd-example-modal-lg" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" id="cartPopup">
+
         </div>
     </div>
     <!-- //cart Model -->
     <!-- signup Model -->
 
-    <div class="modal fade" id="signUpDiaglog" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" id="signUpPopup">
             <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body modal-body-sub_agile">
-                    <div class="main-mailposi">
-                        <span class="fa fa-envelope-o" aria-hidden="true"></span>
-                    </div>
-                    <div class="modal_body_left modal_body_left1">
-                        <h3 class="agileinfo_sign">Sign Up</h3>
-                        <p>
-                            Come join the Grocery Shoppy! Let's set up your Account.
-                        </p>
-                        <form action="#" method="post">
-                            <div class="styled-input agile-styled-input-top">
-                                <input type="text" placeholder="Name" name="Name" required="">
-                            </div>
-                            <div class="styled-input">
-                                <input type="email" placeholder="E-mail" name="Email" required="">
-                            </div>
-                            <div class="styled-input">
-                                <input type="password" placeholder="Password" name="password" id="password1" required="">
-                            </div>
-                            <div class="styled-input">
-                                <input type="password" placeholder="Confirm Password" name="Confirm Password" id="password2" required="">
-                            </div>
-                            <input type="submit" value="Sign Up">
-                        </form>
-                        <p>
-                            <a href="#">By clicking register, I agree to your terms</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
             <!-- //Modal content-->
         </div>
     </div>
@@ -219,24 +175,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- navigation -->
     <div class="ban-top">
         <div class="container">
-            <div class="agileits-navi_search">
-                <form action="#" method="post">
-                    <select id="agileinfo-nav_search" name="agileinfo_search" required="">
-                        <option value="">All Categories</option>
-                        <option value="Kitchen">Kitchen</option>
-                        <option value="Household">Household</option>
-                        <option value="Snacks &amp; Beverages">Snacks & Beverages</option>
-                        <option value="Personal Care">Personal Care</option>
-                        <option value="Gift Hampers">Gift Hampers</option>
-                        <option value="Fruits &amp; Vegetables">Fruits & Vegetables</option>
-                        <option value="Baby Care">Baby Care</option>
-                        <option value="Soft Drinks &amp; Juices">Soft Drinks & Juices</option>
-                        <option value="Frozen Food">Frozen Food</option>
-                        <option value="Bread &amp; Bakery">Bread & Bakery</option>
-                        <option value="Sweets">Sweets</option>
-                    </select>
-                </form>
-            </div>
+            @{Html.RenderAction("GetCategorySelectView", "Static");}
             <div class="top_nav_left">
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
@@ -254,13 +193,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav menu__list">
                                 <li class="active">
-                                    <a class="nav-stylehead" href="index.html">
+                                    <a class="nav-stylehead" href="/Home/Index">
                                         Home
-                                        <span class="sr-only">(current)</span>
+
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a class="nav-stylehead" href="about.html">About Us</a>
+                                    <a class="nav-stylehead" href="/gioi-thieu.html">About Us</a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -405,7 +344,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </ul>
                                 </li>
                                 <li class="">
-                                    <a class="nav-stylehead" href="contact.html">Contact</a>
+                                    <a class="nav-stylehead" href="/lien-he">Liên hệ</a>
                                 </li>
                             </ul>
                         </div>
@@ -782,107 +721,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <!-- //footer fourth section (text) -->
         </div>
     </footer>
-    <!-- //footer -->
-    <!-- copyright -->
-    <!-- //copyright -->
-    <!-- js-files -->
-    <!-- jquery -->
     <script src="~/Assets/client/js/jquery-2.1.4.min.js"></script>
-    <!-- //jquery -->
-    <!-- popup modal (for signin & signup)-->
-    <script src="~/Assets/client/js/jquery.magnific-popup.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.popup-with-zoom-anim').magnificPopup({
-                type: 'inline',
-                fixedContentPos: false,
-                fixedBgPos: true,
-                overflowY: 'auto',
-                closeBtnInside: true,
-                preloader: false,
-                midClick: true,
-                removalDelay: 100,
-                mainClass: 'my-mfp-zoom-in'
-            });
-
-        });
-    </script>
-    <!-- Large modal -->
-    <!-- <script>
-        $('#').modal('show');
-    </script> -->
-    <!-- //popup modal (for signin & signup)-->
-    <!-- cart-js -->
-    <!-- //cart-js -->
-    <!-- price range (top products) -->
-    <script src="~/Assets/client/js/jquery-ui.js"></script>
-    <script>
-        //<![CDATA[
-        $(window).load(function () {
-            $("#slider-range").slider({
-                range: true,
-                min: 0,
-                max: 1000000,
-                values: [50000, 500000],
-                slide: function (event, ui) {
-                    $("#amount").val(ui.values[0] + "₫" + " - " + ui.values[1] + "₫");
-                }
-            });
-            $("#amount").val($("#slider-range").slider("values", 0) + "₫" + " - " + $("#slider-range").slider("values", 1) + "₫");
-
-        }); //]]>
-    </script>
-
-    <!-- //price range (top products) -->
-    <!-- flexisel (for special offers) -->
-    <script src="~/Assets/client/js/jquery.flexisel.js"></script>
-    <script>
-        $(window).load(function () {
-            $("#flexiselDemo1").flexisel({
-                visibleItems: 3,
-                animationSpeed: 1000,
-                autoPlay: true,
-                autoPlaySpeed: 3000,
-                pauseOnHover: true,
-                enableResponsiveBreakpoints: true,
-                responsiveBreakpoints: {
-                    portrait: {
-                        changePoint: 480,
-                        visibleItems: 1
-                    },
-                    landscape: {
-                        changePoint: 640,
-                        visibleItems: 2
-                    },
-                    tablet: {
-                        changePoint: 768,
-                        visibleItems: 2
-                    }
-                }
-            });
-
-        });
-    </script>
-    <!-- //flexisel (for special offers) -->
-    <!-- password-script -->
-    <script>
-        window.onload = function () {
-            document.getElementById("password1").onchange = validatePassword;
-            document.getElementById("password2").onchange = validatePassword;
-        }
-
-        function validatePassword() {
-            var pass2 = document.getElementById("password2").value;
-            var pass1 = document.getElementById("password1").value;
-            if (pass1 != pass2)
-                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-            else
-                document.getElementById("password2").setCustomValidity('');
-            //empty string means no validation error
-        }
-    </script>
-    <!-- //password-script -->
-    <!-- smoothscroll -->
     <script src="~/Assets/client/js/SmoothScroll.min.js"></script>
     <!-- //smoothscroll -->
     <!-- start-smooth-scrolling -->
@@ -917,13 +756,115 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         });
     </script>
+    <!-- //footer -->
+    <!-- copyright -->
+    <!-- //copyright -->
+    <!-- js-files -->
+    <!-- jquery -->
+    <!-- //jquery -->
+    <!-- popup modal (for signin & signup)-->
+    <script src="~/Assets/client/js/jquery.magnific-popup.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.popup-with-zoom-anim').magnificPopup({
+                type: 'inline',
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeBtnInside: true,
+                preloader: false,
+                midClick: true,
+                removalDelay: 100,
+                mainClass: 'my-mfp-zoom-in'
+            });
+
+        });
+    </script>
+    <!-- Large modal -->
+    <!-- <script>
+        $('#').modal('show');
+    </script> -->
+    <!-- //popup modal (for signin & signup)-->
+    <!-- cart-js -->
+    <!-- //cart-js -->
+    <!-- price range (top products) -->
+    <script src="~/Assets/client/js/jquery-ui.js"></script>
+
+    <script>
+        //<![CDATA[
+        $(window).load(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 1000000,
+                values: [50000, 500000],
+                slide: function (event, ui) {
+                    $("#amount").val(ui.values[0] + "₫" + " - " + ui.values[1] + "₫");
+                }
+            });
+            $("#amount").val($("#slider-range").slider("values", 0) + "₫" + " - " + $("#slider-range").slider("values", 1) + "₫");
+
+        }); //]]>
+    </script>
+    <script src="~/Assets/client/js/imagezoom.js"></script>
+    <script src="~/Assets/client/js/jquery.flexslider.js"></script>
+    <script>
+        // Can also be used with $(document).ready()
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+
+    <!-- //price range (top products) -->
+    <!-- flexisel (for special offers) -->
+    <script src="~/Assets/client/js/jquery.flexisel.js"></script>
+    <script>
+        $(window).load(function () {
+            $("#flexiselDemo1").flexisel({
+                visibleItems: 3,
+                animationSpeed: 1000,
+                autoPlay: true,
+                autoPlaySpeed: 3000,
+                pauseOnHover: true,
+                enableResponsiveBreakpoints: true,
+                responsiveBreakpoints: {
+                    portrait: {
+                        changePoint: 480,
+                        visibleItems: 1
+                    },
+                    landscape: {
+                        changePoint: 640,
+                        visibleItems: 2
+                    },
+                    tablet: {
+                        changePoint: 768,
+                        visibleItems: 2
+                    }
+                }
+            });
+
+        });
+    </script>
+    <!-- //flexisel (for special offers) -->
+    <!-- password-script -->
+    <!-- //password-script -->
+    <!-- smoothscroll -->
     <!-- //smooth-scrolling-of-move-up -->
     <!-- for bootstrap working -->
     <script src="~/Assets/client/js/bootstrap.js"></script>
+    <script src="~/Assets/admin/libs/toastr/toastr.js"></script>
     <!-- //for bootstrap working -->
     <!-- //js-files -->
+    <script src="~/Assets/client/js/viewsJS/SelectView.js"></script>
     <script src="~/Assets/client/js/viewsJS/Filter.js"></script>
-
+    <script src="~/Assets/client/js/minicart.js"></script>
+    <script src="~/Assets/client/js/viewsJS/CartView.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="~/Assets/client/js/viewsJS/Account.js"></script>
 </body>
 
 </html>

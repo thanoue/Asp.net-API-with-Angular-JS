@@ -89,7 +89,6 @@
     <div class="container">
         <!-- tittle heading -->
         <h3 class="tittle-w3l">
-
             <span class="heading-style">
                 <i></i>
                 <i></i>
@@ -154,7 +153,7 @@
 </div>
 <!-- //top products -->
 <!-- special offers -->
-@Html.Partial(PartialConstCommon.SpecialProductPartial, Model.HotProducts)
+@Html.EditorFor(p=>Model.HotProducts,new { @title = "Sản phẩm đang được quan tâm"})
 
 
 <!-- //special offers -->

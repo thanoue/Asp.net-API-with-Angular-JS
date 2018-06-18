@@ -1,0 +1,140 @@
+﻿@using KhoiDepTraiShop.Web.Models;
+@using KhoiDepTraiShop.Web.Commons;
+@model CheckOutViewModel
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-head_agile_info_w3l">
+
+</div>
+<!-- //banner-2 -->
+<!-- page -->
+<div class="services-breadcrumb">
+    <div class="agile_inner_breadcrumb">
+        <div class="container">
+            <ul class="w3_short">
+                <li>
+                    <a href="index.html">Home</a>
+                    <i>|</i>
+                </li>
+                <li>Chi tiết giỏ hàng</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- //page -->
+<!-- checkout page -->
+<div class="privacy">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Chi tiết giỏ hàng
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <div class="checkout-right">
+            <h4>
+                Giỏ hàng của bạn bao gồm:
+                <span>@Model.CartItemViewModels.Count SP</span>
+            </h4>
+            <h4>
+                Tổng tiền :
+                <span class="badge badge-danger rating-badge totalOfCart" style="margin-left:10px;font-size:20px;"> @Html.Partial(PartialConstCommon.VNCurrency, Model.CartItemViewModels.Select(p => p.SubTotal).Sum())</span>
+
+            </h4>
+            <div class="row" style="text-align:right;">
+                <div class="col-xs-12">
+                    <button class="check_out submit hidden saveChange" style="padding:6px 10px;align-self:stretch;margin-bottom:5px;">Lưu thay đổi</button>
+                    <button class="check_out submit hidden cancelChange" style="padding:6px 10px;align-self:stretch;margin-bottom:5px;background-color:#d9534f">Hoàn tác</button>
+                </div>            
+            </div>        
+            <div class="table-responsive">
+                <table class="timetable_sub">
+                    <thead>
+                        <tr>
+                            <th>SL No.</th>
+                            <th>Hình ảnh </th>
+                            <th>Tên sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.CartItemViewModels.Count; i++)
+                        {
+                            var item = Model.CartItemViewModels[i];
+                            var url = "/" + "chitiet-sanpham-" + item.ProductId;
+                            <tr class="rem1">
+                                <td class="invert">@(i + 1)</td>
+                                <td class="invert-image">
+                                    <a href="@url">
+                                        <img src="@item.ProductImage" alt=" " class="img-responsive">
+                                    </a>
+                                </td>
+                                <td class="invert">@item.ProductName</td>
+                                <td class="invert price">@Html.DisplayFor(p => item.Price)</td>
+                                <td class="invert" style="text-align:center;">@Html.EditorFor(p => item.Quantity)</td>
+                                <td class="invert subTotal">@Html.DisplayFor(p => item.SubTotal)</td>
+                                <td style="width:13%;"><button class="btn-sm btn-danger btn-delete-cart-item btn-delete-cartItem" data-item-id="@item.ProductId"><i class="fa fa-trash"></i></button></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="checkout-left">
+            <div class="address_form_agile">
+                <h4>Thông tin người mua hàng</h4>
+                <form action="CheckOut" method="post" class="creditly-card-form agileinfo_form">
+                    @Html.ValidationSummary()                 
+                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                        <div class="information-wrapper">
+                            <div class="first-row">
+                                @Html.HiddenFor(p=>p.CurrentUser.Id)
+                                <div class="controls">
+                                    @Html.TextBoxFor(p => p.CurrentUser.FullName, new { @class = "billing-address-name", @placeholder = "Tên người nhận..." })
+                                    @Html.ValidationMessageFor(model => model.CurrentUser.FullName)
+                                </div>
+                                <div class="controls">
+                                    @Html.TextBoxFor(p => p.CurrentUser.Address, new { @class = "billing-address-name", @placeholder = "Địa chỉ giao hàng..." })  
+                                    @Html.ValidationMessageFor(model => model.CurrentUser.Address)
+                                </div>
+
+                                <div class="controls">
+                                    @Html.TextBoxFor(p => p.CurrentUser.PhoneNumber, new { @class = "billing-address-name", @placeholder = "Số điện thoại người nhận..." })
+                                    @Html.ValidationMessageFor(model => model.CurrentUser.PhoneNumber)
+
+                                </div>
+                                <div class="controls">
+                                    @Html.TextBoxFor(p => p.CurrentUser.Email, new { @class = "billing-address-name", @placeholder = "Email người nhận..." })
+                                    @Html.ValidationMessageFor(model => model.CurrentUser.Email)
+                                </div>
+
+                            </div>
+                            <input type="submit"  class="submit" value="Thanh toán"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="checkout-right-basket">
+                    <a href="payment.html">
+                        Thanh toán
+                        <span class="fa fa-hand-o-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<script src="~/Assets/client/js/jquery-2.1.4.min.js"></script>
+<script src="~/Assets/client/js/viewsJS/ProductDetail.js"></script>
+<script src="~/Assets/client/js/viewsJS/CheckOut.js"></script>

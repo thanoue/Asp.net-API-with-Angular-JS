@@ -58,6 +58,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
+    </Reference>
     <Reference Include="CKFinder, Version=2.6.0.2792, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\CKFinder.dll</HintPath>
@@ -103,6 +106,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
@@ -111,6 +117,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.6\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -168,12 +180,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http.WebHost">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
@@ -201,7 +207,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\ApplicationUserController.cs" />
+    <Compile Include="Api\ApplicationRoleController.cs" />
     <Compile Include="Api\HomeController.cs" />
+    <Compile Include="Api\ApplicationGroupController.cs" />
     <Compile Include="Api\ProductCategoryController.cs" />
     <Compile Include="Api\ProductController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -214,26 +223,68 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Commons\TemplateConst.cs" />
     <Compile Include="Commons\PartialConstCommon.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PopupController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\StaticController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
     <Compile Include="Infrastructure\Core\PaginationSet.cs" />
     <Compile Include="Infrastructure\Extensions\EntityExtentions.cs" />
-    <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\Applications\ApplicationGroupViewModel.cs" />
+    <Compile Include="Models\Applications\ApplicationRoleViewModel.cs" />
+    <Compile Include="Models\Applications\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\CartViewModel.cs" />
+    <Compile Include="Models\CategoryDetailViewModel.cs" />
+    <Compile Include="Models\CheckOutViewModel.cs" />
+    <Compile Include="Models\Commons\NumbericUpDown.cs" />
+    <Compile Include="Models\Commons\ViewItemModel.cs" />
+    <Compile Include="Models\ContactDetailViewModel.cs" />
+    <Compile Include="Models\ContactViewModel.cs" />
+    <Compile Include="Models\FeedBackViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ProductCategoryViewModel.cs" />
+    <Compile Include="Models\ProductDetailViewModel.cs" />
+    <Compile Include="Models\ProductListByTagViewModel.cs" />
     <Compile Include="Models\ProductTagViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\RazorTemplateModel\SelectViewItemViewModel.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\TagViewModel.cs" />
+    <Compile Include="Models\UserVIewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\components\application_groups\applicationGroupAddController.js" />
+    <Content Include="app\components\application_groups\applicationGroupAddView.html" />
+    <Content Include="app\components\application_groups\applicationGroupEditController.js" />
+    <Content Include="app\components\application_groups\applicationGroupEditView.html" />
+    <Content Include="app\components\application_groups\applicationGroupListController.js" />
+    <Content Include="app\components\application_groups\applicationGroupListView.html" />
+    <Content Include="app\components\application_groups\applicationGroups.module.js" />
+    <Content Include="app\components\application_roles\applicationRoleAddController.js" />
+    <Content Include="app\components\application_roles\applicationRoleAddView.html" />
+    <Content Include="app\components\application_roles\applicationRoleEditController.js" />
+    <Content Include="app\components\application_roles\applicationRoleEditView.html" />
+    <Content Include="app\components\application_roles\applicationRoleListController.js" />
+    <Content Include="app\components\application_roles\applicationRoleListView.html" />
+    <Content Include="app\components\application_roles\applicationRoles.module.js" />
+    <Content Include="app\components\application_users\applicationUserAddController.js" />
+    <Content Include="app\components\application_users\applicationUserAddView.html" />
+    <Content Include="app\components\application_users\applicationUserEditController.js" />
+    <Content Include="app\components\application_users\applicationUserEditView.html" />
+    <Content Include="app\components\application_users\applicationUserListController.js" />
+    <Content Include="app\components\application_users\applicationUserListView.html" />
+    <Content Include="app\components\application_users\applicationUsers.module.js" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\home\rootController.js" />
@@ -252,6 +303,7 @@
     <Content Include="app\components\product_category\productCategoryEditView.html" />
     <Content Include="app\components\product_category\productCategoryListController.js" />
     <Content Include="app\components\product_category\productCategoryListView.html" />
+    <Content Include="app\Shared\directive\asDateDirective.js" />
     <Content Include="app\Shared\directive\pagerDirective.html" />
     <Content Include="app\Shared\directive\pagerDirective.js" />
     <Content Include="app\Shared\filters\statusFilter.js" />
@@ -272,6 +324,8 @@
     <Content Include="Assets\admin\css\alt\AdminLTE-select2.min.css" />
     <Content Include="Assets\admin\css\alt\AdminLTE-without-plugins.css" />
     <Content Include="Assets\admin\css\alt\AdminLTE-without-plugins.min.css" />
+    <Content Include="Assets\admin\css\bootstrap-tagsinput-typeahead.css" />
+    <Content Include="Assets\admin\css\bootstrap-tagsinput.css" />
     <Content Include="Assets\admin\css\bootstrap.min.css" />
     <Content Include="Assets\admin\css\custom.css" />
     <Content Include="Assets\admin\css\font-awesome.min.css" />
@@ -337,6 +391,7 @@
     <Content Include="Assets\admin\js\adminlte.min.js" />
     <Content Include="Assets\admin\js\app.js" />
     <Content Include="Assets\admin\js\app.min.js" />
+    <Content Include="Assets\admin\js\bootstrap-tagsinput.min.js" />
     <Content Include="Assets\admin\js\bootstrap.min.js" />
     <Content Include="Assets\admin\js\demo.js" />
     <Content Include="Assets\admin\js\pages\dashboard.js" />
@@ -3920,6 +3975,7 @@
     <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
     <Content Include="Assets\client\css\bootstrap.css" />
+    <Content Include="Assets\client\css\bootstrap.min.css" />
     <Content Include="Assets\client\css\creditly.css" />
     <Content Include="Assets\client\css\easy-responsive-tabs.css" />
     <Content Include="Assets\client\css\flexslider.css" />
@@ -4015,9 +4071,12 @@
     <Content Include="Assets\client\images\star1.png" />
     <Content Include="Assets\client\images\star22.png" />
     <Content Include="Assets\client\images\stuffs\peploading.gif" />
+    <Content Include="Assets\client\images\stuffs\slideshow_1.jpg" />
+    <Content Include="Assets\client\images\stuffs\Spinner-1s-46px.gif" />
     <Content Include="Assets\client\images\tab3.png" />
     <Content Include="Assets\client\images\videoimg2.png" />
     <Content Include="Assets\client\js\bootstrap.js" />
+    <Content Include="Assets\client\js\bootstrap.min.js" />
     <Content Include="Assets\client\js\creditly.js" />
     <Content Include="Assets\client\js\easing.js" />
     <Content Include="Assets\client\js\easyResponsiveTabs.js" />
@@ -4029,8 +4088,14 @@
     <Content Include="Assets\client\js\jquery.magnific-popup.js" />
     <Content Include="Assets\client\js\minicart.js" />
     <Content Include="Assets\client\js\move-top.js" />
+    <Content Include="Assets\client\js\viewsJS\CheckOut.js" />
+    <Content Include="Assets\client\js\viewsJS\Account.js" />
+    <Content Include="Assets\client\js\viewsJS\CartView.js" />
+    <Content Include="Assets\client\js\viewsJS\ProductDetail.js" />
     <Content Include="Assets\client\js\SmoothScroll.min.js" />
     <Content Include="Assets\client\js\viewsJS\Filter.js" />
+    <Content Include="Assets\client\js\viewsJS\SelectView.js" />
+    <Content Include="Assets\client\Templates\UserValidatitonTemplate.html" />
     <Content Include="bower_components\angular-loading-bar\build\loading-bar.css" />
     <Content Include="bower_components\angular-loading-bar\build\loading-bar.js" />
     <Content Include="bower_components\angular-loading-bar\build\loading-bar.min.css" />
@@ -4045,6 +4110,8 @@
     <Content Include="bower_components\angular-local-storage\dist\angular-local-storage.js" />
     <Content Include="bower_components\angular-local-storage\dist\angular-local-storage.min.js" />
     <Content Include="bower_components\angular-local-storage\index.js" />
+    <Content Include="Assets\admin\libs\checklist-model\checklist-model.js" />
+    <Content Include="Assets\admin\libs\checklist-model\LICENSE.txt" />
     <Content Include="bower_components\ckeditor\adapters\jquery.js" />
     <Content Include="bower_components\ckeditor\ckeditor.js" />
     <Content Include="bower_components\ckeditor\config.js" />
@@ -6964,7 +7031,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\components\orders\" />
@@ -6976,6 +7045,7 @@
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Assets\admin\libs\checklist-model\test\" />
     <Folder Include="Assets\admin\libs\jquery\external\" />
     <Folder Include="Assets\admin\libs\jquery\src\" />
     <Folder Include="Assets\admin\libs\ngBootbox\dist\" />
@@ -6983,9 +7053,8 @@
     <Folder Include="Assets\admin\libs\ngBootbox\typings\" />
     <Folder Include="Assets\admin\libs\slimscroll\examples\" />
     <Folder Include="UploadFiles\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Product\" />
-    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -7404,7 +7473,7 @@
     <Content Include="Views\Partial\_SmallProductListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Partial\_SpecialProductListPartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SpecialProductListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Partial\_FilterZonePartial.cshtml" />
@@ -7420,6 +7489,50 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Partial\_ProductListNotIncludingPagingPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\RatingScore.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\ProductDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\CategoryDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Static\About.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\SelecViewItemViewModel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Popup\ProductRatingBoxPopup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\NumbericUpDown.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Popup\CartViewPopup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\ProductListByTag.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contact\ContactPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Popup\RegisterPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Popup\LoginPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\CheckOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\checklist-model\.bower.json" />
+    <Content Include="Assets\admin\libs\checklist-model\bower.json" />
+    <Content Include="Assets\admin\libs\checklist-model\readme.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

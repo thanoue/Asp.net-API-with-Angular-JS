@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace KhoiDepTraiShop.Model.Models
 {
     [Table("Products")]
-    public class Product :Auditable
+    public class Product : Auditable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -31,9 +31,10 @@ namespace KhoiDepTraiShop.Model.Models
 
         public decimal Price { set; get; }
 
+        public decimal OriginalPrice { get; set; }
+
         public decimal? PromotionPrice { set; get; }
         public int? Warranty { set; get; }
-
 
         public string Description { set; get; }
 
@@ -43,6 +44,7 @@ namespace KhoiDepTraiShop.Model.Models
         public bool? HotFlag { set; get; }
         public int? ViewCount { set; get; }
         public string Tags { get; set; }
+        public int Quantity { set; get; }
 
         [ForeignKey("CategoryId")]
         public virtual ProductCategory ProductCategory { set; get; }

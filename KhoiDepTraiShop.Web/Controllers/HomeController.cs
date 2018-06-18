@@ -13,16 +13,16 @@ namespace KhoiDepTraiShop.Web.Controllers
     {
         // GET: Home
         IProductCategodyService _productCategoryService;
-        IProductRatingService _productRatingService;
+    //    IProductRatingService _productRatingService;
         IProductService _productService;
         ICommonService _commonService;
 
-        public HomeController(IProductCategodyService productCategodyService, ICommonService commonService,IProductService productService,IProductRatingService productRatingService):base(commonService)
+        public HomeController(IProductCategodyService productCategodyService, ICommonService commonService,IProductService productService/*,IProductRatingService productRatingService*/):base(commonService)
         {
             _productCategoryService = productCategodyService;
             _commonService = commonService;
             _productService = productService;
-            _productRatingService = productRatingService;
+          //  _productRatingService = productRatingService;
         }
 
         public ActionResult Index()
@@ -31,20 +31,21 @@ namespace KhoiDepTraiShop.Web.Controllers
             
             //hot pr
             var hotProducts = _productService.GetAll().ToList().Where(p => p.HotFlag == true).ToList();
-            vm.HotProducts = hotProducts.ToModelList(_productRatingService,_productService.GetMaxProductId());      
+
+            vm.HotProducts = hotProducts.ToModelList(null,_productService.GetMaxProductId());      
 
             //random pr
             var randomPr = _productService.GetAll().OrderBy(r => Guid.NewGuid()).Take(9);
-            vm.RandomProducts = randomPr.ToModelList(_productRatingService,_productService.GetMaxProductId());
+            vm.RandomProducts = randomPr.ToModelList(null,_productService.GetMaxProductId());
 
             var vegetableCategoryList = new List<int>();vegetableCategoryList.Add(1);vegetableCategoryList.Add(2);
             var vegetableProduct = _productService.GetAllByCategoryIds(vegetableCategoryList).OrderBy(r => Guid.NewGuid()).Take(6); 
 
-            vm.CheapVegetableProducts = vegetableProduct.ToModelList(_productRatingService,_productService.GetMaxProductId());
+            vm.CheapVegetableProducts = vegetableProduct.ToModelList(null,_productService.GetMaxProductId());
 
             //high viewCount
             var highViewCountPr = _productService.GetHighViewCountProducts(14500).OrderBy(r => Guid.NewGuid()).Take(6); 
-            vm.HighViewCountProducts = highViewCountPr.ToModelList(_productRatingService,_productService.GetMaxProductId());
+            vm.HighViewCountProducts = highViewCountPr.ToModelList(null,_productService.GetMaxProductId());
             return View(vm);
         }
 
@@ -54,5 +55,7 @@ namespace KhoiDepTraiShop.Web.Controllers
             var vm = model.ToModelList();
             return PartialView(PartialConstCommon.CategoriesPartial,vm);
         }
+
+        
     }
 }

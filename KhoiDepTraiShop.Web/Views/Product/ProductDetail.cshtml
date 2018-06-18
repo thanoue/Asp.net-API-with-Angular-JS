@@ -1,0 +1,147 @@
+﻿
+@model KhoiDepTraiShop.Web.Models.ProductDetailViewModel
+@using KhoiDepTraiShop.Web.Commons;
+@using KhoiDepTraiShop.Web.Models.Commons;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.HiddenFor(p => p.CurrentProduct.Id, new { Id = "productId" })
+
+<div class="container" id="loadingimage" style="z-index:9999;position:absolute;display:none;text-align:center;">
+    <div style="height:200px;width:200px;vertical-align:central;margin-left:800px;">
+        <div class="lds-hourglass"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="productRatingPopup">
+
+    </div>
+</div>
+<div class="page-head_agile_info_w3l">
+
+</div>
+
+<!-- //banner-2 -->
+<!-- page -->
+<div class="services-breadcrumb">
+    <div class="agile_inner_breadcrumb">
+        <div class="container">
+            <ul class="w3_short">
+                <li>
+                    <a href="/Home/index">Trang chủ</a>
+                    <i>|</i>
+                </li>
+                <li>Chi tiết sản phấm</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- //page -->
+<!-- Single Page -->
+<div class="banner-bootom-w3-agileits">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Chi tiết sản phẩm
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <div class="col-md-5 single-right-left ">
+            <div class="grid images_3_of_2">
+                <div class="flexslider">
+                    <ul class="slides">
+                        @{
+                            foreach (var url in Model.MoreImages.Take(3))
+                            {
+                                <li data-thumb="@url">
+                                    <div class="thumb-image">
+                                        <img src="@url" data-imagezoom="true" class="img-responsive" alt="">
+                                    </div>
+                                </li>
+                            }
+
+                        }
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 single-right-left simpleCart_shelfItem" id="product-detail">
+            <h3>@Model.CurrentProduct.Name</h3>
+            <div class="rating1">
+                @Html.DisplayFor(p => p.CurrentProduct.RatingAverage)
+
+
+            </div>
+            <div style="text-align:left;margin-top:-40px;">
+                <input type="button" value="Xem đánh giá" class="btn" id="showRatingBox" />
+            </div>
+            @{
+                if (Model.CurrentProduct.PromotionPrice == null)
+                {
+                    Model.CurrentProduct.PromotionPrice = Model.CurrentProduct.Price;
+                    Model.CurrentProduct.Price = 0;
+                }
+            }
+            @Html.Partial(PartialConstCommon.NumbericUpDown, new NumbericUpDown() { Max = Model.CurrentProduct.Quantity, Min = 1, Value = 1 })
+            <div class="single-infoagile">
+                <p>
+                    <span style="margin-left:10px;" class="item_price">@Html.DisplayFor(p => p.CurrentProduct.PromotionPrice)</span>
+                    <del>@Html.DisplayFor(p => p.CurrentProduct.Price)</del>
+                    <label>Miễn phí giao hàng</label>
+                </p>
+            </div>
+
+            <div class="occasion-cart">
+                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                    <input type="button" name="submit" value="Add to cart" class="button btn-add-to-cart" data-item-id="@Model.CurrentProduct.Id" />
+                </div>
+            </div>
+            <div class="single-infoagile">
+                <ul class="tags">
+                    @{
+                        foreach (var tag in Model.TagViewModels)
+                        {
+                            var href = "/danhsach-sanpham-theotag-" + tag.Id;
+                            <li><a href="@href" class="tag">@tag.Name</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="single-infoagile">
+                @Html.Raw(Model.CurrentProduct.Description)
+            </div>
+            <div class="product-single-w3l">
+                <p>
+                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>Sản phẩm
+                    phân phối <label>Độc quyền</label>
+                </p>
+                <p>
+                    <i class="fa fa-refresh" aria-hidden="true"></i>Sản phẩm này là
+                    <label>Hàng không thể đổi trả</label>
+                </p>
+            </div>
+
+            <div class="single-infoagile">
+                @Html.Raw(Model.CurrentProduct.Content)
+            </div>
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+<div class="container">
+    @Html.EditorFor(p => Model.RelativeProducts, new { title = "Sản phẩm liên quan" })
+</div>
+<script src="~/Assets/client/js/jquery-2.1.4.min.js"></script>
+<script src="~/Assets/client/js/viewsJS/ProductDetail.js"></script>
+
+<!-- //special offers -->

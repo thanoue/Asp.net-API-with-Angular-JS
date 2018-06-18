@@ -18,37 +18,39 @@ namespace KhoiDepTraiShop.Web.Api
     {
         #region Initialize
         private IProductService _productService;
-        private IProductRatingService _productRatingService;
-        public ProductController(IErrorService errorService, IProductService productService, IProductRatingService productratingService)
+
+        public ProductController(IErrorService errorService, IProductService productService )
             : base(errorService)
         {
             this._productService = productService;
-            _productRatingService = productratingService;
+
         }
 
         #endregion
         [Route("getallparents")]
         [HttpGet]
+        [Authorize(Roles ="ViewProducts")]
         public HttpResponseMessage GetAll(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
             {
                 var model = _productService.GetAll();
 
-                var responseData = model.ToModelList(_productRatingService, _productService.GetMaxProductId());
+                var responseData = model.ToModelList(null, _productService.GetMaxProductId());
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
                 return response;
             });
         }
         [Route("getbyid/{id:int}")]
         [HttpGet]
+        [Authorize(Roles = "ViewProducts")]
         public HttpResponseMessage GetById(HttpRequestMessage request, int id)
         {
             return CreateHttpResponse(request, () =>
             {
                 var model = _productService.GetById(id);
 
-                var responseData = model.ToModel(_productRatingService,_productService.GetMaxProductId());
+                var responseData = model.ToModel(null,_productService.GetMaxProductId());
 
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
 
@@ -58,7 +60,7 @@ namespace KhoiDepTraiShop.Web.Api
 
         [Route("getall")]
         [HttpGet]
-
+        [Authorize(Roles = "ViewProducts")]
         public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
         {
             return CreateHttpResponse(request, () =>
@@ -69,7 +71,7 @@ namespace KhoiDepTraiShop.Web.Api
                 totalRow = model.Count();
                 var query = model.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
 
-                var responseData = query.ToModelList(_productRatingService);
+                var responseData = query.ToModelList(null);
 
                 var paginationSet = new PaginationSet<ProductViewModel>()
                 {
@@ -86,6 +88,7 @@ namespace KhoiDepTraiShop.Web.Api
 
         [Route("create")]
         [HttpPost]
+        [Authorize(Roles = "ProductModify")]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productCategoryVm)
         {
             return CreateHttpResponse(request, () =>
@@ -103,7 +106,7 @@ namespace KhoiDepTraiShop.Web.Api
                     _productService.Add(newProduct);
                     _productService.SaveChanges();
 
-                    var responseData = newProduct.ToModel(_productRatingService);
+                    var responseData = newProduct.ToModel(null);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
 
@@ -113,6 +116,7 @@ namespace KhoiDepTraiShop.Web.Api
 
         [Route("update")]
         [HttpPut]
+        [Authorize(Roles = "ProductModify")]
         public HttpResponseMessage Update(HttpRequestMessage request, ProductViewModel productVm)
         {
             return CreateHttpResponse(request, () =>
@@ -130,7 +134,7 @@ namespace KhoiDepTraiShop.Web.Api
                     _productService.Update(dbProduct);
                     _productService.SaveChanges();
 
-                    var responseData = dbProduct.ToModel(_productRatingService);
+                    var responseData = dbProduct.ToModel(null);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
 
@@ -140,6 +144,7 @@ namespace KhoiDepTraiShop.Web.Api
 
         [Route("delete")]
         [HttpDelete]
+        [Authorize(Roles = "ProductModify")]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             return CreateHttpResponse(request, () =>
@@ -154,7 +159,7 @@ namespace KhoiDepTraiShop.Web.Api
                     var oldProductCategory = _productService.Delete(id);
                     _productService.SaveChanges();
 
-                    var responseData = oldProductCategory.ToModel(_productRatingService);
+                    var responseData = oldProductCategory.ToModel(null);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
 
@@ -163,6 +168,7 @@ namespace KhoiDepTraiShop.Web.Api
         }
         [Route("deletemulti")]
         [HttpDelete]
+        [Authorize(Roles = "ProductModify")]
         public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProducts)
         {
             return CreateHttpResponse(request, () =>

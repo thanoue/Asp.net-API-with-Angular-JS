@@ -1,0 +1,10 @@
+﻿@using KhoiDepTraiShop.Web.Models.Commons
+@model NumbericUpDown
+<div class="numberContainer" style="margin-top:8px;">
+    <div class="quantity">
+        <input readonly type="number" class="quantity-field " min="@Model.Min.ToString()" max="@Model.Max.ToString()" step="@Model.Step.ToString()" value="@Model.Value.ToString()">
+    </div>
+</div>
+
+
+

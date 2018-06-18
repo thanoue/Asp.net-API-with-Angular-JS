@@ -1,0 +1,124 @@
+﻿@using KhoiDepTraiShop.Web.Models
+
+@model ContactViewModel
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-head_agile_info_w3l">
+
+</div>
+<!-- //banner-2 -->
+<!-- page -->
+<div class="services-breadcrumb">
+    <div class="agile_inner_breadcrumb">
+        <div class="container">
+            <ul class="w3_short">
+                <li>
+                    <a href="index.html">Home</a>
+                    <i>|</i>
+                </li>
+                <li>Liên hệ</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- //page -->
+<!-- contact page -->
+<div class="contact-w3l">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Phiếu gửi phản hồi
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <!-- contact -->
+        <div class="contact agileits">
+            <div class="contact-agileinfo">
+                @{
+                    if (ViewData["FailMessage"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Lỗi</strong> @ViewData["FailMessage"].ToString()
+                        </div>
+                    }
+                    else
+                    {
+                        if (ViewData["Success"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                <strong>Cảm ơn phiếu đánh giá! </strong> @ViewData["Success"].ToString()
+                            </div>
+                        }
+                    }
+
+                }
+                <div class="contact-form wthree">
+                    @using (Html.BeginForm("SendFeedBack", "Contact", FormMethod.Post))
+                    {
+
+                        @Html.ValidationSummary(false, "", new { @class = "red-error" })
+                        @Html.AntiForgeryToken()
+                        <div class="">
+                            @Html.TextBoxFor(p => p.FeedBack.Name, new { @placeholder = "Tên..." })
+                        </div>
+                        <div class="">
+                            @Html.TextBoxFor(p => p.FeedBack.Subject, new { @placeholder = "Chủ đề..." })
+                        </div>
+                        <div class="">
+                            @Html.TextBoxFor(p => p.FeedBack.Email, new { @placeholder = "Email..." })
+                        </div>
+                        <div class="">
+                            @Html.TextAreaFor(p => p.FeedBack.Message, new { @placeholder = "Nội dung phản hồi..." })
+                        </div>
+                        <div class="g-recaptcha" data-sitekey="6LcjDV4UAAAAAL5JGKwFEH70ZyLfF6XwxHIoLnBN"></div>
+                        <input type="submit" class="submit" value="Gửi phản hồi" />
+                    }
+
+
+                </div>
+                <div class="contact-right wthree">
+                    <h4>Liên hệ với chúng tôi</h4>
+                    @foreach (var item in Model.ContactDetailViewModels.Take(3))
+                    {
+                        <div class="col-xs-6 contact-text w3-agileits">
+
+                            <p>
+                                <i class="fa fa-map-marker"></i> @item.Address
+                            </p>
+                            <p>
+                                <i class="fa fa-phone"></i> SĐT : @item.Phone
+                            </p>
+                            <p>
+                                <i class="fa fa-fax"></i> FAX : +1 888 888 4444
+                            </p>
+                            <p>
+                                <i class="fa fa-envelope-o"></i> Email :
+                                <a href="@item.Email">@item.Email</a>
+                            </p>
+                        </div>
+                    }
+
+
+                    @*<div class="col-xs-5 contact-agile">
+                            <img src="images/contact2.jpg" alt="">
+                        </div>*@
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- //contact -->
+    </div>
+</div>
+<!-- map -->
+<div class="map w3layouts">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55565170.29301636!2d-132.08532758867793!3d31.786060306224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sin!4v1512365940398"
+            allowfullscreen></iframe>
+</div>
+

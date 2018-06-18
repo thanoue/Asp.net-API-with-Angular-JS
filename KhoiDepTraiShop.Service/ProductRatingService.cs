@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,7 +45,7 @@ namespace KhoiDepTraiShop.Service
 
         public int GetRatingAverage(int productId)
         {
-            var ratingList = _productRatingRepository.GetAll().Where(p => p.ProductId == productId).ToList();
+            var ratingList = _productRatingRepository.GetAll().Where(p => p.RatedProductId == productId).ToList();
             int sum = 0;
             if (ratingList.Count() == 0)
                 return 0;

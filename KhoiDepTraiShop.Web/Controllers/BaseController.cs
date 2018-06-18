@@ -19,6 +19,18 @@ namespace KhoiDepTraiShop.Web.Controllers
             _commonService = commonService;
         }
 
+        protected IList<CartItemViewModel> m_CartItemList
+        {
+            get
+            {
+                return HttpContext.Session[SessionConst.CART_ITEMS] as IList<CartItemViewModel>;
+            }
+            set
+            {
+                //if (value == null) return;
+                HttpContext.Session[SessionConst.CART_ITEMS] = value;
+            }
+        }
 
         /// <summary>
         /// Return JSON result
@@ -29,7 +41,7 @@ namespace KhoiDepTraiShop.Web.Controllers
         /// <returns>JSON object</returns>
         public JsonResult GetResult(bool isSuccess, object obj = null)
         {
-            return Json(new { isSuccess = isSuccess,  obj = obj });
+            return Json(new { isSuccess = isSuccess,  obj = obj },JsonRequestBehavior.AllowGet);
         }
         protected JsonResult GetSuccessResult()
         {

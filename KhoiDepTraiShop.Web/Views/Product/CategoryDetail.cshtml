@@ -1,0 +1,43 @@
+﻿@model KhoiDepTraiShop.Web.Models.CategoryDetailViewModel
+@using KhoiDepTraiShop.Web.Commons;
+
+@{
+    ViewBag.Title = "CategoryDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-head_agile_info_w3l">
+
+</div>
+@Html.HiddenFor(p => p.CategoryId, new { Id = "categoryId" })
+<div class="ads-grid">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            @Model.CategoryName
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <!-- product left -->
+        @Html.Partial(PartialConstCommon.FilterZonePartial, Model.RelativeProducts)
+        <!-- //product left -->
+        <!-- product right -->
+        <div id="" class="agileinfo-ads-display col-md-9">
+            <div id="loadingimage" style="display:none;text-align:center;height:100%;width:100%">
+                <div class="lds-hourglass"></div>
+            </div>
+            <div id="mainPanel">
+                @Html.Partial(PartialConstCommon.ProductListPartial, Model.PaginationSet)
+                <!-- //product right -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //top products -->
+<!-- special offers -->
+@Html.EditorFor(p => Model.HotProducts, new { @title = "Sản phẩm đang được quan tâm" })
+
+

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using KhoiDepTraiShop.Web.Commons;
 
 namespace KhoiDepTraiShop.Web.Models
 {
@@ -13,6 +15,7 @@ namespace KhoiDepTraiShop.Web.Models
             HighViewCountProducts = new List<ProductViewModel>();
             RandomProducts = new List<ProductViewModel>();
         }
+        [UIHint(TemplateConst.SpecialProductListPartial)]
         public IList<ProductViewModel> HotProducts { get; set; }
         public IList<ProductViewModel> RandomProducts { get; set; }
         public IList<ProductViewModel> CheapVegetableProducts { get; set; }

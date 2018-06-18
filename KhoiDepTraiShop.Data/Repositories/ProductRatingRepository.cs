@@ -1,4 +1,4 @@
-﻿using KhoiDepTraiShop.Data.Infrastructure;
+using KhoiDepTraiShop.Data.Infrastructure;
 using KhoiDepTraiShop.Model.Models;
 using System.Collections.Generic;
 using System.Linq;

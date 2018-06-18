@@ -11,6 +11,13 @@ namespace KhoiDepTraiShop.Model.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { set; get; }
 
+        [StringLength(128)]
+        [Column(TypeName ="nvarchar")]
+        public string CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
         [Required]
         [MaxLength(256)]
         public string CustomerName { set; get; }
@@ -40,5 +47,6 @@ namespace KhoiDepTraiShop.Model.Models
         public bool Status { set; get; }
 
         public virtual IEnumerable<OrderDetail> OrderDetails { set; get; }
+
     }
 }

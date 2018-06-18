@@ -19,9 +19,9 @@ namespace KhoiDepTraiShop.Web.Models
         public int CategoryId { set; get; }
         public string Image { set; get; }
         public string MoreImages { set; get; }
-        [UIHint("VNCurrency")]
+        [UIHint(TemplateConst.VNCurrencyDisPlay)]
         public decimal Price { set; get; }
-        [UIHint("VNCurrency")]
+        [UIHint(TemplateConst.VNCurrencyDisPlay)]
         public decimal? PromotionPrice { set; get; }
         public int? Warranty { set; get; }
         public string Description { set; get; }
@@ -39,13 +39,19 @@ namespace KhoiDepTraiShop.Web.Models
         public string MetaDescription { get; set; }
         public bool Status { get; set; }
         public string Tags { get; set; }
+        [UIHint(TemplateConst.RatingStarDisplay)]
         public int? RatingAverage { get; set; }
+        public int Quantity { get; set; }
+        public decimal OriginalPrice { get; set; }
+        
+
     }
     public static class ProductViewModelEmm
     {
-        public static ProductViewModel ToModel(this Product productvm, IProductRatingService _productRatingService, int? maxProductId = null)
+        public static ProductViewModel ToModel(this Product productvm, int? ratingAverage =null, int? maxProductId = null)
         {
             var product = new ProductViewModel();
+            product.Quantity = productvm.Quantity;
             product.Id = productvm.Id;
             product.Name = productvm.Name;
             product.Alias = productvm.Alias;
@@ -69,16 +75,18 @@ namespace KhoiDepTraiShop.Web.Models
             product.Status = productvm.Status;
             product.ProductTags = productvm.ProductTags?.ToModelList();
             product.Tags = productvm.Tags;
+            product.OriginalPrice = productvm.OriginalPrice;
 
             if (maxProductId != null)
                 if (productvm.Id >= (maxProductId - 30))
                     product.NewFlag = true;
-            product.RatingAverage = _productRatingService.GetRatingAverage(product.Id);
+            product.RatingAverage = ratingAverage;
             return product;
         }
         public static Product ToEntity(this ProductViewModel productvm)
         {
             var product = new Product();
+            product.Quantity = productvm.Quantity;
             product.Id = productvm.Id;
             product.Name = productvm.Name;
             product.Alias = productvm.Alias;
@@ -101,9 +109,10 @@ namespace KhoiDepTraiShop.Web.Models
             product.MetaDescription = productvm.MetaDescription;
             product.Status = productvm.Status;
             product.Tags = productvm.Tags;
+            product.OriginalPrice = productvm.OriginalPrice;
             return product;
         }
-        public static List<ProductViewModel> ToModelList(this IEnumerable<Product> entities, IProductRatingService _productRatingService,int? maxProductId = null)
+        public static List<ProductViewModel> ToModelList(this IEnumerable<Product> entities ,IProductRatingService productRatingService, int? maxProductId = null)
         {
 
             var vm = new List<ProductViewModel>();
@@ -111,7 +120,13 @@ namespace KhoiDepTraiShop.Web.Models
             {
                 foreach (var item in entities)
                 {
-                    vm.Add(item.ToModel(_productRatingService,maxProductId));
+                    if (productRatingService != null)
+                    {
+                        var ratingAvarege = productRatingService.GetRatingAverage(item.Id);
+                        vm.Add(item.ToModel(ratingAvarege, maxProductId));
+                    }
+                    else
+                        vm.Add(item.ToModel(null, maxProductId));
                 }
             }
             return vm;
