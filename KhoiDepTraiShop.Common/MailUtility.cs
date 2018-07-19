@@ -9,7 +9,7 @@ namespace KhoiDepTraiShop.Common
 {
     public class MailUtility
     {
-        public static  bool SendMail(string toMail,string subject, string content)
+        public static bool SendMail(string toMail,string subject, string content)
         {
             try
             {

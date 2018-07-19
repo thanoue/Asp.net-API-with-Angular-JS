@@ -30,6 +30,7 @@ namespace KhoiDepTraiShop.Web.Models
 
         public string Address { get; set; }
 
+        public string StreetAndNumber { get; set; }
        
         public string PhoneNumber { get; set; }
 

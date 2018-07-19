@@ -1,0 +1,17 @@
+﻿@using KhoiDepTraiShop.Web.Models.RazorTemplateModel;
+@model SelectViewItemViewModel
+
+@{
+  
+
+    ViewData["class"] = "option-w3ls";
+    ViewData["placeholder"] = Model.DefaultOption;
+    var dropDownProperties = new ViewDataDictionary(ViewData);
+
+}
+
+<div class="control">
+
+    @Html.DropDownListFor(p => p.Selected, new SelectList(Model.ListData, "IdString", "Name"), Model.DefaultOption, dropDownProperties)
+</div>
+

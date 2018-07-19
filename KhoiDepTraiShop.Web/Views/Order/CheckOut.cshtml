@@ -1,10 +1,13 @@
 ﻿@using KhoiDepTraiShop.Web.Models;
 @using KhoiDepTraiShop.Web.Commons;
+@using CaptchaMvc.HtmlHelpers
 @model CheckOutViewModel
 @{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script src="~/Assets/client/js/jquery-2.1.4.min.js"></script>
 <div class="page-head_agile_info_w3l">
 
 </div>
@@ -51,8 +54,8 @@
                 <div class="col-xs-12">
                     <button class="check_out submit hidden saveChange" style="padding:6px 10px;align-self:stretch;margin-bottom:5px;">Lưu thay đổi</button>
                     <button class="check_out submit hidden cancelChange" style="padding:6px 10px;align-self:stretch;margin-bottom:5px;background-color:#d9534f">Hoàn tác</button>
-                </div>            
-            </div>        
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="timetable_sub">
                     <thead>
@@ -75,14 +78,14 @@
                                 <td class="invert">@(i + 1)</td>
                                 <td class="invert-image">
                                     <a href="@url">
-                                        <img src="@item.ProductImage" alt=" " class="img-responsive">
+                                        <img src="@item.ProductImage" alt="" class="img-responsive">
                                     </a>
                                 </td>
                                 <td class="invert">@item.ProductName</td>
                                 <td class="invert price">@Html.DisplayFor(p => item.Price)</td>
                                 <td class="invert" style="text-align:center;">@Html.EditorFor(p => item.Quantity)</td>
                                 <td class="invert subTotal">@Html.DisplayFor(p => item.SubTotal)</td>
-                                <td style="width:13%;"><button class="btn-sm btn-danger btn-delete-cart-item btn-delete-cartItem" data-item-id="@item.ProductId"><i class="fa fa-trash"></i></button></td>
+                                <td style="width:13%;"><button class="btn-sm btn-danger btn-remove-cartItem" data-item-id="@item.ProductId"><i class="fa fa-trash"></i></button></td>
                             </tr>
                         }
 
@@ -94,19 +97,35 @@
         <div class="checkout-left">
             <div class="address_form_agile">
                 <h4>Thông tin người mua hàng</h4>
-                <form action="CheckOut" method="post" class="creditly-card-form agileinfo_form">
-                    @Html.ValidationSummary()                 
+                @using (Ajax.BeginForm("CheckOut", "Order", new AjaxOptions { HttpMethod = "POST" }, new { Id = "checkout-form" }))
+                {
+                    @Html.HiddenFor(p => p.CurrentUser.Address, new {Id="address"})
                     <div class="creditly-wrapper wthree, w3_agileits_wrapper">
                         <div class="information-wrapper">
                             <div class="first-row">
-                                @Html.HiddenFor(p=>p.CurrentUser.Id)
+                                @Html.HiddenFor(p => p.CurrentUser.Id)
                                 <div class="controls">
                                     @Html.TextBoxFor(p => p.CurrentUser.FullName, new { @class = "billing-address-name", @placeholder = "Tên người nhận..." })
                                     @Html.ValidationMessageFor(model => model.CurrentUser.FullName)
                                 </div>
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <p>Địa chỉ nhận hàng</p>
+                                        <div class="col-xs-4">
+                                            @Html.EditorFor(p => p.Address_Province, new {Id= "address_Province" })
+                                        </div>
+                                        <div class="col-xs-4" id="districtArea">
+                                            @Html.EditorFor(p => p.Address_District,new { Id= "Address_District" })
+                                        </div>
+                                        <div class="col-xs-4" id="wardArea">
+                                            @Html.EditorFor(p => p.Address_Ward,new { Id = "Address_Ward" })
+                                        </div>
+                                    </div>
+                                  
+                                </div>                            
                                 <div class="controls">
-                                    @Html.TextBoxFor(p => p.CurrentUser.Address, new { @class = "billing-address-name", @placeholder = "Địa chỉ giao hàng..." })  
-                                    @Html.ValidationMessageFor(model => model.CurrentUser.Address)
+                                    @Html.TextBoxFor(p => p.CurrentUser.StreetAndNumber, new { @class = "billing-address-name", @placeholder = "Số nhà và tên đường",Id= "StreetAndNumber" })
+                
                                 </div>
 
                                 <div class="controls">
@@ -118,12 +137,40 @@
                                     @Html.TextBoxFor(p => p.CurrentUser.Email, new { @class = "billing-address-name", @placeholder = "Email người nhận..." })
                                     @Html.ValidationMessageFor(model => model.CurrentUser.Email)
                                 </div>
+                                <div class="controls">
+                                    @Html.TextBoxFor(p => p.CustomerMessage, new { @class = "billing-address-name", @placeholder = "Ghi chú.." })
 
+                                </div>
+                                @{
+                                    var reload = false;
+                                    if (ViewData["CatchaError"] != null)
+                                    {
+                                        reload = true;
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Lỗi! </strong> @ViewData["CatchaError"].ToString()
+                                        </div>
+                                    }
+                                    var hidden = reload == true ? "" : "hidden";
+                                }
+                                <div class="controls @hidden" id="captchaArea">
+                                    @Html.MathCaptcha()
+                                </div>
                             </div>
-                            <input type="submit"  class="submit" value="Thanh toán"/>
+                            @{
+                                if (!reload)
+                                {
+                                    <input type="button"  id="btnShowCheckoutbtn" value="Thanh toán" class="hidden" />
+                                    <input type="submit" class="saveChangeOrder hidden" value="Xác nhận thanh toán" />
+                                }
+                                else
+                                {
+                                    <input type="submit" class="saveChangeOrder" value="Xác nhận thanh toán" />
+                                }
+                            }
+
                         </div>
                     </div>
-                </form>
+                }
                 <div class="checkout-right-basket">
                     <a href="payment.html">
                         Thanh toán
@@ -135,6 +182,8 @@
         </div>
     </div>
 </div>
-<script src="~/Assets/client/js/jquery-2.1.4.min.js"></script>
 <script src="~/Assets/client/js/viewsJS/ProductDetail.js"></script>
 <script src="~/Assets/client/js/viewsJS/CheckOut.js"></script>
+
+
+

@@ -52,7 +52,7 @@ namespace KhoiDepTraiShop.Web.Infrastructure.Core
             return response;
         }
 
-        private void LogError(Exception ex)
+        protected void LogError(Exception ex)
         {
             try
             {

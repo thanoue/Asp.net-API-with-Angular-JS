@@ -18,10 +18,12 @@ namespace KhoiDepTraiShop.Web.Commons
         public const string FilterZonePartial = RootPartial + "_FilterZonePartial.cshtml";
         public const string ProductListPartial = RootPartial + "_ProductListPartial.cshtml";
         public const string ProductListNotIncludinhPagingPartial = RootPartial + "_ProductListNotIncludingPagingPartial.cshtml";
+        public const string CategoryByParentPartial = RootPartial + "_CategoryByParentId.cshtml";
 
         private const string RootEditorTemplatePartial = "~/Views/Shared/EditorTemplates/";
         public const string SelectViewItem = RootEditorTemplatePartial + "SelecViewItemViewModel.cshtml";
         public const string NumbericUpDown = RootEditorTemplatePartial + "NumbericUpDown.cshtml";
+        public const string DropDownBox = RootEditorTemplatePartial + "DropDownBox.cshtml";
 
         private const string RootDisplayTemplatePartial = "~/Views/Shared/DisplayTemplates/";
         public const string VNCurrency = RootDisplayTemplatePartial + "VNCurrency.cshtml";

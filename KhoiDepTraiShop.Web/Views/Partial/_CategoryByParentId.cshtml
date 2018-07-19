@@ -1,0 +1,13 @@
+﻿@using KhoiDepTraiShop.Web.Commons;
+@model List<KhoiDepTraiShop.Web.Models.Commons.ViewItemModel>
+
+
+<ul class="multi-column-dropdown">
+    @foreach (var item in Model)
+    {
+        var href = "/danhsach-sanpham-" + item.IdString;
+        <li>
+            <a href="@href">@item.Name</a>
+        </li>
+    }
+</ul>

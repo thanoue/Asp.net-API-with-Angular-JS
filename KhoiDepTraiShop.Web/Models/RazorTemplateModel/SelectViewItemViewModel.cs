@@ -8,7 +8,7 @@ namespace KhoiDepTraiShop.Web.Models.RazorTemplateModel
 {
     public class SelectViewItemViewModel
     {
-        public string DefaultOption { get; private set; } = " ";
+        public string DefaultOption { get;  set; } = " ";
 
         public SelectViewItemViewModel()
         {

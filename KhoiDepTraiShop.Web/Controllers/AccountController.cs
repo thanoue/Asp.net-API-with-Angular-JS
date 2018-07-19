@@ -113,7 +113,7 @@ namespace KhoiDepTraiShop.Web.Controllers
 
                     content = content.Replace("{{UserName}}", vm.UserName);
                     content = content.Replace("{{Code}}", cridential.ToString());
-                    content = content.Replace("{{Link}}", ConfigUtility.GetByKey("MyDomain") + "dang-nhap");
+                    content = content.Replace("{{Link}}", ConfigUtility.GetByKey("MyDomain") + "Home/Index");
 
                     MailUtility.SendMail(vm.Email, "Thông báo xác thực tài khoản", content);
 

@@ -1,0 +1,280 @@
+﻿@using KhoiDepTraiShop.Web.Models;
+@model ProductRatingPopupViewModel
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Đánh giá sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="main-mailposi">
+            <span class="fa fa-star-o" aria-hidden="true"></span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-md-5 text-center">
+                                <h1 class="rating-num">
+                                    @Model.RatingAverage
+                                </h1>
+                                <div class="rating">
+                                    @Html.DisplayFor(p => p.RatingAverage)
+                                </div>
+                                <div style="margin-top:-50px;">
+                                    <span class="glyphicon glyphicon-user"></span>@Model.RatingTotal đánh giá
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row rating-desc">
+                                    <div class="col-xs-3 col-md-3 text-right" style="margin-top:5px;">
+                                        <span class="fa fa-star" aria-hidden="true"></span>1
+                                    </div>
+                                    <div class="col-xs-8 col-md-9" style="margin-top:5px;">
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: @Model.OneStarTotal.ToString()%">
+                                                <span class="sr-only">@Model.OneStarTotal.ToString()%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 5 -->
+                                    <div class="col-xs-3 col-md-3 text-right" style="margin-top:5px;">
+                                        <span class="fa fa-star" aria-hidden="true"></span>2
+                                    </div>
+                                    <div class="col-xs-8 col-md-9" style="margin-top:5px;">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: @Model.TwoStarsTotal.ToString()%">
+                                                <span class="sr-only">@Model.TwoStarsTotal.ToString()%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 4 -->
+                                    <div class="col-xs-3 col-md-3 text-right" style="margin-top:5px;">
+                                        <span class="fa fa-star" aria-hidden="true"></span>3
+                                    </div>
+                                    <div class="col-xs-8 col-md-9" style="margin-top:5px;">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: @Model.ThreeStarsTotal.ToString()%">
+                                                <span class="sr-only">@Model.ThreeStarsTotal.ToString()%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 3 -->
+                                    <div class="col-xs-3 col-md-3 text-right" style="margin-top:5px;">
+                                        <span class="fa fa-star" aria-hidden="true"></span>4
+                                    </div>
+                                    <div style="margin-top:5px;" class="col-xs-8 col-md-9">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: @Model.FourStarsTotal.ToString()%">
+                                                <span class="sr-only">@Model.FourStarsTotal.ToString()%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 2 -->
+                                    <div class="col-xs-3 col-md-3 text-right" style="margin-top:5px;">
+                                        <span class="fa fa-star" aria-hidden="true"></span>5
+                                    </div>
+                                    <div class="col-xs-8 col-md-9" style="margin-top:5px;">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: @Model.FiveStarsTotal.ToString()%">
+                                                <span class="sr-only">@Model.FiveStarsTotal.ToString()%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 1 -->
+                                </div>
+                                <!-- end row -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="well well-sm" style="height:auto;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                @if (Model.RatingAbility)
+                                {
+                                    <button type="button" data-toggle="collapse" data-target="#ratingBox" id="btnReadyToRate" class="btn"> Đánh giá sản phẩm</button>
+                                }
+                                else
+                                {
+                                    <button type="button" id="btnLoginToRate" class="btn"> Đánh giá sản phẩm</button>
+                                }
+
+                                <div id="ratingBox" class="collapse" style="margin-top:10px;">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <span class="starRating">
+                                                <input id="rating5" type="radio" name="rating" value="5">
+                                                <label for="rating5">5</label>
+                                                <input id="rating4" type="radio" name="rating" value="4">
+                                                <label for="rating4">4</label>
+                                                <input id="rating3" type="radio" name="rating" value="3">
+                                                <label for="rating3">3</label>
+                                                <input id="rating2" type="radio" name="rating" value="2" checked>
+                                                <label for="rating2">2</label>
+                                                <input id="rating1" type="radio" name="rating" value="1">
+                                                <label for="rating1">1</label>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" style="margin-bottom:-10px;">
+                                        <div class="col-xs-6">
+                                            <div class="controls">
+                                                <input type="text" id="rating-title" class="formalInputText" placeholder="Đánh giá ngắn gọn" name="city" required="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <textarea id="rating-content" class="formalInputTextArea" placeholder="Nội dung đánh giá (tối thiểu 15 ký tự)..." name="city" required=""></textarea>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <button class="btn" id="btn-submitRating" type="button">Xác nhận</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12" style="height:1px;margin-top:5px;background-color:#FF5722;">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="well well-sm" style="height:auto;">
+                        @foreach (var item in Model.ProductRatingViewModel)
+                        {
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <span style="font-size:18px;font-weight:700">@item.UserName</span> <span style="margin-left:5px;font-size:10px;font-style:italic"> @item.RatingTime</span>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            @Html.DisplayFor(p => item.RatingScore)
+                                        </div>                                      
+                                    </div>
+                                    <div class="row"> 
+                                        <div class="col-xs-6" style="font-size:20px; margin-top:-50px;">
+                                            <div class="controls" style="font-weight:bolder;">
+                                                <span  >@item.RatingTitle</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12" style="margin-top:-20px;">
+                                            <textarea style="height:90px;border-radius:10px;" class="formalInputTextArea" name="city" readonly required="">@item.RatingContent</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12" style="margin-top:-5px;text-align:center;">
+                                    <span class="heading-style"  style="position:relative">
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                    </span>
+                                </div>
+
+                            </div>
+                        }
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12" style="height:1px;margin-top:5px;background-color:#FF5722;">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="closeReviewPopup" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</div>
+<style>
+    .rating .glyphicon {
+        font-size: 22px;
+    }
+
+    .rating-num {
+        margin-top: 0px;
+        font-size: 54px;
+    }
+
+    .progress {
+        margin-bottom: 5px;
+    }
+
+    .progress-bar {
+        text-align: left;
+    }
+
+    .rating-desc .col-md-3 {
+        padding-right: 0px;
+    }
+
+    .sr-only {
+        margin-left: 5px;
+        overflow: visible;
+        clip: auto;
+    }
+
+    .controls .formalInputText {
+        width: 100%;
+        font-size: 20px;
+        letter-spacing: 1px;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #FF5722;
+        /* -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31); */
+        -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+    }
+
+    .formalInputTextArea {
+        width: 100%;
+        height: 200px;
+        font-size: 15px;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        resize: none;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #FF5722;
+        border-left: 1px solid #FF5722;
+        /* -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31); */
+        -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+    }
+</style>

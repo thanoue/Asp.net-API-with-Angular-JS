@@ -36,8 +36,7 @@
     },
     registerEvents: function () {
         $('#showRatingBox').click(function () {
-            //TODO Check if bought here
-            toastr.info("Bạn chỉ được nhận xét sau khi đã mua hàng", "Thông báo");
+            //TODO Check if bought here        
             $('#loadingimage').show();
             let productId = $('#productId').val();
             $.ajax({
@@ -45,7 +44,7 @@
                 data: {
                     productId: parseInt(productId)
                 },
-                url: '/Popup/ProductRatingBoxPopup',
+                url: '/ProductRating/ProductRatingBoxPopup',
                 success: function (result) {
                     $('#productRatingPopup').html(result);
                     $('#ratingModal').modal({
@@ -58,7 +57,81 @@
             });
         });
 
-    
+        $('#btnLoginToRate').click(function () {
+
+            $('#closeReviewPopup').click();
+            $.ajax({
+                type: 'GET',
+                url: '/dang-nhap',
+                success: function (result) {
+                    $('#loginPopup').html(result);
+                    $('#signInModal').modal({
+                        keyboard: false,
+                        backdrop: 'static',
+                    });
+                }
+            });
+        })
+
+        $("body").delegate("#btnLoginToRate", "click", function () {
+            let productId = $('#productId').val();
+            $.ajax({
+                type: 'POST',
+                data: { productId: productId },
+                url: '/ProductRating/CheckRatingAbility',
+                success: function (result) {
+                    if (result.obj.logged == true) {
+                        if (result.obj.rated == true)
+                            toastr.warning("Bạn đã đánh giá sản phẩm này");
+                        else
+                            toastr.warning("Bạn chỉ có thể đánh giá những sản phẩm bạn đã mua trước đó");
+                        return;
+                    }
+                    $('#closeReviewPopup').click();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/dang-nhap',
+                        success: function (result) {
+                            $('#loginPopup').html(result);
+                            $('#signInModal').modal({
+                                keyboard: false,
+                                backdrop: 'static',
+                            });
+                        }
+                    });
+                }
+            })
+
+        });
+
+
+
+        $('body').delegate('#btn-submitRating', 'click', function () {
+            let title = $('#rating-title').val();
+            let content = $('#rating-content').val();
+            let ratingScore = $('input[name=rating]:checked').val();
+            let productId = $('#productId').val();
+            console.log('ratingscore', ratingScore);
+            $.ajax({
+                url: '/ProductRating/SubmitRating',
+                type: 'POST',
+                data: {
+                    title: title,
+                    content: content,
+                    ratingScore: ratingScore,
+                    productId: productId
+                },
+                success: function (result) {
+                    if (!result.isSuccess) {
+                        toastr.error(result.obj.Error);
+                        return;
+                    }
+                    toastr.success("Cảm ơn đóng góp của bạn! Đánh giá của bạn sẽ được duyệt sớm");
+                    $('#btnReadyToRate').click();
+                    $('#btnReadyToRate').addClass('hidden');
+                }
+            })
+        });
     }
 }
 common.init();

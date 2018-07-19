@@ -77,6 +77,9 @@
   <ItemGroup>
     <Compile Include="Abstracts\Auditable.cs" />
     <Compile Include="Abstracts\IAuditable.cs" />
+    <Compile Include="Models\AddressDistrict.cs" />
+    <Compile Include="Models\AddressWard.cs" />
+    <Compile Include="Models\AddressProvince.cs" />
     <Compile Include="Models\ApplicationUserGroup .cs" />
     <Compile Include="Models\ApplicationRoleGroup.cs" />
     <Compile Include="Models\ApplicationRole.cs" />

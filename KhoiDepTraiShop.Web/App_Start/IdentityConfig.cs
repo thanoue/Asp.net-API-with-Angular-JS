@@ -71,6 +71,8 @@ namespace KhoiDepTraiShop.Web.App_Start
         }
     }
 
+
+
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
@@ -89,4 +91,6 @@ namespace KhoiDepTraiShop.Web.App_Start
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+
+   
 }

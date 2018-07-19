@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KhoiDepTraiShop.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,17 +35,18 @@ namespace KhoiDepTraiShop.Model.Models
         [MaxLength(50)]
         public string CustomerMobile { set; get; }
 
-        [Required]
         [MaxLength(256)]
         public string CustomerMessage { set; get; }
 
-        [MaxLength(256)]
-        public string PaymentMethod { set; get; }
+        public PaymentMethod PaymentMethod { set; get; }
 
         public DateTime? CreatedDate { set; get; }
+
         public string CreatedBy { set; get; }
-        public string PaymentStatus { set; get; }
-        public bool Status { set; get; }
+
+        public bool Deleted { set; get; }
+
+        public OrderStatus Status { set; get; }
 
         public virtual IEnumerable<OrderDetail> OrderDetails { set; get; }
 

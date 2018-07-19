@@ -207,13 +207,21 @@
             //    Website = "sunfood.com.vn"
             //};
             //context.ContactDetails.AddRange(new List<ContactDetail> { contact1, contact2, contact3 });
-            var products = context.Products.ToList();
-            foreach(var product in products)
-            {
-                var a = new Random(); var rand = a.Next(7, 10);
-                product.OriginalPrice = product.Price - product.Price / rand;
-            }
-            context.SaveChanges();
+            //var products = context.Products.ToList();
+            //foreach(var product in products)
+            //{
+            //    var a = new Random(); var rand = a.Next(7, 10);
+            //    product.OriginalPrice = product.Price - product.Price / rand;
+            //}
+            //context.SaveChanges();
+            //var a = context.AddressWards;
+            //context.AddressWards.RemoveRange(a);
+
+            //var b = context.AddressProvinces;
+            //context.AddressProvinces.RemoveRange(b);
+
+            //var c = context.AddressDistricts;
+            //context.AddressDistricts.RemoveRange(c);
         }
 
         private async Task deleteUser(ShopDbContext context)

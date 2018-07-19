@@ -12,9 +12,13 @@ namespace KhoiDepTraiShop.Service
 {
     public interface IFeedBackService
     {
-        FeedBack CreateFeedBack(FeedBack error);
+        FeedBack CreateFeedBack(FeedBack feedBack);
         IEnumerable<FeedBack> GetAllByType(FeedBackStatus status);
         IEnumerable<FeedBack> GetAll();
+        FeedBack UpdateStatus(FeedBackStatus status, int feedbackId);
+
+        void UpdateMultiFeedbacks(FeedBackStatus status, IList<int> ids);
+
         void Save();
     }
     public class FeedBackService : IFeedBackService
@@ -50,6 +54,25 @@ namespace KhoiDepTraiShop.Service
         public void Save()
         {
             _UnitOfWork.Commit();
+        }
+
+        public void UpdateMultiFeedbacks(FeedBackStatus status, IList<int> ids)
+        {
+            foreach(var id in ids)
+            {
+                var feedback = _feedBackRepository.GetSingleById(id);
+                feedback.Status = status;
+                _UnitOfWork.Commit();
+            }
+
+        }
+
+        public FeedBack UpdateStatus(FeedBackStatus status, int feedbackId)
+        {
+            var feedback = _feedBackRepository.GetSingleById(feedbackId);
+            feedback.Status = status;
+            _UnitOfWork.Commit();
+            return feedback;
         }
     }
 }

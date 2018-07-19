@@ -14,7 +14,9 @@ namespace KhoiDepTraiShop.Common
     {
         Waiting =0 ,
         Public,
+        Reported,
         Deleted
+       
     }
 
     public enum TagType
@@ -26,7 +28,24 @@ namespace KhoiDepTraiShop.Common
     public enum FeedBackStatus
     {
         Wating =0,
-        Seen,
-        Responsed
+        Responsed,
+        Deleted
+    }
+
+    public enum OrderStatus
+    {
+         Sending = 0,
+         Handling ,
+         Delivering,
+         Received,
+         Deleted,
+
+    }
+
+    public enum PaymentMethod
+    {
+        InternetBanking,
+        HandByHandPaying,
+        Others
     }
 }

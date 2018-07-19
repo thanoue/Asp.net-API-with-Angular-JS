@@ -122,7 +122,7 @@ let addIemToCart = function () {
                 currentCart = JSON.parse(cart);
                 for (let i = 0; i < currentCart.length; i++) {
                     if (currentCart[i].ProductId == result.obj.ProductId) {
-                        currentCart[i].Quantity += result.obj.Quantity;
+                        currentCart[i].Quantity.Value += result.obj.Quantity.Value;
                         hasAready = true;
                     }
 

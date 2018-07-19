@@ -20,7 +20,6 @@ namespace KhoiDepTraiShop.Model.Models
         [Required]
         public string Name { set; get; }
 
-
         [Required]
         public TagType Type { set; get; }
     }

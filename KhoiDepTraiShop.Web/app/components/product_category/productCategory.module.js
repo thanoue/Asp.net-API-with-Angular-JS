@@ -1,5 +1,4 @@
-﻿
-(function () {
+﻿(function () {
     angular.module('khoideptraishop.product_categories', ['khoideptraishop.common']).config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];

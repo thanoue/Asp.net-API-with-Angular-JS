@@ -7,17 +7,20 @@
 
     function applicationGroupEditController($scope, apiService, notifyService, $location, $stateParams) {
         $scope.group = {}
+        $scope.loading = true;
 
 
         $scope.updateApplicationGroup = updateApplicationGroup;
 
         function updateApplicationGroup() {
+            $scope.loading = true;
             apiService.put('/api/applicationGroup/update', $scope.group, addSuccessed, addFailed);
         }
         function loadDetail() {
             apiService.get('/api/applicationGroup/detail/' + $stateParams.id, null,
             function (result) {
                 $scope.group = result.data;
+             
             },
             function (result) {
                 notifyService.displayError(result.data);
@@ -26,7 +29,7 @@
 
         function addSuccessed() {
             notifyService.displaySuccess($scope.group.Name + ' đã được cập nhật thành công.');
-
+            $scope.loading = false;
             $location.url('application_groups');
         }
         function addFailed(response) {
@@ -37,6 +40,7 @@
                 null,
                 function (response) {
                     $scope.roles = response.data;
+                    $scope.loading = false;
                 }, function (response) {
                     notifyService.displayError('Không tải được danh sách quyền.');
                 });

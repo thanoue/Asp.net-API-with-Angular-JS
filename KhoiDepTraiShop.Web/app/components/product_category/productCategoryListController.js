@@ -9,7 +9,7 @@
         $scope.page = 0;
         $scope.pagesCount = 0;
         $scope.getProductCagories = getProductCagories;
-        $scope.keyword = '';
+        $scope.keyword = '';    
 
         $scope.search = search;
 

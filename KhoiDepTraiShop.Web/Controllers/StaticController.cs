@@ -42,5 +42,49 @@ namespace KhoiDepTraiShop.Web.Controllers
             }
             return PartialView(PartialConstCommon.SelectViewItem,vm);
         }
+
+        public PartialViewResult GetVegetableCategory()
+        {
+            var categoryList = _productCategoryService.GetAllByParentId(15).ToList();
+            var vm = new List<ViewItemModel>();
+            foreach(var item in categoryList)
+            {
+                vm.Add(new ViewItemModel(item.Id, item.Name));
+            }
+            return PartialView(PartialConstCommon.CategoryByParentPartial, vm);
+        }
+
+        public PartialViewResult GetFoodCategory()
+        {
+            var categoryList = _productCategoryService.GetAllByParentId(16).ToList();
+            var vm = new List<ViewItemModel>();
+            foreach (var item in categoryList)
+            {
+                vm.Add(new ViewItemModel(item.Id, item.Name));
+            }
+            return PartialView(PartialConstCommon.CategoryByParentPartial, vm);
+        }
+        
+        public PartialViewResult GetFruistCategory()
+        {
+            var categoryList = _productCategoryService.GetAllByParentId(17).ToList();
+            var vm = new List<ViewItemModel>();
+            foreach (var item in categoryList)
+            {
+                vm.Add(new ViewItemModel(item.Id, item.Name));
+            }
+            return PartialView(PartialConstCommon.CategoryByParentPartial, vm);
+        }
+
+        public PartialViewResult GetOthersCategory()
+        {
+            var categoryList = _productCategoryService.GetAllByParentId(18).ToList();
+            var vm = new List<ViewItemModel>();
+            foreach (var item in categoryList)
+            {
+                vm.Add(new ViewItemModel(item.Id, item.Name));
+            }
+            return PartialView(PartialConstCommon.CategoryByParentPartial, vm);
+        }
     }
 }

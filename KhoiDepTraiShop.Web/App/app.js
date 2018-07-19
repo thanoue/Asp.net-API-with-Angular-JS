@@ -1,5 +1,7 @@
 ﻿(function () {
-    angular.module('khoideptraishop', ['khoideptraishop.products', 'khoideptraishop.product_categories', 'khoideptraishop.application_users', 'khoideptraishop.application_roles', 'khoideptraishop.application_groups', 'khoideptraishop.common'])
+    angular.module('khoideptraishop', ['khoideptraishop.products', 'khoideptraishop.product_categories', 'khoideptraishop.application_users'
+        , 'khoideptraishop.application_roles', 'khoideptraishop.application_groups', 'khoideptraishop.order',
+        'khoideptraishop.product_rating', 'khoideptraishop.feedbacks', 'khoideptraishop.statistics', 'khoideptraishop.common'])
         .config(config)
         .config(configAuthentication);
 

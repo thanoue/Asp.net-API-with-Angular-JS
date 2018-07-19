@@ -43,7 +43,7 @@ namespace KhoiDepTraiShop.Web.Api
                 PaginationSet<ApplicationRoleViewModel> pagedSet = new PaginationSet<ApplicationRoleViewModel>()
                 {
                     Page = page,
-                    TotalRow = totalRow,
+                    TotalRow = totalRow,    
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize),
                     Items = modelVm
                 };

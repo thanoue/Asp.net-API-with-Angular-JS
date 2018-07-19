@@ -48,6 +48,9 @@ namespace KhoiDepTraiShop.Data
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
 
+        public DbSet<AddressProvince> AddressProvinces { get; set; }
+        public DbSet<AddressDistrict> AddressDistricts { get; set; }
+        public DbSet<AddressWard> AddressWards { get; set; }
 
         public static ShopDbContext Create()
         {
