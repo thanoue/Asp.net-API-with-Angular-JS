@@ -1,15 +1,33 @@
 ﻿using KhoiDepTraiShop.Model.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace KhoiDepTraiShop.Web.Models
 {
-    public class UserVIewModel
+    public class PasswordChangingViewModel
+    {
+        public PasswordChangingViewModel()
+        {
+
+        }
+        [Compare("NewPassword", ErrorMessage = "Mật khẩu nhập lại không đúng")]
+        public string RetypePassword { get; set; }
+
+        [Required(ErrorMessage = "Mật khẩu mới là bắt buộc")]
+        [MinLength(8, ErrorMessage = "Mật khẩu không được ít hơn 8 ký tự")]
+        public string NewPassword { get; set; }
+
+        [Required(ErrorMessage = "Mật khẩu cũ là bắt buộc")]
+        [MinLength(8, ErrorMessage = "Mật khẩu không được ít hơn 8 ký tự")]
+        public string OldPassword { get; set; }
+    }
+    public class UserViewModel
     {
 
-        public UserVIewModel() { }
+        public UserViewModel() { }
 
         public string Id { get; set; }
      
@@ -37,15 +55,16 @@ namespace KhoiDepTraiShop.Web.Models
     }
     public static class UserViewModelEmm
     {
-        public static UserVIewModel ToViewModel(this ApplicationUser entity)
+        public static UserViewModel ToViewModel(this ApplicationUser entity)
         {
-            var vm = new UserVIewModel()
+            var vm = new UserViewModel()
             {
                 Id = entity.Id,
                 Address = entity.Address,
                 Email = entity.Email,
                 FullName = entity.FullName,
-                PhoneNumber = entity.PhoneNumber
+                PhoneNumber = entity.PhoneNumber,
+                StreetAndNumber = entity.Address
             };
             return vm;
         }

@@ -15,10 +15,10 @@ namespace KhoiDepTraiShop.Service
         bool Create(Order order, List<OrderDetail> orderDetails);
         IEnumerable<Order> GetAll(string keyword = "");
         List<Order> GetFullAll(string keyWord = "");
-
         void DeleteSingleOrder(int orderId);
-
         Order ChangeStatusOfOrder(OrderStatus destStatus, int orderId);
+        IEnumerable<Product> GetProductBoughtByUser(string userId);
+        IEnumerable<Order> GetAllByUserId(string userId);
     }
     public class OrderService : IOrderService
     {
@@ -80,6 +80,16 @@ namespace KhoiDepTraiShop.Service
         {
             _orderRepository.Delete(orderId);
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<Product> GetProductBoughtByUser(string userId)
+        {
+            return _orderRepository.GetProductBoughtByUser(userId);
+        }
+
+        public IEnumerable<Order> GetAllByUserId(string userId)
+        {
+            return _orderRepository.GetByUserId(userId);
         }
     }
 }

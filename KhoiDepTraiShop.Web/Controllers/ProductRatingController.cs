@@ -15,16 +15,15 @@ namespace KhoiDepTraiShop.Web.Controllers
         ICommonService _commonService;
         IProductService _productService;
         IProductRatingService _productRatingService;
-        IProductCategodyService _productCategoryService;
-        private ApplicationUserManager _userManager;
+        IProductCategodyService _productCategoryService;     
 
-        public ProductRatingController(ICommonService commonService, IProductService productService, IProductRatingService productratingService, IProductCategodyService productCategodyService, ApplicationUserManager userManager) : base(commonService)
+        public ProductRatingController(ICommonService commonService, IProductService productService, IProductRatingService productratingService, IProductCategodyService productCategodyService, ApplicationUserManager userManager) : base(commonService,userManager)
         {
             _commonService = commonService;
             _productRatingService = productratingService;
             _productService = productService;
             _productCategoryService = productCategodyService;
-            _userManager = userManager;
+         
         }
 
         public JsonResult CheckRatingAbility(int productId)
@@ -57,7 +56,7 @@ namespace KhoiDepTraiShop.Web.Controllers
 
             var ratings = _productRatingService.GetAllPopulatedByProduct(productId).ToList();
 
-            var ratingsViewModels = await ratings.ToViewModelList(_userManager);
+            var ratingsViewModels = await ratings.ToViewModelList(UserManager);
             if (ratingsViewModels != null)
             {
                 vm.ProductRatingViewModel = ratingsViewModels;

@@ -24,16 +24,16 @@ namespace KhoiDepTraiShop.Web.Api
     {
         private IApplicationGroupService _appGroupService;
         private IApplicationRoleService _appRoleService;
-        private ApplicationUserManager _userManager;
+
 
         public ApplicationGroupController(IErrorService errorService,
             IApplicationRoleService appRoleService,
             ApplicationUserManager userManager,
-            IApplicationGroupService appGroupService) : base(errorService)
+            IApplicationGroupService appGroupService) : base(userManager,errorService)
         {
             _appGroupService = appGroupService;
             _appRoleService = appRoleService;
-            _userManager = userManager;
+           
         }
         [Route("getlistpaging")]
         [HttpGet]
@@ -171,8 +171,8 @@ namespace KhoiDepTraiShop.Web.Api
                         var listRoleName = listRole.Select(x => x.Name).ToArray();
                         foreach (var roleName in listRoleName)
                         {
-                            await _userManager.RemoveFromRoleAsync(user.Id, roleName);
-                            await _userManager.AddToRoleAsync(user.Id, roleName);
+                            await UserManager.RemoveFromRoleAsync(user.Id, roleName);
+                            await UserManager.AddToRoleAsync(user.Id, roleName);
                         }
                     }
                     return request.CreateResponse(HttpStatusCode.OK, appGroupViewModel);

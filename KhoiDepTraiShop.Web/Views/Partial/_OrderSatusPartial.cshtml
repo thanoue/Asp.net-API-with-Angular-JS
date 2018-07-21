@@ -1,0 +1,37 @@
+﻿@model KhoiDepTraiShop.Common.OrderStatus
+@{
+    var value = "";
+    var type = "bg-success";
+    var title = "";
+    switch (Model)
+    {
+        case KhoiDepTraiShop.Common.OrderStatus.Sending:
+            value = "10%";
+            title = "Đang gửi đi";
+            break;
+        case KhoiDepTraiShop.Common.OrderStatus.Handling:
+            value = "40%";
+            title = "Đang xử lý";
+            break;
+        case KhoiDepTraiShop.Common.OrderStatus.Delivering:
+            value = "70%";
+            title = "Đang giao hàng";
+            break;
+        case KhoiDepTraiShop.Common.OrderStatus.Received:
+            value = "100%";
+            title = "Đã nhận hàng";
+            break;
+        case KhoiDepTraiShop.Common.OrderStatus.Deleted:
+            value = "100%";
+            type = "bg-danger";
+            title = title = "Đã hủy";
+            break;
+        default:
+            value = "0%";
+            break;
+    }
+
+}
+<div class="progress" style="overflow:visible;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated @type" role="progressbar" title="@title" style="width: @value"></div>
+</div>

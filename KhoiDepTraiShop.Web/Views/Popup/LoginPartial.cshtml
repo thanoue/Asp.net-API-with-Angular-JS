@@ -20,8 +20,7 @@
                 </a>
             </p>
             <form action="Login" method="post">
-                @Html.ValidationSummary()
-                @Html.AntiForgeryToken()
+
                 <div class="styled-input">
                     @Html.TextBoxFor(p => p.UserName, new { @placeholder = "Tên đăng nhập..." })
                     @Html.ValidationMessageFor(model => model.UserName)
@@ -30,7 +29,7 @@
                     @Html.PasswordFor(p => p.Password, new { @placeholder = "Mật khẩu..." })
                     @Html.ValidationMessageFor(model => model.Password)
                 </div>
-                <div class="styled-input" >
+                <div class="styled-input">
                     @Html.CheckBoxFor(p => p.RememberMe)
                     <span>Ghi nhớ đăng nhập</span>
                 </div>
@@ -39,9 +38,16 @@
 
                 </div>
                 <div class="clearfix"></div>
-                <button type="button" id="loginBtn" class="btn btn-secondary" style="margin-top:5px;">Đăng nhập</button>
+                <div style="display:inline">
+                    <button type="button" id="loginBtn" class="btn btn-secondary" style="margin-top:5px;">Đăng nhập</button>
+                    <button type="button" data-toggle="collapse" data-target="#resetPassword" class="btn btn-secondary" style="margin-top:5px;">Lấy lại mật khẩu</button>
+                    <img class="reset_loadingIcon hidden" src="~/Assets/client/images/stuffs/Spinner-1s-46px.gif" style="height:40px;width:40px;"/>
+                </div>              
             </form>
-
+            <br/>           
+            <div id="resetPassword" class="collapse col-xs-12" style="margin-top:5px;">               
+             @Html.Partial(PartialConstCommon.ResetPasswordPartial,Model.ResetPasswordViewModel)
+            </div>
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>

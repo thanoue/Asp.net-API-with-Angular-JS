@@ -4,7 +4,8 @@
     $('body').on('click', '.pageIndex', choosePage);
     $('body').on('change', '.discountFilterCheckbox', applyDiscountFilter);
     $('body').on('click', '.custom-option', productTypeChange);
-
+    $('body').on('click', '#btnSearchProducts', searchProducts);
+    $('body').on('click', '#tab-list a', applyTagFilter);
     toastr.options = {
         "closeButton": true,
         "debug": false,
@@ -29,10 +30,21 @@ const filterType = {
     discountRange: 'Filter by Discount Range',
     ratingRange: 'Filter by Rating Average',
     tagRange: 'Filter by Tag Area',
-    none :'not chosen yet'
+    none: 'not chosen yet',
+    searchRange: 'search by keyword'
 };
 
-var currentFilterType = filterType.none; var minDiscountFilter = 0; var maxDiscountFilter = 0;
+function removeOldFilter() {
+    $('.rating-badge').removeClass('badge-danger');
+    $('.rating-badge').addClass('badge-primary');
+    $('.discountFilterCheckbox').prop('checked', false);
+    $('#tab-list a').css('color', '#337ab7');
+
+
+}
+
+var currentFilterType = filterType.none; var minDiscountFilter = 0; var maxDiscountFilter = 0; var currentKeyword = '';
+var currentTagFilter = ''; currentRatingFilterScore = 0;
 
 function productTypeChange() {
     let categporyId = $(this).data('value');
@@ -53,7 +65,7 @@ function applyPriceFilter() {
     currentFilterType = filterType.priceRange;
     $('#mainPanel').empty();
     $('#loadingimage').show();
-
+    removeOldFilter();
     let min = $("#slider-range").slider("values", 0);
     let max = $("#slider-range").slider("values", 1);
     $.ajax({
@@ -71,23 +83,41 @@ function applyPriceFilter() {
 
 function applyRatingFilter() {
     currentFilterType = filterType.ratingRange;
-    $('.rating-badge').removeClass('badge-danger');
+    removeOldFilter();
     $('.rating-badge').addClass('badge-primary');
 
     $(this).removeClass('badge-primary');
     $(this).addClass('badge-danger');
+    console.log($(this).text());
+    currentRatingFilterScore = parseInt($(this).text());
+    $('#mainPanel').empty();
+    $('#loadingimage').show();
+
+    $.ajax({
+        type: 'GET',
+        data: { ratingScore: currentRatingFilterScore, categoryId: getCurrentCategoryId() },
+        url: '/Product/GetFilterByRatingRangeProduct',
+        success: function (result) {
+            $('#loadingimage').hide();
+            $('#mainPanel').html(result);
+
+        }
+    });
+
 }
 
 function applyDiscountFilter() {
+
     currentFilterType = filterType.discountRange;
 
     if ($(this).prop('checked') == true) {
-        $('.discountFilterCheckbox').prop('checked', false);
+        removeOldFilter();
         $(this).prop('checked', true);
         minDiscountFilter = $(this).data('min');
         maxDiscountFilter = $(this).data('max');
         $('#mainPanel').empty();
         $('#loadingimage').show();
+
         $.ajax({
             type: 'GET',
             data: { minDiscount: minDiscountFilter, maxDiscount: maxDiscountFilter, categoryId: getCurrentCategoryId() },
@@ -99,6 +129,50 @@ function applyDiscountFilter() {
             }
         });
     }
+
+}
+
+
+function applyTagFilter() {
+    currentFilterType = filterType.tagRange;
+    removeOldFilter();
+    currentTagFilter = $(this).data('tag');
+    $('#mainPanel').empty();
+    $('#loadingimage').show();
+    $(this).css('color', 'red');
+    $.ajax({
+        type: 'GET',
+        data: { tag: currentTagFilter, categoryId: getCurrentCategoryId() },
+        url: '/Product/GetFilterByTagRangeProduct',
+        success: function (result) {
+            $('#loadingimage').hide();
+            $('#mainPanel').html(result);
+
+        }
+    });
+
+}
+
+function searchProducts() {
+    let keyword = $('#searchKeyword').val();
+    console.log(keyword);
+    if (keyword.lenghth == 0)
+        return;
+    currentKeyword = keyword;
+    currentFilterType = filterType.searchRange;
+    $('#mainPanel').empty();
+    $('#loadingimage').show();
+    removeOldFilter();
+    $.ajax({
+        type: 'GET',
+        data: { keyword: currentKeyword },
+        url: '/Product/GetFilterByKeywordRangeProduct',
+        success: function (result) {
+            $('#loadingimage').hide();
+            $('#mainPanel').html(result);
+
+        }
+    });
 
 }
 
@@ -133,10 +207,33 @@ function choosePage() {
                 }
             })
             break;
+        case filterType.searchRange:
+            $.ajax({
+                type: 'GET',
+                data: { keyword: currentKeyword, page: page },
+                url: '/Product/GetFilterByKeywordRangeProduct',
+                success: function (result) {
+                    $('#loadingimage').hide();
+                    $('#mainPanel').html(result);
+
+                }
+            });
+        case filterType.tagRange:
+            $.ajax({
+                type: 'GET',
+                data: { tag: currentTagFilter, categoryId: getCurrentCategoryId(), page: page },
+                url: '/Product/GetFilterByTagRangeProduct',
+                success: function (result) {
+                    $('#loadingimage').hide();
+                    $('#mainPanel').html(result);
+
+                }
+            });
+
         case filterType.none:
             $.ajax({
                 type: 'GET',
-                data: {categoryId: getCurrentCategoryId(), page: page },
+                data: { categoryId: getCurrentCategoryId(), page: page },
                 url: '/Product/GetCategoryProductListPaging',
                 success: function (result) {
                     $('#loadingimage').hide();
@@ -151,6 +248,7 @@ function choosePage() {
 
 
 }
+
 
 
 

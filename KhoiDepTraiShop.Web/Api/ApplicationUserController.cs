@@ -23,7 +23,7 @@ namespace KhoiDepTraiShop.Web.Api
     [RoutePrefix("api/applicationUser")]
     public class ApplicationUserController : ApiControllerBase
     {
-        private ApplicationUserManager _userManager;
+
         private IApplicationGroupService _appGroupService;
         private IApplicationRoleService _appRoleService;
         public ApplicationUserController(
@@ -31,11 +31,11 @@ namespace KhoiDepTraiShop.Web.Api
             IApplicationRoleService appRoleService,
             ApplicationUserManager userManager,
             IErrorService errorService)
-            : base(errorService)
+            : base(userManager,errorService)
         {
             _appRoleService = appRoleService;
             _appGroupService = appGroupService;
-            _userManager = userManager;
+         
         }
         [Route("getlistpaging")]
         [HttpGet]
@@ -46,7 +46,7 @@ namespace KhoiDepTraiShop.Web.Api
             {
                 HttpResponseMessage response = null;
                 int totalRow = 0;
-                var model = _userManager.Users;
+                var model = UserManager.Users;
                 var modelVm = model.ToList().ToViewModelList();
 
                 PaginationSet<ApplicationUserViewModel> pagedSet = new PaginationSet<ApplicationUserViewModel>()
@@ -73,7 +73,7 @@ namespace KhoiDepTraiShop.Web.Api
 
                 return request.CreateErrorResponse(HttpStatusCode.BadRequest, nameof(id) + " không có giá trị.");
             }
-            var user = _userManager.FindByIdAsync(id);
+            var user = UserManager.FindByIdAsync(id);
             if (user == null)
             {
                 return request.CreateErrorResponse(HttpStatusCode.NoContent, "Không có dữ liệu");
@@ -103,7 +103,7 @@ namespace KhoiDepTraiShop.Web.Api
       
                 try
                 {                   
-                    var result = await _userManager.CreateAsync(newAppUser, applicationUserViewModel.Password);
+                    var result = await UserManager.CreateAsync(newAppUser, applicationUserViewModel.Password);
                     if (result.Succeeded)
                     {
                         var listAppUserGroup = new List<ApplicationUserGroup>();
@@ -118,8 +118,8 @@ namespace KhoiDepTraiShop.Web.Api
                             var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
                             foreach (var role in listRole)
                             {
-                                await _userManager.RemoveFromRoleAsync(newAppUser.Id, role.Name);
-                                await _userManager.AddToRoleAsync(newAppUser.Id, role.Name);
+                                await UserManager.RemoveFromRoleAsync(newAppUser.Id, role.Name);
+                                await UserManager.AddToRoleAsync(newAppUser.Id, role.Name);
                             }
                         }
                         _appGroupService.AddUserToGroups(listAppUserGroup, newAppUser.Id);
@@ -154,11 +154,11 @@ namespace KhoiDepTraiShop.Web.Api
         {
             if (ModelState.IsValid)
             {
-                var appUser = await _userManager.FindByIdAsync(applicationUserViewModel.Id);
+                var appUser = await UserManager.FindByIdAsync(applicationUserViewModel.Id);
                 try
                 {
                     applicationUserViewModel.ToEntity( appUser);
-                    var result = await _userManager.UpdateAsync(appUser);
+                    var result = await UserManager.UpdateAsync(appUser);
                     if (result.Succeeded)
                     {
                         var listAppUserGroup = new List<ApplicationUserGroup>();
@@ -173,8 +173,8 @@ namespace KhoiDepTraiShop.Web.Api
                             var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
                             foreach (var role in listRole)
                             {
-                                await _userManager.RemoveFromRoleAsync(appUser.Id, role.Name);
-                                await _userManager.AddToRoleAsync(appUser.Id, role.Name);
+                                await UserManager.RemoveFromRoleAsync(appUser.Id, role.Name);
+                                await UserManager.AddToRoleAsync(appUser.Id, role.Name);
                             }
                         }
                         _appGroupService.AddUserToGroups(listAppUserGroup, applicationUserViewModel.Id);
@@ -201,8 +201,8 @@ namespace KhoiDepTraiShop.Web.Api
         [Authorize(Roles = "DeleteUser")]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
         {
-            var appUser = await _userManager.FindByIdAsync(id);
-            var result = await _userManager.DeleteAsync(appUser);
+            var appUser = await UserManager.FindByIdAsync(id);
+            var result = await UserManager.DeleteAsync(appUser);
             if (result.Succeeded)
                 return request.CreateResponse(HttpStatusCode.OK, id);
             else

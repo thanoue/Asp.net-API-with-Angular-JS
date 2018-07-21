@@ -1,0 +1,80 @@
+﻿@model KhoiDepTraiShop.Web.Models.CustomerViewModel
+@using KhoiDepTraiShop.Web.Commons;
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-head_agile_info_w3l">
+
+</div>
+<!-- //banner-2 -->
+<!-- page -->
+<div class="services-breadcrumb">
+    <div class="agile_inner_breadcrumb">
+        <div class="container">
+            <ul class="w3_short">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i>|</i>
+                </li>
+                <li>Thông tin người dùng</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bhoechie-tab-container">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active text-center">
+                        <h4 class="fa fa-address-card-o"></h4><br />Thông tin TK
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="fa fa-edit"></h4><br />Sản phẩm đã mua
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="fa fa-truck"></h4><br />Tình trạng Đơn hàng
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 bhoechie-tab">
+                <!-- flight section -->
+                <div class="bhoechie-tab-content active">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4>Cập nhật thông tin tài khoản</h4>
+                        <br/>
+                        <div class="clearfix"></div>
+                        <div id="passwordArea">
+                            @Html.Partial(PartialConstCommon.PasswordChangingPartial, Model.PasswordChangingViewModel)
+                        </div>
+                        <div id="userProfileArea">
+                            @Html.Partial(PartialConstCommon.UserProfile, Model.CurrentUser)
+                        </div>
+
+                    </div>
+                </div>
+                <!-- train section -->
+                <div class="bhoechie-tab-content">
+                    <div class="product-sec1">
+                        <h3 class="heading-tittle">Danh sách sản phẩm đã mua</h3>
+                         @Html.Partial(PartialConstCommon.ProductListNotIncludinhPagingPartial,Model.BoughtProducts)
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!-- hotel search -->
+                <div class="bhoechie-tab-content">
+                    <div class="product-sec1">
+                        <h3 class="heading-tittle">Danh sách hóa đơn</h3>
+                        @Html.Partial(PartialConstCommon.OrderListPartial, Model.OrderList)
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Assets/client/js/jquery-2.1.4.min.js"></script>
+<script src="~/Assets/client/js/viewsJS/UserProfileAsync.js"></script>

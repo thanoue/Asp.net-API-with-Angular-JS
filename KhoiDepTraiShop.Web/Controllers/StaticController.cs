@@ -14,16 +14,15 @@ namespace KhoiDepTraiShop.Web.Controllers
     public class StaticController : BaseController
     {
         IProductCategodyService _productCategoryService;
-        //IProductRatingService _productRatingService;
         IProductService _productService;
         ICommonService _commonService;
 
-        public StaticController(IProductCategodyService productCategodyService, ICommonService commonService, IProductService productService/*, IProductRatingService productRatingService*/ ) : base(commonService)
+        public StaticController(IProductCategodyService productCategodyService, ICommonService commonService, IProductService productService) : base(commonService)
         {
             _productCategoryService = productCategodyService;
             _commonService = commonService;
             _productService = productService;
-           // _productRatingService = productRatingService;
+          
         }
 
         
@@ -85,6 +84,11 @@ namespace KhoiDepTraiShop.Web.Controllers
                 vm.Add(new ViewItemModel(item.Id, item.Name));
             }
             return PartialView(PartialConstCommon.CategoryByParentPartial, vm);
+        }
+
+        public ActionResult OrderSuccess()
+        {
+            return View();
         }
     }
 }

@@ -1,23 +1,45 @@
 ﻿using KhoiDepTraiShop.Model.Models;
 using KhoiDepTraiShop.Service;
+using KhoiDepTraiShop.Web.App_Start;
 using System;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
-
+using Microsoft.AspNet.Identity.Owin;
 namespace KhoiDepTraiShop.Web.Infrastructure.Core
 {
     public class ApiControllerBase : ApiController
     {
+
+        protected ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+
+                _userManager = value;
+            }
+        }
+        private ApplicationUserManager _userManager;
         private IErrorService _errorService;
 
         public ApiControllerBase(IErrorService errorService)
         {
             this._errorService = errorService;
         }
+
+        public ApiControllerBase(ApplicationUserManager userManager,IErrorService errorService):this(errorService)
+        {
+            _userManager = userManager;
+        }
+
         protected HttpResponseMessage CreateHttpResponse(HttpRequestMessage requestMessage, Func<HttpResponseMessage> function)
         {
             HttpResponseMessage response = null;

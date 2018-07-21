@@ -1,6 +1,8 @@
 ﻿using KhoiDepTraiShop.Model.Models;
+using KhoiDepTraiShop.Web.Commons;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -19,8 +21,10 @@ namespace KhoiDepTraiShop.Web.Models
 
         public string ProductName { get; set; }
 
+        [UIHint(TemplateConst.VNCurrencyDisPlay)]
 
         public decimal Price { set; get; }
+        [UIHint(TemplateConst.VNCurrencyDisPlay)]
 
         public decimal SubTotal
         {

@@ -1,0 +1,76 @@
+﻿@using KhoiDepTraiShop.Web.Commons
+@model IList<KhoiDepTraiShop.Web.Models.OrderViewModel>
+<div class="table-responsive">
+    <table class="timetable_sub">
+        <thead>
+            <tr>
+                <th>STT.</th>
+                <th>Ngày mua</th>
+                <th>Tổng tiền</th>
+                <th>Chi tiết</th>
+                <th>Tình trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+              
+                <tr class="rem1">
+                    <td class="invert">@(i + 1)</td>
+                    <td class="invert">
+                        @item.CreatedDate
+                    </td>
+                    <td class="invert">@Html.DisplayFor(p=>item.TotalCost)</td>
+                    <td class="invert">
+                        <div class="product-sec1 ">
+                            @{ var detail = item.Id + "detailOrder";}
+                            <button type="button" data-toggle="collapse" data-target="#@detail" id="btnReadyToChangePassword" class="btn" style="width:100%;"> Xem chi tiết</button>
+                            <div id="@detail" class="collapse" style="margin-top:5px;">                                                           
+                                    <div class="table-responsive">
+                                        <table class="timetable_sub">
+                                            <thead>
+                                                <tr>
+                                                    <th>SL No.</th>
+                                                    <th>Hình ảnh </th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Tổng</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int j = 0; j < item.Orderdetails.Count; j++)
+                                                {
+                                                    var subItem = item.Orderdetails[j];
+                                                    var url = "/" + "chitiet-sanpham-" + subItem.ProductId;
+                                                    <tr class="rem1">
+                                                        <td class="invert">@(j + 1)</td>
+                                                        <td class="invert-image">
+                                                            <a href="@url">
+                                                                <img src="@subItem.Image" alt="" class="img-responsive">
+                                                            </a>
+                                                        </td>
+                                                        <td class="invert">@subItem.ProductName</td>
+                                                        <td class="invert price">@subItem.Price</td>
+                                                        <td class="invert" style="text-align:center;">@subItem.Quantity</td>
+                                                        <td class="invert subTotal">@subItem.SubTotal</td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </td>
+                    <td class="invert image" style="text-align:center;">@Html.Partial(PartialConstCommon.OrderStatusPartial,item.Status)</td>
+                 
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

@@ -2,15 +2,6 @@
 @using KhoiDepTraiShop.Web.Commons;
 
 <div class="side-bar col-md-3">
-    <div class="search-hotel">
-        <h3 class="agileits-sear-head">Tìm sản phẩm...</h3>
-        <form action="#" method="post">
-            <input type="search" placeholder="Tên sản phẩm..." name="search" required="">
-            <button type="submit" value=" ">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-    </div>
     <!-- price range -->
     <div class="range">
         <h3 class="agileits-sear-head">Lọc theo giá tiền</h3>
@@ -72,7 +63,7 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
-                    <span class="badge badge-primary rating-badge">5.0</span>
+                    <span class="badge badge-primary rating-badge">5</span>
                 </a>
             </li>
             <li>
@@ -82,7 +73,7 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <span class="badge badge-primary  rating-badge">4.0</span>
+                    <span class="badge badge-primary  rating-badge">4</span>
                 </a>
             </li>
             <li>
@@ -92,7 +83,7 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <span class="badge badge-primary  rating-badge" >3.0</span>
+                    <span class="badge badge-primary  rating-badge" >3</span>
                 </a>
             </li>
             <li>
@@ -102,7 +93,7 @@
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <span class="badge badge-primary  rating-badge">2.0</span>
+                    <span class="badge badge-primary  rating-badge">2</span>
                 </a>
             </li>
             <li>
@@ -112,7 +103,7 @@
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <span class="badge badge-primary  rating-badge">1.0</span>
+                    <span class="badge badge-primary  rating-badge">1</span>
                 </a>
             </li>
         </ul>
@@ -121,35 +112,35 @@
     <!-- cuisine -->
     <div class="left-side">
         <h3 class="agileits-sear-head">Thẻ phổ biến</h3>
-        <ul>
+        <ul id="tab-list">
             <li>
-                <a>
+                <a data-tag="hang-nhap-khau" >
                     <i class="glyphicon glyphicon-tags populate-tag" aria-hidden="true" style="margin-right:5px;"></i>
-                    Rượu Nhập Ngoại
+                    Hàng nhập khẩu
                 </a>
             </li>
             <li>
-                <a>
+                <a data-tag="san-pham-dong-chai">
                     <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
-                    Rau củ quả tươi sạch
+                    Sản phẩm đóng chai
                 </a>
             </li>
             <li>
-                <a>
+                <a data-tag="nong-san-sach">
                     <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
                     Nông sản sạch
                 </a>
             </li>
             <li>
-                <a>
+                <a data-tag="dac-san">
                     <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
-                    Thực phẩm tươi sống
+                   Đặc sản
                 </a>
             </li>
             <li>
-                <a>
+                <a data-tag="hang-noi-dia">
                     <i class="glyphicon glyphicon-tags  populate-tag" aria-hidden="true"  style="margin-right:5px;"></i>
-                    Nước uống
+                    Sản phẩm nội địa
                 </a>
             </li>
                   

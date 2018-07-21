@@ -1,4 +1,6 @@
-﻿using KhoiDepTraiShop.Web.App_Start;
+﻿using KhoiDepTraiShop.Service;
+using KhoiDepTraiShop.Web.App_Start;
+using KhoiDepTraiShop.Web.Infrastructure.Core;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -12,17 +14,13 @@ using System.Web.Http;
 namespace KhoiDepTraiShop.Web.Api
 {
     [RoutePrefix("api/account")]
-    public class AccountController : ApiController
+    public class AccountController : ApiControllerBase
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
+        private ApplicationSignInManager _signInManager;       
+      
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IErrorService errorService)
+            :base(userManager,errorService)
+        {           
             SignInManager = signInManager;
         }
 
@@ -37,18 +35,7 @@ namespace KhoiDepTraiShop.Web.Api
                 _signInManager = value;
             }
         }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+     
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]

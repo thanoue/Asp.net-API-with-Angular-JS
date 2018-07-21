@@ -24,34 +24,21 @@ namespace KhoiDepTraiShop.Web.Controllers
         ICommonService _commonService;
         IProductService _productService;
         IProductRatingService _productRatingService;
-        private ApplicationUserManager _userManager;
+       
         IProductCategodyService _productCategoryService;
         IOrderService _orderService;
         IAddressService _addressService;
         public OrderController(ICommonService commonService, IProductService productService, IProductRatingService productratingService, IProductCategodyService productCategodyService, ApplicationUserManager userManager
-            ,IOrderService orderService,IAddressService addressService) : base(commonService)
+            ,IOrderService orderService,IAddressService addressService) : base(commonService,userManager)
         {
             _commonService = commonService;
             _productRatingService = productratingService;
             _productService = productService;
             _productCategoryService = productCategodyService;
-            _userManager = userManager;
             _orderService = orderService;
             _addressService = addressService;
         }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-
-                _userManager = value;
-            }
-        }
+     
 
         public JsonResult SetCartList(IList<CartItemViewModel> cartItemViewModels)
         {
@@ -139,7 +126,7 @@ namespace KhoiDepTraiShop.Web.Controllers
                 content = content.Replace("{{Total}}",total.ToString());
 
                 MailUtility.SendMail(vm.CurrentUser.Email, "Đơn hàng đã được gửi đi", content);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("OrderSuccess", "Static");
             }
             else
             {

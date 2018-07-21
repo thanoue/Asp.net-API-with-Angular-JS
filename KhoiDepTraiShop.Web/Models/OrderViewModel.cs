@@ -1,7 +1,9 @@
 ﻿using KhoiDepTraiShop.Common;
 using KhoiDepTraiShop.Model.Models;
+using KhoiDepTraiShop.Web.Commons;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -39,6 +41,8 @@ namespace KhoiDepTraiShop.Web.Models
         public bool Deleted { set; get; }
 
         public OrderStatus Status { set; get; }
+
+        [UIHint(TemplateConst.VNCurrencyDisPlay)]
         public decimal? TotalCost { get; set; }
         public IList<OrderDetailViewModel> Orderdetails { get; set; }
     }

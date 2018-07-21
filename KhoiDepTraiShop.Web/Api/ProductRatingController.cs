@@ -24,12 +24,12 @@ namespace KhoiDepTraiShop.Web.Api
     {
         #region Initialize
         private IProductRatingService _productRatingService;
-        private ApplicationUserManager _userManager;
+
         public ProductRatingController(IErrorService errorService, IProductRatingService productRatingService, ApplicationUserManager applicationUserManager)
-            : base(errorService)
+            : base(applicationUserManager, errorService)
         {
             this._productRatingService = productRatingService;
-            _userManager = applicationUserManager;
+           
         }
 
         #endregion
@@ -53,7 +53,7 @@ namespace KhoiDepTraiShop.Web.Api
                    totalRow = model.Count();
                    var query = model.OrderByDescending(x => x.RatingTime).Skip(page * pageSize).Take(pageSize).ToList();
 
-                   var responseData = await query.ToViewModelList(_userManager);
+                   var responseData = await query.ToViewModelList(UserManager);
 
                    var paginationSet = new PaginationSet<ProductRatingViewModel>()
                    {

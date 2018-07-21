@@ -99,7 +99,32 @@
             });
         });
 
+        $('body').delegate('#resetPasswordBtn', 'click', function () {
+            var $form = $(this).closest("form");
+            let formData = $form.serialize();
+            $('.reset_loadingIcon').removeClass('hidden');
+            $.ajax({
+                type: 'POST',
+                url: '/Account/ResetPassword',
+                data: formData,
+                success: function (result) {
+                    $('.reset_loadingIcon').addClass('hidden');
+                    if (result.isSuccess == undefined)
+                        $('#resetPassword').html(result);
+                    else {
+                        if (!result.isSuccess) {
+                            toastr.error("Cập nhật không thành công");
+                        }
+                        toastr.success("Cập nhật thành công");
+                        $('#signInModal .close').click();           
 
+                    }                   
+                         
+                    //Update user info here
+
+                }
+            });
+        });
 
 
     }

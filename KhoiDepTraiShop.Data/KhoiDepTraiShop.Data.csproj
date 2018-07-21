@@ -82,14 +82,6 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201807141259413_k.cs" />
-    <Compile Include="Migrations\201807141259413_k.Designer.cs">
-      <DependentUpon>201807141259413_k.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807141310458_ddddd.cs" />
-    <Compile Include="Migrations\201807141310458_ddddd.Designer.cs">
-      <DependentUpon>201807141310458_ddddd.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Address_WardRepository.cs" />
@@ -125,14 +117,6 @@
       <Project>{ba1107b1-4f83-4988-a481-2843f69d91a2}</Project>
       <Name>KhoiDepTraiShop.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807141259413_k.resx">
-      <DependentUpon>201807141259413_k.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807141310458_ddddd.resx">
-      <DependentUpon>201807141310458_ddddd.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,50 @@
+﻿@model KhoiDepTraiShop.Web.Models.UserViewModel
+@using CaptchaMvc.HtmlHelpers
+
+<div class="address_form_agile">
+
+    @using (Ajax.BeginForm("UpdateUserProfile", "Customer", new AjaxOptions { HttpMethod = "POST" }, new { Id = "user-form" }))
+    {
+        @Html.HiddenFor(p => p.Id)
+        <div class="product-sec1">
+            <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                <div class="information-wrapper">
+                    <div class="first-row">
+                        <div class="controls">
+                            @Html.TextBoxFor(p => p.FullName, new { @class = "billing-address-name", @placeholder = "Tên đầy đủ" })
+                            @Html.ValidationMessageFor(model => model.FullName)
+                        </div>
+                        <div class="controls">
+                            @Html.TextBoxFor(p => p.StreetAndNumber)
+                            @Html.ValidationMessageFor(p => p.StreetAndNumber)
+                        </div>
+                        <div class="controls">
+                            @Html.TextBoxFor(p => p.Email)
+                            @Html.ValidationMessageFor(p => p.Email)
+                        </div>
+                        <div class="controls">
+                            @Html.TextBoxFor(p => p.PhoneNumber, new { @class = "billing-address-name", @placeholder = "Số điện thoại ..." })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber)
+                        </div>
+                        @{
+                            if (ViewData["CatchaError"] != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lỗi! </strong> @ViewData["CatchaError"].ToString()
+                                </div>
+                            }
+                        }
+                        <div class="controls" id="captchaArea">
+                            <script src="~/Assets/client/js/jquery-2.1.4.min.js"></script>
+                            @Html.MathCaptcha("Đổi", "Nhập mã captcha...")
+                        </div>
+                    </div>
+                    <input type="button" id="saveChangeProfile" class="saveChangeOrder" value="Cập nhật thông tin" />
+
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

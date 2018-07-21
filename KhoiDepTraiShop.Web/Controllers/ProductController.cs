@@ -55,6 +55,33 @@ namespace KhoiDepTraiShop.Web.Controllers
         }
 
         [HttpGet]
+        public PartialViewResult GetFilterByTagRangeProduct(string tag, int? categoryId, int page = 1)
+        {
+            if (categoryId == -1)
+                categoryId = null;
+            int pageSize = int.Parse(ConfigUtility.GetByKey("PageSize"));
+            int totalRow = 0;
+            var productModel = _productService.GetAllByTagPaging(tag, page, pageSize, out totalRow).ToList();
+            if(categoryId!=null)
+                productModel = productModel.Where(p => p.CategoryId == (int)categoryId).ToList();
+            var productViewModel = productModel.ToModelList(_productRatingService, _productService.GetMaxProductId());
+
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Items = productViewModel,
+                MaxPage = int.Parse(ConfigUtility.GetByKey("MaxPage")),
+                Page = page,
+                TotalRow = totalRow,
+                TotalPages = totalPage
+            };
+
+
+            return PartialView(PartialConstCommon.ProductListPartial, paginationSet);
+        }
+
+        [HttpGet]
         public PartialViewResult GetFilterByDiscountRangeProduct(int minDiscount, int maxDiscount, int? categoryId,int page=1)
         {
             if (categoryId == -1)
@@ -77,6 +104,54 @@ namespace KhoiDepTraiShop.Web.Controllers
 
             return PartialView(PartialConstCommon.ProductListPartial, paginationSet);
 
+        }
+
+        [HttpGet]
+        public PartialViewResult GetFilterByRatingRangeProduct(int ratingScore, int? categoryId,int page = 1)
+        {
+            if (categoryId == -1)
+                categoryId = null;
+            int pageSize = int.Parse(ConfigUtility.GetByKey("PageSize"));
+            int totalRow = 0;
+            var productModel = _productService.GetByRatingRangeProductPaging( ratingScore,categoryId, page, pageSize, out totalRow).ToList();
+            var productViewModel = productModel.ToModelList(_productRatingService, _productService.GetMaxProductId());
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Items = productViewModel,
+                MaxPage = int.Parse(ConfigUtility.GetByKey("MaxPage")),
+                Page = page,
+                TotalRow = totalRow,
+                TotalPages = totalPage
+            };
+
+
+            return PartialView(PartialConstCommon.ProductListPartial, paginationSet);
+
+        }
+
+        [HttpGet]
+        public PartialViewResult GetFilterByKeywordRangeProduct(string keyword,int page = 1)
+        {
+
+            int pageSize = int.Parse(ConfigUtility.GetByKey("PageSize"));
+            int totalRow = 0;
+            var productModel = _productService.GetByKeywordRangeProductPaging(keyword, page, pageSize, out totalRow).ToList();
+            var productViewModel = productModel.ToModelList(_productRatingService, _productService.GetMaxProductId());
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Items = productViewModel,
+                MaxPage = int.Parse(ConfigUtility.GetByKey("MaxPage")),
+                Page = page,
+                TotalRow = totalRow,
+                TotalPages = totalPage
+            };
+
+
+            return PartialView(PartialConstCommon.ProductListPartial, paginationSet);
         }
 
         public ActionResult ProductDetail(int productId )

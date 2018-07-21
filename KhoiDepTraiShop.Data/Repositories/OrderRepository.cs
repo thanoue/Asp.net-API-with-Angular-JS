@@ -16,12 +16,26 @@ namespace KhoiDepTraiShop.Data.Repositories
         List<Order> GetFullAll();
 
         IEnumerable<Order> GetOrderListByProductAndUser(int productId, string userId);
+
+        IEnumerable<Product> GetProductBoughtByUser(string userId);
+
+        IEnumerable<Order> GetByUserId(string userId);
     }
     public class OrderRepository : RepositoryBase<Order>,IOrderRepository
     {
         public OrderRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
+        }
+
+        public IEnumerable<Order> GetByUserId(string userId)
+        {
+            var orders = DbContext.Orders.ToList().Where(p => p.CustomerId == userId);
+            foreach (var order in orders)
+            {
+                order.OrderDetails = DbContext.OrderDetails.Where(p => p.OrderId == order.Id).ToList();
+            }
+            return orders;
         }
 
         public List<Order> GetFullAll()
@@ -43,6 +57,16 @@ namespace KhoiDepTraiShop.Data.Repositories
                         select o;
             return query.ToList();
 
+        }
+
+        public IEnumerable<Product> GetProductBoughtByUser(string userId)
+        {
+            var productIds = from od in DbContext.OrderDetails
+                             join o in DbContext.Orders
+                             on od.OrderId equals o.Id
+                             where o.CustomerId == userId
+                             select od.Product;
+            return productIds.ToList();
         }
 
         public IEnumerable<RevenueStatisticViewModel> GetRevenueStatistic(string fromDate, string toDate)

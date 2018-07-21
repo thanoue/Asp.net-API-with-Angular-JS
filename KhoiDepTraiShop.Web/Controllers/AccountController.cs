@@ -15,19 +15,19 @@ using KhoiDepTraiShop.Common;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace KhoiDepTraiShop.Web.Controllers
 {
     public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
         private ICommonService _commonService;
 
-        public AccountController(ICommonService commonService, ApplicationUserManager userManager, ApplicationSignInManager signInManager) : base(commonService)
+        public AccountController(ICommonService commonService, ApplicationUserManager userManager, ApplicationSignInManager signInManager) : base(commonService,userManager)
         {
             _signInManager = signInManager;
-            _userManager = userManager;
+         
             _commonService = commonService;
 
         }
@@ -42,20 +42,7 @@ namespace KhoiDepTraiShop.Web.Controllers
             {
                 _signInManager = value;
             }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-               
-                _userManager = value;
-            }
-        }
+        }       
 
         // GET: Account
         public ActionResult Index()
@@ -79,14 +66,14 @@ namespace KhoiDepTraiShop.Web.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    var userByEmail = await _userManager.FindByEmailAsync(vm.Email);
+                    var userByEmail = await UserManager.FindByEmailAsync(vm.Email);
                     if (userByEmail != null)
                     {
                         ViewData["EmailError"] = "Email đã tồn tại!";
                         return PartialView(PartialConstCommon.RegisterPopup, vm);
                     }
 
-                    var userByname = await _userManager.FindByNameAsync(vm.UserName);
+                    var userByname = await UserManager.FindByNameAsync(vm.UserName);
                     if (userByname != null)
                     {
                         ViewData["UserError"] = "Tên đăng nhập đã tồn tại!";
@@ -105,9 +92,9 @@ namespace KhoiDepTraiShop.Web.Controllers
                         PhoneNumber = vm.PhoneNumber
 
                     };
-                    await _userManager.CreateAsync(user, vm.Password);
-                    var insertUser = await _userManager.FindByEmailAsync(user.Email);
-                    await _userManager.AddToRoleAsync(insertUser.Id, "User");
+                    await UserManager.CreateAsync(user, vm.Password);
+                    var insertUser = await UserManager.FindByEmailAsync(user.Email);
+                    await UserManager.AddToRoleAsync(insertUser.Id, "User");
 
                     string content = System.IO.File.ReadAllText(Server.MapPath(TemplateConst.UserValidationMail));
 
@@ -130,7 +117,7 @@ namespace KhoiDepTraiShop.Web.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            var vm = new LoginViewModel();
+            var vm = new LoginViewModel();          
             return PartialView(PartialConstCommon.LoginPopup, vm);
         }
 
@@ -157,7 +144,7 @@ namespace KhoiDepTraiShop.Web.Controllers
                                 IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
                                 authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-                                ClaimsIdentity identity = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                                ClaimsIdentity identity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                                 AuthenticationProperties props = new AuthenticationProperties();
                                 props.IsPersistent =(bool) vm.RememberMe;
                                 authenticationManager.SignIn(props, identity);
@@ -176,7 +163,7 @@ namespace KhoiDepTraiShop.Web.Controllers
                         IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
                         authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-                        ClaimsIdentity identity = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                        ClaimsIdentity identity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                         AuthenticationProperties props = new AuthenticationProperties();
                         props.IsPersistent = vm.RememberMe;
                         authenticationManager.SignIn(props, identity);
@@ -214,5 +201,63 @@ namespace KhoiDepTraiShop.Web.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult LogOutToIndex()
+        {
+            try
+            {
+                IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                authenticationManager.SignOut();
+                return RedirectToAction("Index","Home");
+            }
+            catch (Exception ex)
+            {
+                return GetFailResult(new { Message = ex.ToString() });
+            }
+
+        }
+
+        [HttpPost]
+        public async Task< ActionResult> ResetPassword(ResetPasswordViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return PartialView(PartialConstCommon.ResetPasswordPartial, vm);
+            }
+            var user = await UserManager.FindByEmailAsync(vm.EmailReset);
+            if(user== null)
+            {
+                ModelState.AddModelError("EmailReset", "Email không tồn tại trong hệ thống");
+                return PartialView(PartialConstCommon.ResetPasswordPartial, vm);
+            }
+            else
+            {
+                string hashedNewPassword = UserManager.PasswordHasher.HashPassword(vm.NewPassword);
+                UserStore<ApplicationUser> store = new UserStore<ApplicationUser>();
+                await store.SetPasswordHashAsync(user, hashedNewPassword);
+                
+                user.EmailConfirmed = false;
+                var key = new Random(); var cridential = key.Next(5000, 9000);
+                user.CridentialCode = cridential.ToString();
+
+                string content = System.IO.File.ReadAllText(Server.MapPath(TemplateConst.UserValidationMail));
+
+                content = content.Replace("{{UserName}}", user.FullName);
+                content = content.Replace("{{Code}}", cridential.ToString());
+                content = content.Replace("{{Link}}", ConfigUtility.GetByKey("MyDomain") + "Home/Index");
+
+                MailUtility.SendMail(user.Email, "Thông báo xác thực tài khoản", content);
+
+                var update = await UserManager.UpdateAsync(user);
+                if (update != null)
+                    return GetSuccessResult();
+                return GetFailResult();
+            }
+        }
+
+
+
     }
 }

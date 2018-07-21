@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KhoiDepTraiShop.Service;
+using KhoiDepTraiShop.Web.App_Start;
 using KhoiDepTraiShop.Web.Commons;
 using KhoiDepTraiShop.Web.Models;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace KhoiDepTraiShop.Web.Controllers
 {
@@ -13,10 +15,27 @@ namespace KhoiDepTraiShop.Web.Controllers
     {
         // GET: Base
         ICommonService _commonService;
+        private ApplicationUserManager _userManager;
+        protected ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
 
+                _userManager = value;
+            }
+        }
         public BaseController(ICommonService commonService)
         {
-            _commonService = commonService;
+            _commonService = commonService;            
+        }
+
+        public BaseController(ICommonService commonService, ApplicationUserManager applicationUserManager):this(commonService)
+        {
+            _userManager = applicationUserManager;
         }
 
         protected IList<CartItemViewModel> m_CartItemList

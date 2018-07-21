@@ -64,15 +64,16 @@ namespace KhoiDepTraiShop.Service
 
         public int GetRatingAverage(int productId)
         {
-            var ratingList = _productRatingRepository.GetAll().Where(p => p.RatedProductId == productId).ToList();
-            int sum = 0;
-            if (ratingList.Count() == 0)
-                return 0;
-            foreach(var  rating  in ratingList)
-            {
-                sum += rating.RatingScore ?? 0;
-            }
-            return sum / ratingList.Count();
+            //var ratingList = _productRatingRepository.GetAll().Where(p => p.RatedProductId == productId).ToList();
+            //int sum = 0;
+            //if (ratingList.Count() == 0)
+            //    return 0;
+            //foreach(var  rating  in ratingList)
+            //{
+            //    sum += rating.RatingScore ?? 0;
+            //}
+            //return sum / ratingList.Count();
+            return _productRatingRepository.GetRatingAverage(productId);
         }
 
         public bool RatingAblilityChecked(string userId, int productId)

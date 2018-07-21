@@ -13,7 +13,7 @@ namespace KhoiDepTraiShop.Web.Models
         public CheckOutViewModel()
         {
             CartItemViewModels = new List<CartItemViewModel>();
-            CurrentUser = new UserVIewModel();
+            CurrentUser = new UserViewModel();
             Address_District = new SelectViewItemViewModel();
          
             Address_Province = new SelectViewItemViewModel();
@@ -22,7 +22,7 @@ namespace KhoiDepTraiShop.Web.Models
         }
         public IList<CartItemViewModel> CartItemViewModels { get; set; }
 
-        public UserVIewModel CurrentUser { get; set; }
+        public UserViewModel CurrentUser { get; set; }
 
         public string CustomerMessage {get;set;}
 

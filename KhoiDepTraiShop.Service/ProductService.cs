@@ -24,23 +24,29 @@ namespace KhoiDepTraiShop.Service
         IEnumerable<Product> GetAllByCategoryIds(List<int> categories);
         IEnumerable<Product> GetHighViewCountProducts(int minViewCount);
         IEnumerable<Product> GetFilterByPrice(decimal min, decimal max, int? categoryId);
+        IEnumerable<Product> GetByRatingRangeProductPaging(int ratingScore, int? categoryId, int page, int pageSize, out int totalRow);
         IEnumerable<Product> GetPriceFilterByPriceRangeProductPaging(decimal minPrice, decimal maxPrice, int? categoryId, int page, int pageSize, out int totalRow);
         IEnumerable<Product> GetPriceFilterByDiscountRangeProductPaging(decimal minDiscount, decimal maxDiscount, int? categoryId, int page, int pageSize, out int totalRow);
+        IEnumerable<Product> GetByKeywordRangeProductPaging(string keyword, int page, int pageSize, out int totalRow);
+
         IEnumerable<Product> GetRelativePrducts(Product product);
         IEnumerable<Tag> GetTagListByProductId(int productId);
         IEnumerable<Product> GetProductListByTag(string tagId, int page, int pageSize, out int totalRow);
         void IncreaseViewCount(int productId);
+       
         void SaveChanges();
     }
     public class ProductService : IProductService
     {
-        IProductRepository _productRepository;
+        private IProductRepository _productRepository;
         private ITagRepository _tagRepository;
         private IProductTagRepository _productTagRepository;
+        private IProductRatingRepository _productRatingRepository;
 
         IUnitOfWork _unitOfWork;
-        public ProductService(IProductRepository productrepository, IProductTagRepository productTagRepository, ITagRepository tagRepository, IUnitOfWork unitofwork)
+        public ProductService(IProductRepository productrepository, IProductTagRepository productTagRepository, ITagRepository tagRepository, IUnitOfWork unitofwork,IProductRatingRepository productRatingRepository)
         {
+            _productRatingRepository = productRatingRepository;
             this._productRepository = productrepository;
             this._unitOfWork = unitofwork;
             this._productTagRepository = productTagRepository;
@@ -243,6 +249,25 @@ namespace KhoiDepTraiShop.Service
             var product = _productRepository.GetSingleById(productId);
             product.ViewCount = product.ViewCount!=null ?product.ViewCount +1 : 1;
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<Product> GetByKeywordRangeProductPaging(string keyword, int page, int pageSize, out int totalRow)
+        {
+            var list = _productRepository.GetMulti(p=>p.Name.Contains(keyword) || p.Description.Contains(keyword)).ToList();
+            totalRow = list.Count();
+            return list.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<Product> GetByRatingRangeProductPaging(int ratingScore, int? categoryId, int page, int pageSize, out int totalRow)
+        {
+            var products = categoryId != null ? _productRepository.GetAll().Where(p => p.CategoryId == categoryId).ToList() : _productRepository.GetAll().ToList();
+            foreach(var product in products.ToList())
+            {
+                if (_productRatingRepository.GetRatingAverage(product.Id) != ratingScore)
+                    products.Remove(product);
+            }
+            totalRow = products.Count();
+            return products.Skip((page - 1) * pageSize).Take(pageSize);
         }
     }
 }
