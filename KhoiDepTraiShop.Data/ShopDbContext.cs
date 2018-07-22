@@ -6,12 +6,15 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using KhoiDepTraiShop.Model.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Reflection;
+using MySql.Data.Entity;
 
 namespace KhoiDepTraiShop.Data
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ShopDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ShopDbContext() : base("ShopConnection")
+        public ShopDbContext() : base("ShopConnectionMysql")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
@@ -57,6 +60,7 @@ namespace KhoiDepTraiShop.Data
             builder.Entity<IdentityUserClaim>().ToTable("ApplicationUserClaims");
 
             builder.Entity<ProductRating>().HasKey(i => new { i.UserId, i.RatedProductId });
+            builder.Configurations.AddFromAssembly(assembly: Assembly.GetExecutingAssembly());
 
         }
     }
