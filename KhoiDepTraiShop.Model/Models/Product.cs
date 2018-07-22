@@ -13,20 +13,19 @@ namespace KhoiDepTraiShop.Model.Models
         public int Id { set; get; }
 
         [Required]
-        [MaxLength(256)]
+        [StringLength(256)]
         public string Name { set; get; }
 
         [Required]
-        [MaxLength(256)]
+        [StringLength(256)]
         public string Alias { set; get; }
 
         [Required]
         public int CategoryId { set; get; }
 
-        [MaxLength(500)]
+        [StringLength(500)]
         public string Image { set; get; }
-
-        [Column(TypeName = "xml")]
+       
         public string MoreImages { set; get; }
 
         public decimal Price { set; get; }

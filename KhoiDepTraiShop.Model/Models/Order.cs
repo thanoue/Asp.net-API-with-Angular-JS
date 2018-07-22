@@ -12,30 +12,29 @@ namespace KhoiDepTraiShop.Model.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { set; get; }
 
-        [StringLength(128)]
-        [Column(TypeName ="nvarchar")]
+        [StringLength(128)]       
         public string CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         [Required]
-        [MaxLength(256)]
+        [StringLength(256)]
         public string CustomerName { set; get; }
 
         [Required]
-        [MaxLength(256)]
+        [StringLength(256)]
         public string CustomerAddress { set; get; }
 
         [Required]
-        [MaxLength(256)]
+        [StringLength(256)]
         public string CustomerEmail { set; get; }
 
         [Required]
-        [MaxLength(50)]
+        [StringLength(50)]
         public string CustomerMobile { set; get; }
 
-        [MaxLength(256)]
+        [StringLength(256)]
         public string CustomerMessage { set; get; }
 
         public PaymentMethod PaymentMethod { set; get; }

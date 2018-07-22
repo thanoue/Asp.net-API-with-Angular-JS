@@ -24,12 +24,12 @@ namespace KhoiDepTraiShop.Model.Models
 
         public DateTime? RatingTime { set; get; }
 
-        [MaxLength(1000)]
+        [StringLength(1000)]
         [MinLength(15)]
         [Required]
         public string RatingContent { set; get; }
 
-        [MaxLength(30)]
+        [StringLength(30)]
         public string RatingTitle { set; get; }
 
         public int? RatingScore { set; get; }

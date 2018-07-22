@@ -15,7 +15,7 @@ namespace KhoiDepTraiShop.Model.Models
         public int ProductId { set; get; }
 
         [Key]
-        [Column(TypeName = "varchar", Order = 2)]
+        [Column(Order = 2)]
         [MaxLength(50)]
         public string TagId { set; get; }
 

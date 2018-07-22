@@ -16,19 +16,19 @@ namespace KhoiDepTraiShop.Model.Models
         public int Id { set; get; }
 
         [Required]
-        [MaxLength(256)]
+        [StringLength(256)]
         public string Name { set; get; }
 
         [Required]
-        [MaxLength(256)]
+        [StringLength(256)]
         public string Alias { set; get; }
 
-        [MaxLength(500)]
+        [StringLength(500)]
         public string Description { set; get; }
         public int? ParentId { set; get; }
         public int? DisplayOrder { set; get; }
 
-        [MaxLength(256)]
+        [StringLength(256)]
         public string Image { set; get; }
 
         public bool? HomeFlag { set; get; }
