@@ -20,7 +20,7 @@ namespace KhoiDepTraiShop.Model.Models
 
         public DateTime? BirthDay { get; set; }
 
-        [Required]
+
         public string CridentialCode { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)

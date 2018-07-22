@@ -112,17 +112,17 @@
             //}
             //context.SaveChanges();
 
-            var nongSanSach = new Tag() { Name = "nông sản sạch", Id = StringUtility.ToUnsignString("nông sản sạch"), Type = TagType.Product };
-            var douong = new Tag() { Name = "đồ uống sạch", Id = StringUtility.ToUnsignString("đồ uống sạch"), Type = TagType.Product };
-            var thucPhamAnNhanh = new Tag() { Name = "thực phẩm đóng hộp", Id = StringUtility.ToUnsignString("thực phẩm đóng hộp"), Type = TagType.Product };
-            var ruou = new Tag() { Name = "rượu vang", Id = StringUtility.ToUnsignString("rượu vang"), Type = TagType.Product };
-            var sanPhamKho = new Tag() { Name = "dản phẩm khô", Id = StringUtility.ToUnsignString("sản phẩm khô"), Type = TagType.Product };
-            var thucPhamTuoiSong = new Tag() { Name = "thực phẩm tươi sống", Id = StringUtility.ToUnsignString("thực phẩm tươi sống"), Type = TagType.Product };
-            var hangNhapKhau = new Tag() { Name = "hàng nhập khẩu", Id = StringUtility.ToUnsignString("hàng nhập khẩu"), Type = TagType.Product };
-            var hangNoiDia = new Tag() { Name = "hàng nội địa", Id = StringUtility.ToUnsignString("hàng nội địa"), Type = TagType.Product };
-            var dacSan = new Tag() { Name = "đặc sản", Id = StringUtility.ToUnsignString("đặc sản"), Type = TagType.Product };
-            var sanPhamtrungBay = new Tag() { Name = "sản phẩm trưng bày", Id = StringUtility.ToUnsignString("sản phẩm trưng bày"), Type = TagType.Product };
-            var sanPhamDongChai = new Tag() { Name = "sản phẩm đóng chai", Id = StringUtility.ToUnsignString("sản phẩm đóng chai"), Type = TagType.Product };
+            //var nongSanSach = new Tag() { Name = "nông sản sạch", Id = StringUtility.ToUnsignString("nông sản sạch"), Type = TagType.Product };
+            //var douong = new Tag() { Name = "đồ uống sạch", Id = StringUtility.ToUnsignString("đồ uống sạch"), Type = TagType.Product };
+            //var thucPhamAnNhanh = new Tag() { Name = "thực phẩm đóng hộp", Id = StringUtility.ToUnsignString("thực phẩm đóng hộp"), Type = TagType.Product };
+            //var ruou = new Tag() { Name = "rượu vang", Id = StringUtility.ToUnsignString("rượu vang"), Type = TagType.Product };
+            //var sanPhamKho = new Tag() { Name = "dản phẩm khô", Id = StringUtility.ToUnsignString("sản phẩm khô"), Type = TagType.Product };
+            //var thucPhamTuoiSong = new Tag() { Name = "thực phẩm tươi sống", Id = StringUtility.ToUnsignString("thực phẩm tươi sống"), Type = TagType.Product };
+            //var hangNhapKhau = new Tag() { Name = "hàng nhập khẩu", Id = StringUtility.ToUnsignString("hàng nhập khẩu"), Type = TagType.Product };
+            //var hangNoiDia = new Tag() { Name = "hàng nội địa", Id = StringUtility.ToUnsignString("hàng nội địa"), Type = TagType.Product };
+            //var dacSan = new Tag() { Name = "đặc sản", Id = StringUtility.ToUnsignString("đặc sản"), Type = TagType.Product };
+            //var sanPhamtrungBay = new Tag() { Name = "sản phẩm trưng bày", Id = StringUtility.ToUnsignString("sản phẩm trưng bày"), Type = TagType.Product };
+            //var sanPhamDongChai = new Tag() { Name = "sản phẩm đóng chai", Id = StringUtility.ToUnsignString("sản phẩm đóng chai"), Type = TagType.Product };
 
             ////    context.Tags.AddRange(new List<Tag>() { nongSanSach, douong, thucPhamAnNhanh, ruou, sanPhamKho, thucPhamTuoiSong, hangNhapKhau, hangNoiDia, sanPhamDongChai, dacSan, sanPhamtrungBay });
             // //   context.SaveChanges();
