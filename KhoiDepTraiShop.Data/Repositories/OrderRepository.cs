@@ -1,8 +1,10 @@
 ﻿using KhoiDepTraiShop.Common.ViewModels;
 using KhoiDepTraiShop.Data.Infrastructure;
 using KhoiDepTraiShop.Model.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -73,11 +75,11 @@ namespace KhoiDepTraiShop.Data.Repositories
         {
             var to = Convert.ToDateTime(toDate);
             var from = Convert.ToDateTime(fromDate);
-            var parameters = new SqlParameter[]{
-                new SqlParameter("@fromDate",from.ToString()),
-                new SqlParameter("@toDate",to.ToString())
-            };
-            return DbContext.Database.SqlQuery<RevenueStatisticViewModel>("GetRevenueStatistic @toDate ,@fromDate", parameters);
+        
+            var data = ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<RevenueStatisticViewModel>("CALL GetRevenueStatistic({0}, {1});", from.ToString(), to.ToString()).ToList();
+
+
+            return data;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace KhoiDepTraiShop.Web.Models
 
         public string Id { get; set; }
      
-
+        [Required(ErrorMessage ="Tên người mua là bắt buộc")]
         public string FullName { get; set; }
 
      

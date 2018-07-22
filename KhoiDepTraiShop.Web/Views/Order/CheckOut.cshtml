@@ -105,8 +105,9 @@
                             <div class="first-row">
                                 @Html.HiddenFor(p => p.CurrentUser.Id)
                                 <div class="controls">
-                                    @Html.TextBoxFor(p => p.CurrentUser.FullName, new { @class = "billing-address-name", @placeholder = "Tên người nhận..." })
                                     @Html.ValidationMessageFor(model => model.CurrentUser.FullName)
+                                    @Html.TextBoxFor(p => p.CurrentUser.FullName, new { @class = "billing-address-name", @placeholder = "Tên người nhận..." })
+
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="row">
@@ -125,17 +126,18 @@
                                 </div>                            
                                 <div class="controls">
                                     @Html.TextBoxFor(p => p.CurrentUser.StreetAndNumber, new { @class = "billing-address-name", @placeholder = "Số nhà và tên đường",Id= "StreetAndNumber" })
-                
                                 </div>
 
                                 <div class="controls">
-                                    @Html.TextBoxFor(p => p.CurrentUser.PhoneNumber, new { @class = "billing-address-name", @placeholder = "Số điện thoại người nhận..." })
                                     @Html.ValidationMessageFor(model => model.CurrentUser.PhoneNumber)
 
+                                    @Html.TextBoxFor(p => p.CurrentUser.PhoneNumber, new { @class = "billing-address-name", @placeholder = "Số điện thoại người nhận..." })
+
                                 </div>
                                 <div class="controls">
-                                    @Html.TextBoxFor(p => p.CurrentUser.Email, new { @class = "billing-address-name", @placeholder = "Email người nhận..." })
                                     @Html.ValidationMessageFor(model => model.CurrentUser.Email)
+
+                                    @Html.TextBoxFor(p => p.CurrentUser.Email, new { @class = "billing-address-name", @placeholder = "Email người nhận..." })
                                 </div>
                                 <div class="controls">
                                     @Html.TextBoxFor(p => p.CustomerMessage, new { @class = "billing-address-name", @placeholder = "Ghi chú.." })

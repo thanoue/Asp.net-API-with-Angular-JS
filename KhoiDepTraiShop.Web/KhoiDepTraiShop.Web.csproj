@@ -420,6 +420,7 @@
     <Content Include="Assets\admin\css\bootstrap.min.css" />
     <Content Include="Assets\admin\css\custom.css" />
     <Content Include="Assets\admin\css\font-awesome.min.css" />
+    <Content Include="Assets\admin\css\googlefonts.css" />
     <Content Include="Assets\admin\css\ionicons.css" />
     <Content Include="Assets\admin\css\ionicons.min.css" />
     <Content Include="Assets\admin\css\skins\skin-black-light.css" />
