@@ -12,14 +12,15 @@ namespace KhoiDepTraiShop.Service
 {
     public interface ICommonService
     {
-      
+        
     }
     public class CommonService : ICommonService
     {
+       
         IUnitOfWork _unitOfWork;
         public CommonService( IUnitOfWork unitOfWork)
         {
-
+          
             _unitOfWork = unitOfWork;
         }
       

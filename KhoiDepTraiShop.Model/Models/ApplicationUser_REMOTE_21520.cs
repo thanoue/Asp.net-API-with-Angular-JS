@@ -12,17 +12,15 @@ namespace KhoiDepTraiShop.Model.Models
 {
     public class ApplicationUser : IdentityUser
     {
-
-        [StringLength(256)]
+        [MaxLength(256)]
         public string FullName { get; set; }
 
-        [StringLength(256)] 
+        [MaxLength(256)] 
         public string Address { get; set; }
 
         public DateTime? BirthDay { get; set; }
 
 
-        [StringLength(256)]
         public string CridentialCode { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)

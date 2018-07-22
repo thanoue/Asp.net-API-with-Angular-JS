@@ -6,29 +6,28 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using KhoiDepTraiShop.Model.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
-using MySql.Data.Entity;
 
 namespace KhoiDepTraiShop.Data
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ShopDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ShopDbContext() : base("ShopConnectionMysql")
+        public ShopDbContext() : base("ShopConnection")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
-     
+   
         public DbSet<Order> Orders { set; get; }
         public DbSet<OrderDetail> OrderDetails { set; get; }
-
+    
         public DbSet<Product> Products { set; get; }
 
         public DbSet<ProductCategory> ProductCategories { set; get; }
         public DbSet<ProductTag> ProductTags { set; get; }
-
+    
 
         public DbSet<Tag> Tags { set; get; }
 
+     
 
         public DbSet<Error> Errors { set; get; }
 
@@ -52,9 +51,6 @@ namespace KhoiDepTraiShop.Data
         }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-            builder.Entity<ApplicationUser>().Property(p => p.Id).HasMaxLength(128).HasColumnType("varchar");
-
-
             builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId }).ToTable("ApplicationUserRoles");
             builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId).ToTable("ApplicationUserLogins");
             builder.Entity<IdentityRole>().ToTable("ApplicationRoles");

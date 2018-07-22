@@ -21,7 +21,7 @@ namespace KhoiDepTraiShop.Model.Models
 
         public DateTime? BirthDay { get; set; }
 
-
+        [Required]
         [StringLength(256)]
         public string CridentialCode { get; set; }
 

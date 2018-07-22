@@ -21,8 +21,12 @@ namespace KhoiDepTraiShop.Model.Models
 
         public DateTime? BirthDay { get; set; }
 
-
+<<<<<<< HEAD
+        [Required]
         [StringLength(256)]
+=======
+
+>>>>>>> feature/bai_6Phan_2_1
         public string CridentialCode { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
