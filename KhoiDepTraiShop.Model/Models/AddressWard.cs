@@ -17,11 +17,11 @@ namespace KhoiDepTraiShop.Model.Models
         public int Id { get; set; }
 
         [Required]
-        public int WardId { get; set; }
-
-        [Required]
         [StringLength(250)]
         public string Name { get; set; }
+
+        [Required]
+        public int WardId { get; set; }
 
         public int SortOrder { get; set; }
 

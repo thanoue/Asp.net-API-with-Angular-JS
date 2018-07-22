@@ -16,11 +16,11 @@ namespace KhoiDepTraiShop.Model.Models
         [Key]
         public int Id { get; set; }
 
-        public int ProvinceId { get; set; }
-
         [Required]
         [StringLength(250)]
         public string Name { get; set; }
+
+        public int ProvinceId { get; set; }
 
         public int SortOrder { get; set; }
         
