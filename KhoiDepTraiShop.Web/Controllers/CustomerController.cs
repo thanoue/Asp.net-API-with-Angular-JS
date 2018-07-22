@@ -111,13 +111,16 @@ namespace KhoiDepTraiShop.Web.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
-                    string hashedNewPassword = UserManager.PasswordHasher.HashPassword(vm.OldPassword);
-                    if (hashedNewPassword == user.PasswordHash )
+                    var  hashedOldPassword = await UserManager.CheckPasswordAsync(user,vm.OldPassword);                   
+                    if (hashedOldPassword)
                     {
                         UserStore<ApplicationUser> store = new UserStore<ApplicationUser>();
-                         await store.SetPasswordHashAsync(user, hashedNewPassword);
+                        string hashedNewPassword = UserManager.PasswordHasher.HashPassword(vm.NewPassword);
+                        await store.SetPasswordHashAsync(user, hashedNewPassword);
+                        var result = await UserManager.UpdateAsync(user);
+                        if(result!=null)
+                            return GetSuccessResult();                     
 
-                        return GetSuccessResult();
                     }
                     else
                     {

@@ -31,14 +31,14 @@ namespace KhoiDepTraiShop.UnitTest.RepositoryTest
         [TestMethod]
         public void ProductCategory_Repository_create()
         {
-            //ProductCategory cate = new ProductCategory();
-            //cate.Name = "Test_1_name";
-            //cate.Alias = "Test_1_alias";
-            //cate.Status = true;
-            //var result =productCategoryRepository.Add(cate);
-            //unitOfWork.Commit();
-            //Assert.IsNotNull(result);
-            //Assert.AreEqual(1, result.Id);
+            ProductCategory cate = new ProductCategory();
+            cate.Name = "Test_1_name";
+            cate.Alias = "Test_1_alias";
+            cate.Status = true;
+            var result = productCategoryRepository.Add(cate);
+            unitOfWork.Commit();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Id);
             Product pr = new Product();
             pr.Name = "aa";
             pr.Alias = "aa";
