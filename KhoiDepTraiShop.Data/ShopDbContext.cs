@@ -60,7 +60,7 @@ namespace KhoiDepTraiShop.Data
             builder.Entity<IdentityUserClaim>().ToTable("ApplicationUserClaims");
 
             builder.Entity<ProductRating>().HasKey(i => new { i.UserId, i.RatedProductId });
-            builder.Configurations.AddFromAssembly(assembly: Assembly.GetExecutingAssembly());
+           
 
         }
     }

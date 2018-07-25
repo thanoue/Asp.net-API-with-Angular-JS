@@ -40,12 +40,13 @@
                 <del>@Html.DisplayFor(p => p.Price)</del>
             </div>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                @{ var id = DateTime.Now.ToString().Replace("/", "_");}
                 <form action="#" method="post">
                     <fieldset>
-                        @Html.HiddenFor(p => p.Id, new { Id = "productId" + Model.Id })
-                        @Html.HiddenFor(p => p.Name, new { Id = "productName" + Model.Id })
-                        @Html.HiddenFor(p => p.PromotionPrice, new { Id = "productPromotion" + Model.Id })
-                        @Html.HiddenFor(p => p.Price, new { Id = "productPrice" + Model.Id })
+                        @Html.HiddenFor(p => p.Id, new { Id = "productId" +id })
+                        @Html.HiddenFor(p => p.Name, new { Id = "productName" +id })
+                        @Html.HiddenFor(p => p.PromotionPrice, new { Id = "productPromotion" + id })
+                        @Html.HiddenFor(p => p.Price, new { Id = "productPrice" + id })
                         <input type="button" name="submit"  value="Thêm vào giỏi hàng" class="button btn-add-to-cart" data-item-id="@Model.Id"/>
                     </fieldset>
                 </form>
