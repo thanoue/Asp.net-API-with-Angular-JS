@@ -454,12 +454,12 @@ ul.multi-column-dropdown li {
 /* //navigation */
 /*-- cart details--*/
 .top_nav_right {
-    float: right;
-    width: 20%;
+    /*float: right;
+    width: 20%;*/
 }
 
 .box_1 {
-    text-align: center;
+   
     margin-top: 14px;
 }
 

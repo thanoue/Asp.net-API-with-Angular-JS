@@ -5205,6 +5205,7 @@
     <Folder Include="Assets\admin\libs\ngBootbox\examples\" />
     <Folder Include="Assets\admin\libs\ngBootbox\typings\" />
     <Folder Include="Assets\admin\libs\slimscroll\examples\" />
+    <Folder Include="Libs\" />
     <Folder Include="UploadedFiles\flash\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Base\" />
